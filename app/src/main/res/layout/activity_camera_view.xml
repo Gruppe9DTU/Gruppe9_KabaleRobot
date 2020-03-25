@@ -3,29 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
     tools:context=".CameraView.CameraViewActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container">
+<!--
+        <androidx.camera.view.PreviewView
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-
-    <androidx.camera.view.PreviewView
-        android:id="@+id/preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
-    <Button
-        android:id="@+id/captureImage"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Capture Image"
-        android:layout_gravity="bottom"
-        />
-
+        <Button
+            android:id="@+id/captureImage"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Capture Image"
+            android:layout_gravity="bottom"
+            />
+-->
     </FrameLayout>
+
 
 
 </FrameLayout>
