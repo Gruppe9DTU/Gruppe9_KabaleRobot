@@ -1,2 +1,3 @@
 rootProject.name='Gruppe9_KabaleRobot'
 include ':app'
+include ':openCVLibrary340'
