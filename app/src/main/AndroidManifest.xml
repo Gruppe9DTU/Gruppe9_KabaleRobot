@@ -30,6 +30,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+        <activity android:name=".KortGenkendelse" >
+
+        </activity>
     </application>
 
     <uses-feature android:name="android.hardware.camera2.full" />
