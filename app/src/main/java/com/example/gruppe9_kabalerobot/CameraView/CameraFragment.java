@@ -34,10 +34,16 @@ import java.util.concurrent.ExecutionException;
 
 public class CameraFragment extends Fragment implements View.OnClickListener, CameraXConfig.Provider {
 
+    //region Fields
+
     private PreviewView previewView;
     private FloatingActionButton imageCaptureButton;
     private ImageCapture imageCapture;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
+
+    //endregion
+
+    //region Lifecycle
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +70,10 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
         return view;
     }
 
+    //endregion
+
+    //region OnClick
+
     @Override
     public void onClick(View view) {
         if (view == imageCaptureButton) {
@@ -71,9 +81,24 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
         }
     }
 
+    //endregion
+
+    //region Cameraconfig
+
     @NonNull
     @Override
     public CameraXConfig getCameraXConfig() { return Camera2Config.defaultConfig(); }
+
+    //endregion
+
+    //region Support methods
+
+    /**
+     * This method binds the camera to the preview window.
+     * It sets up the intial captures, that makes sure that you can
+     * capture images.
+     * @param cameraProvider camera
+     */
 
     private void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
 
@@ -121,6 +146,10 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
 
     }
 
+    /**
+     * Callback when an image have been captured by the user
+     */
+
     private ImageCapture.OnImageCapturedCallback imageCapturedCallback = new ImageCapture.OnImageCapturedCallback() {
         @Override
         public void onCaptureSuccess(@NonNull ImageProxy image) {
@@ -146,10 +175,19 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
         }
     };
 
+    /**
+     * This method converts ImageProxy object to bitmap
+     * This is required such that you can transfer the image
+     * to another fragment
+     * @param image image taken
+     * @return bitmap of that image
+     */
     private Bitmap toBitmapImage(ImageProxy image) {
         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
         byte[] bytes = new byte[buffer.capacity()];
         buffer.get(bytes);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
+
+    //endregion
 }

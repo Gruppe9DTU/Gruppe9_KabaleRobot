@@ -14,9 +14,15 @@ import com.example.gruppe9_kabalerobot.CameraView.CameraViewActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //region Fields
+
     private Button startCamera;
     private int PERMISSION_ALL = 1;
     private String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA};
+
+    //endregion
+
+    //region Lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startCamera.setOnClickListener(this);
     }
 
+    //endregion
+
+    //region OnClick
+
     @Override
     public void onClick(View view) {
         if (view == startCamera){
@@ -39,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
         }
     }
+
+    //endregion
+
+    //region Support methods
 
     private static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -50,4 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
+
+    //endregion
 }

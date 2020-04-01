@@ -15,8 +15,14 @@ import com.example.gruppe9_kabalerobot.R;
 
 public class ImageFragment extends Fragment {
 
+    //region Fields
+
     private ImageView imageView;
     private Bitmap bitmap;
+
+    //endregion
+
+    //region Lifecycle
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,5 +47,7 @@ public class ImageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
     }
+
+    //endregion
 
 }
