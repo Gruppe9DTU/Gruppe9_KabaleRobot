@@ -64,9 +64,6 @@ public class KortGenkendelse extends AppCompatActivity implements View.OnClickLi
         Mat gray = new Mat();
         Imgproc.cvtColor(matrix, gray, Imgproc.COLOR_BGR2GRAY);
         Imgproc.medianBlur(gray, gray, 5);
-        Mat circles = new Mat();
-
-
 
         Mat hsv = new Mat();
         Imgproc.cvtColor(matrix, hsv, Imgproc.COLOR_BGR2HSV);
@@ -77,6 +74,7 @@ public class KortGenkendelse extends AppCompatActivity implements View.OnClickLi
         Mat detect = new Mat();
         Core.bitwise_and(hsv, hsv, detect, dst);
 
+        Mat circles = new Mat();
         Imgproc.HoughCircles(gray, circles, Imgproc.HOUGH_GRADIENT, 1.0, (double) gray.rows()/16, 100.0, 30.0, 1, 50);
 
         for (int x=0; x < circles.cols(); x++) {
