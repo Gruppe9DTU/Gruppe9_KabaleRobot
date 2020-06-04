@@ -60,11 +60,7 @@ public class ImageFragment extends Fragment {
         haarcascade = new Haarcascade(getActivity());
 
         //Run recognition
-        try {
-            haarcascade.runCardRecognition(imageView,bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        haarcascade.runCardRecognition(imageView,bitmap);
         // Inflate the layout for this fragment
         return view;
     }

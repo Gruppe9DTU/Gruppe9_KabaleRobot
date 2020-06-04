@@ -30,7 +30,7 @@ public class Haarcascade {
         this.activity = activity;
     }
 
-    public void runCardRecognition(ImageView image, Bitmap bitmap) throws IOException {
+    public void runCardRecognition(ImageView image, Bitmap bitmap) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat matrix = new Mat();
         Utils.bitmapToMat(bitmap,matrix);
@@ -55,12 +55,9 @@ public class Haarcascade {
                     new Scalar(0, 255, 0));
         }
 
-        Imgproc.cvtColor(matrix, matrix, Imgproc.COLOR_BGR2RGB);
         Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(matrix,ne);
         image.setImageBitmap(ne);
-
-
     }
 
 
