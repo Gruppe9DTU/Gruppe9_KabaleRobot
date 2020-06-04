@@ -38,12 +38,13 @@ public class ImageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_image, container, false);
 
-        imageView = (ImageView) view.findViewById(R.id.imageView);
+        imageView = view.findViewById(R.id.imageView);
 
         haarcascade = new Haarcascade(getActivity());
 
         //Run recognition
-        haarcascade.runCardRecognition(imageView,bitmap);
+        Bitmap cascade = haarcascade.runCardRecognition(bitmap);
+        imageView.setImageBitmap(cascade);
         // Inflate the layout for this fragment
         return view;
     }

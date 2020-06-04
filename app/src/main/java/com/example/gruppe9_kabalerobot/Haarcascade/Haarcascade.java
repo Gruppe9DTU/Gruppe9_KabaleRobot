@@ -3,7 +3,6 @@ package com.example.gruppe9_kabalerobot.Haarcascade;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 import com.example.gruppe9_kabalerobot.R;
 
@@ -30,7 +29,7 @@ public class Haarcascade {
         this.activity = activity;
     }
 
-    public void runCardRecognition(ImageView image, Bitmap bitmap) {
+    public Bitmap runCardRecognition(Bitmap bitmap) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat matrix = new Mat();
         Utils.bitmapToMat(bitmap,matrix);
@@ -55,11 +54,46 @@ public class Haarcascade {
                     new Scalar(0, 255, 0));
         }
 
+        /*
+        List<MatOfRect> tal = new ArrayList<>();
+        List<MatOfRect> type = new ArrayList<>();
+        for (int i=1;i<18;i++){
+            CascadeClassifier cascade = initClassifier(address(i));
+            MatOfRect c = new MatOfRect();
+            cascade.detectMultiScale(matrix,c);
+            if (i<14) tal.add(c);
+            else type.add(c);
+        }
+         //*/
+
         Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(matrix,ne);
-        image.setImageBitmap(ne);
+        return ne;
     }
 
+    /*
+    private int address(int index){
+        switch (index){
+            case 1: return R.raw.cascade1; break;
+            case 2: return R.raw.cascade2; break;
+            case 3: return R.raw.cascade3; break;
+            case 4: return R.raw.cascade4; break;
+            case 5: return R.raw.cascade5; break;
+            case 6: return R.raw.cascade6; break;
+            case 7: return R.raw.cascade7; break;
+            case 8: return R.raw.cascade8; break;
+            case 9: return R.raw.cascade9; break;
+            case 10: return R.raw.cascade10; break;
+            case 11: return R.raw.cascade11; break;
+            case 12: return R.raw.cascade12; break;
+            case 13: return R.raw.cascade13; break;
+            case 14: return R.raw.cascade14; break;
+            case 15: return R.raw.cascade15; break;
+            case 16: return R.raw.cascade16; break;
+            case 17: return R.raw.cascade17; break;
+        }
+        return 0;
+    }*/
 
     private CascadeClassifier initClassifier(int res){
         CascadeClassifier cascade=null;
