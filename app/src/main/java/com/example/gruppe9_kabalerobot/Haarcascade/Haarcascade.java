@@ -1,18 +1,14 @@
-package com.example.gruppe9_kabalerobot;
+package com.example.gruppe9_kabalerobot.Haarcascade;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.gruppe9_kabalerobot.R;
 
-import org.opencv.android.*;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
@@ -26,45 +22,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class KortGenkendelse extends AppCompatActivity implements View.OnClickListener {
-    Button button;
-    TextView textView;
-    ImageView image;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card);
+public class Haarcascade {
 
-        button = findViewById(R.id.button);
-        button.setOnClickListener(this);
+    private Activity activity;
 
-        image = findViewById(R.id.image123);
-        image.setImageResource(R.drawable.e212);
-
-        textView = findViewById(R.id.hello);
-
-        if (OpenCVLoader.initDebug()){
-            textView.setText("YES SUCCESS");
-        } else {
-            textView.setText("FAILED");
-        }
+    public Haarcascade(Activity activity) {
+        this.activity = activity;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == button){
-            try {
-                run();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void run() throws IOException {
+    public void runCardRecognition(ImageView image, Bitmap bitmap) throws IOException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Mat matrix;
-        matrix = Utils.loadResource(this, R.drawable.e212);
+        Mat matrix = new Mat();
+        Utils.bitmapToMat(bitmap,matrix);
         Mat gray = new Mat();
         Imgproc.cvtColor(matrix, gray, Imgproc.COLOR_BGR2GRAY);
         CascadeClassifier cascade_2 = initClassifier(R.raw.a15cascade);
@@ -95,11 +64,11 @@ public class KortGenkendelse extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    CascadeClassifier initClassifier(int res){
+    private CascadeClassifier initClassifier(int res){
         CascadeClassifier cascade=null;
         try {
-            InputStream is = getResources().openRawResource(res);
-            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+            InputStream is = activity.getResources().openRawResource(res);
+            File cascadeDir = activity.getDir("cascade", Context.MODE_PRIVATE);
             File mCascadeFile = new File(cascadeDir, "haarcascade_mcs_nose.xml");
             FileOutputStream os = new FileOutputStream(mCascadeFile);
 
@@ -123,5 +92,4 @@ public class KortGenkendelse extends AppCompatActivity implements View.OnClickLi
         }
         return cascade;
     }
-
 }

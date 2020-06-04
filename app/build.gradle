@@ -58,3 +58,7 @@ android {
         mavenCentral()
     }
 }
+
+dependencies {
+    implementation project(path: ':openCVLibrary340')
+}
