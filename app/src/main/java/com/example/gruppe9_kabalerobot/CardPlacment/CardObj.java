@@ -1,8 +1,9 @@
+package com.example.gruppe9_kabalerobot.CardPlacment;
 
-public class CoordinateOBJ {
+public class CardObj {
 
     int x, y, value, suits;
-    public CoordinateOBJ(int x, int y, int value, int suits){
+    public CardObj(int x, int y, int value, int suits){
         this.x = x;
         this.y = y;
         this.suits = suits;
