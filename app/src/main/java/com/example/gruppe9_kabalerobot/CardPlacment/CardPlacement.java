@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class Cardplacment  {
+public class CardPlacement  {
 
     int semaphore1 = 0, semaphore2 = 0;
 

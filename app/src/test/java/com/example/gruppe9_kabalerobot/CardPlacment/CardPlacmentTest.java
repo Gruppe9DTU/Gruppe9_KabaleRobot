@@ -2,13 +2,14 @@ package com.example.gruppe9_kabalerobot.CardPlacment;
 
 import org.junit.Test;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
 public class CardPlacmentTest {
 
-    Cardplacment cardplacment = new Cardplacment();
+    CardPlacement cardPlacement = new CardPlacement();
     ArrayList<CardObj> coordinates = new ArrayList<>();
     ArrayList<CardObj> winningCard = new ArrayList<>();
 
@@ -16,50 +17,50 @@ public class CardPlacmentTest {
     public void testSort() {
         addCoordinates();
         ArrayList<CardObj> testStack = new ArrayList<>(coordinates);
-        cardplacment.sortCards(testStack);
+        cardPlacement.sortCards(testStack);
 
         winningCard.add(coordinates.get(1));
         winningCard.add(coordinates.get(3));
         winningCard.add(coordinates.get(4));
 
         //Extra card
-        assertEquals(cardplacment.extraCard.get(0), coordinates.get(0));
-        assertEquals(cardplacment.extraCard.size(),1);
+        assertEquals(cardPlacement.extraCard.get(0), coordinates.get(0));
+        assertEquals(cardPlacement.extraCard.size(),1);
 
         //Winning stack
-        assertEquals(cardplacment.winningStack,winningCard);
-        assertEquals(cardplacment.winningStack.size(),3);
+        assertEquals(cardPlacement.winningStack,winningCard);
+        assertEquals(cardPlacement.winningStack.size(),3);
 
         //Stack 1
-        assertEquals(cardplacment.stack1.get(0), coordinates.get(7));
-        assertEquals(cardplacment.stack1.get(1), coordinates.get(5));
-        assertEquals(cardplacment.stack1.size(),2);
+        assertEquals(cardPlacement.stack1.get(0), coordinates.get(7));
+        assertEquals(cardPlacement.stack1.get(1), coordinates.get(5));
+        assertEquals(cardPlacement.stack1.size(),2);
 
         //Stack 2
-        assertEquals(cardplacment.stack2.get(0), coordinates.get(6));
-        assertEquals(cardplacment.stack2.size(),1);
+        assertEquals(cardPlacement.stack2.get(0), coordinates.get(6));
+        assertEquals(cardPlacement.stack2.size(),1);
 
         //Stack 3
-        assertEquals(cardplacment.stack3.get(0),coordinates.get(8));
-        assertEquals(cardplacment.stack3.size(),1);
+        assertEquals(cardPlacement.stack3.get(0),coordinates.get(8));
+        assertEquals(cardPlacement.stack3.size(),1);
 
         //Stack 4
-        assertEquals(cardplacment.stack4.get(0),coordinates.get(9));
-        assertEquals(cardplacment.stack4.get(1),coordinates.get(11));
-        assertEquals(cardplacment.stack4.get(2),coordinates.get(2));
-        assertEquals(cardplacment.stack4.get(3),coordinates.get(10));
-        assertEquals(cardplacment.stack4.size(),4);
+        assertEquals(cardPlacement.stack4.get(0),coordinates.get(9));
+        assertEquals(cardPlacement.stack4.get(1),coordinates.get(11));
+        assertEquals(cardPlacement.stack4.get(2),coordinates.get(2));
+        assertEquals(cardPlacement.stack4.get(3),coordinates.get(10));
+        assertEquals(cardPlacement.stack4.size(),4);
 
         //Stack 5
-        assertEquals(cardplacment.stack5.get(0),coordinates.get(14));
-        assertEquals(cardplacment.stack5.get(1),coordinates.get(13));
-        assertEquals(cardplacment.stack5.get(2),coordinates.get(12));
-        assertEquals(cardplacment.stack5.size(),3);
+        assertEquals(cardPlacement.stack5.get(0),coordinates.get(14));
+        assertEquals(cardPlacement.stack5.get(1),coordinates.get(13));
+        assertEquals(cardPlacement.stack5.get(2),coordinates.get(12));
+        assertEquals(cardPlacement.stack5.size(),3);
 
         //Stack 6
-        assertEquals(cardplacment.stack6.get(0),coordinates.get(16));
-        assertEquals(cardplacment.stack6.get(1),coordinates.get(15));
-        assertEquals(cardplacment.stack6.size(),2);
+        assertEquals(cardPlacement.stack6.get(0),coordinates.get(16));
+        assertEquals(cardPlacement.stack6.get(1),coordinates.get(15));
+        assertEquals(cardPlacement.stack6.size(),2);
 
     }
 
