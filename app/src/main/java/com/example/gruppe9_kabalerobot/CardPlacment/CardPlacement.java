@@ -29,8 +29,9 @@ public class Cardplacment  {
     /**
      * Method that sorts the cards
      */
-   public void SortCards(){
-        addCoordinates();
+    public void sortCards(ArrayList<CardObj> coordinates){
+
+        this.coordinates = coordinates;
         upperRow();
         stacks();
         sortStacks();
@@ -111,9 +112,14 @@ public class Cardplacment  {
                 continue;
             }
             //Checks if the X coordinate is inside of 10% else it is going to the next stack.
-            if (coordinates.get(i).getX() >= (coordinates.get(i-1).getX()*0.9) &&
-                    coordinates.get(i).getX() <= (coordinates.get(i-1).getX()*1.1)){
+            int indexCheck = coordinates.get(i).getX();
+            int upperTail = (int) (coordinates.get(i-1).getX()*1.1);
+            int lowerTail = (int) (coordinates.get(i-1).getX()*0.9);
+
+            if ( indexCheck >= lowerTail  &&
+                    indexCheck <= upperTail ){
                 stackList(stackNumber,i);
+
             } else {
                 stackNumber++;
                 stackList(stackNumber,i);
@@ -203,24 +209,6 @@ public class Cardplacment  {
             }
         });
 
-    }
-
-
-    /**
-     * Test data for testing
-     */
-    private void addCoordinates(){
-        coordinates.add(new CardObj(1,4,12,1));
-        coordinates.add(new CardObj(2,4,4,3));
-        coordinates.add(new CardObj(3,4,4,0));
-        coordinates.add(new CardObj(4,2,7,3));
-
-
-        coordinates.add(new CardObj(1,1,1,2));
-        coordinates.add(new CardObj(1,2,4,3));
-        coordinates.add(new CardObj(2,1,10,3));
-        coordinates.add(new CardObj(3,1,8,3));
-        coordinates.add(new CardObj(4,1,9,3));
     }
 
     /**
