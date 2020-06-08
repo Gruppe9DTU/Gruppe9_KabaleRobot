@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="velkommen">Velkommen til 7-kabale hjælper</string>
+    <string name="maintext">Denne applikation kan hjælpe dig med at løse din 7-kabale hvis du sidder fast. Det eneste du skal gøre er at trykke på knappen nedenfor, og tage et billede af dit spil. Applikationen vil dernæst fortælle dig hvilke træk du kan foretage dig.\nHeld og lykke</string>
+    <string name="begynd">Begynd</string>
 </resources>
