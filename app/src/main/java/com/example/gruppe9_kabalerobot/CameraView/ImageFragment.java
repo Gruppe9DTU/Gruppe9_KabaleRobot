@@ -63,6 +63,12 @@ public class ImageFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
+
     //endregion
 
     //region AsyncTask
