@@ -2,13 +2,13 @@ package com.example.gruppe9_kabalerobot.CameraView;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +39,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
     private PreviewView previewView;
     private FloatingActionButton imageCaptureButton;
     private ImageCapture imageCapture;
+    private Preview preview;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
 
     //endregion
@@ -68,6 +69,18 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // If preview have already been initialized, just set the PreviewSurfaceProvider
+        // Because the lifecycle is already bound to Camera Provider
+        if (preview!=null) {
+            preview.setSurfaceProvider(previewView.getPreviewSurfaceProvider());
+        }
+
     }
 
     //endregion
@@ -102,47 +115,45 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
 
     private void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
 
+        if (preview == null) {
+            preview = new Preview.Builder()
+                    .build();
 
-        //FIXME: Jeg fjerner alle instancer af lifecycle, for at undgå crash, men dette forsinker programmet. Find anden løsning
-        cameraProvider.unbindAll();
+            preview.setSurfaceProvider(previewView.getPreviewSurfaceProvider());
 
-        Preview preview = new Preview.Builder()
-                .build();
+            CameraSelector cameraSelector = new CameraSelector.Builder()
+                    .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                    .build();
 
-        preview.setSurfaceProvider(previewView.getPreviewSurfaceProvider());
+            imageCapture =
+                    new ImageCapture.Builder()
+                            .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                            .build();
 
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
+            OrientationEventListener orientationEventListener = new OrientationEventListener(getContext()) {
+                @Override
+                public void onOrientationChanged(int orientation) {
+                    int rotation;
 
-        imageCapture =
-                new ImageCapture.Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
-                        .build();
+                    // Monitors orientation values to determine the target rotation value
+                    if (orientation >= 45 && orientation < 135) {
+                        rotation = Surface.ROTATION_270;
+                    } else if (orientation >= 135 && orientation < 225) {
+                        rotation = Surface.ROTATION_180;
+                    } else if (orientation >= 225 && orientation < 315) {
+                        rotation = Surface.ROTATION_90;
+                    } else {
+                        rotation = Surface.ROTATION_0;
+                    }
 
-        OrientationEventListener orientationEventListener = new OrientationEventListener(getContext()) {
-            @Override
-            public void onOrientationChanged(int orientation) {
-                int rotation;
-
-                // Monitors orientation values to determine the target rotation value
-                if (orientation >= 45 && orientation < 135) {
-                    rotation = Surface.ROTATION_270;
-                } else if (orientation >= 135 && orientation < 225) {
-                    rotation = Surface.ROTATION_180;
-                } else if (orientation >= 225 && orientation < 315) {
-                    rotation = Surface.ROTATION_90;
-                } else {
-                    rotation = Surface.ROTATION_0;
+                    imageCapture.setTargetRotation(rotation);
                 }
+            };
 
-                imageCapture.setTargetRotation(rotation);
-            }
-        };
+            orientationEventListener.enable();
 
-        orientationEventListener.enable();
-
-        cameraProvider.bindToLifecycle(this, cameraSelector, imageCapture, preview);
+            cameraProvider.bindToLifecycle(this, cameraSelector, imageCapture, preview);
+        }
 
     }
 
