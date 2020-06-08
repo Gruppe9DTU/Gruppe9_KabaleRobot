@@ -19,20 +19,18 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".KortGenkendelse" >
-
-        </activity>
     </application>
 
     <uses-feature android:name="android.hardware.camera2.full" />
