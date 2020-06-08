@@ -105,6 +105,6 @@ public class ImageFragment extends Fragment {
         }
     };
 
-
+    //endregion
 
 }
