@@ -62,6 +62,13 @@ public class CardPlacmentTest {
         assertEquals(cardPlacement.stack6.get(1),coordinates.get(15));
         assertEquals(cardPlacement.stack6.size(),2);
 
+
+        assertEquals(cardPlacement.stack7.get(0),coordinates.get(17));
+        assertEquals(cardPlacement.stack7.get(1),coordinates.get(20));
+        assertEquals(cardPlacement.stack7.get(2),coordinates.get(18));
+        assertEquals(cardPlacement.stack7.get(3),coordinates.get(19));
+        assertEquals(cardPlacement.stack7.size(),4);
+
     }
 
 
@@ -90,6 +97,11 @@ public class CardPlacmentTest {
 
         coordinates.add(new CardObj(6,2,9,3));  //15 stack 6 pos 1
         coordinates.add(new CardObj(6,1,9,3));  //16 stack 6 pos 0
+
+        coordinates.add(new CardObj(7,1,9,3));  //17 stack 7 pos 0
+        coordinates.add(new CardObj(7,3,9,3));  //18 stack 7 pos 2
+        coordinates.add(new CardObj(7,4,9,3));  //19 stack 7 pos 3
+        coordinates.add(new CardObj(7,2,9,3));  //20 stack 7 pos 1
     }
 
 }

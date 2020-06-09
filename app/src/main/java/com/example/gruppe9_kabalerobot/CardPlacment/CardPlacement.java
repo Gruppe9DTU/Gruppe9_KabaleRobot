@@ -25,6 +25,7 @@ public class CardPlacement  {
     ArrayList<CardObj> stack4 = new ArrayList<>();
     ArrayList<CardObj> stack5 = new ArrayList<>();
     ArrayList<CardObj> stack6 = new ArrayList<>();
+    ArrayList<CardObj> stack7 = new ArrayList<>();
 
     /**
      * Method that sorts the cards
@@ -59,6 +60,8 @@ public class CardPlacement  {
         });
         t2.start();
 
+        while(semaphore1 == 0 && semaphore2 == 0);
+
     }
 
     /**
@@ -69,6 +72,7 @@ public class CardPlacement  {
         compareY(stack1);
         compareY(stack2);
         compareY(stack3);
+        compareY(stack7);
 
         //semaphore to make sure both threads finish at the same time
         while(semaphore1 == 0 ){
@@ -108,6 +112,10 @@ public class CardPlacement  {
         for (int i = 0; i < coordinates.size() ; i++) {
 
             if (i == 0) {
+                stackList(stackNumber,i);
+                continue;
+            }
+            if (stackNumber == 7){
                 stackList(stackNumber,i);
                 continue;
             }
@@ -151,6 +159,9 @@ public class CardPlacement  {
                 break;
             case 6:
                 stack6.add(coordinates.get(i));
+                break;
+            case 7:
+                stack7.add(coordinates.get(i));
                 break;
         }
     }
@@ -252,13 +263,20 @@ public class CardPlacement  {
     }
 
     /**
-     * Getter for stack6
-     * @return the stack6
+     * Getter for stack7
+     * @return the stack7
      */
     public ArrayList<CardObj> getStack6() {
         return stack6;
     }
 
+    /**
+     * Getter for stack6
+     * @return the stack6
+     */
+    public ArrayList<CardObj> getStack7() {
+        return stack7;
+    }
     /**
      * Getter for winningStack
      * @return the winnngStack
