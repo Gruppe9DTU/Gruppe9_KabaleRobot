@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+//TODO Response to user is in either danish or english, choose a language and go with it.
 public class MoveAlgorithm {
-
     private List<Tableau> tableaus;
     private List<Foundation> foundations;
     private Card waste;
