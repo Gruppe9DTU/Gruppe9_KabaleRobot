@@ -30,11 +30,141 @@ public class MoveAlgoritmTest {
     }
 
     /**
+     * Tests if it skips a move that has already been made
+     * For this test is has already tried to move an ace to a stack before
+     */
+    @Test
+    public void testGetBestMove101(){
+
+        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+
+        Card tableauCard = new Card(0,1); //ace of hearts
+
+        tableaus[0].addCardToStack(new Card(1, 3)); //random card
+
+        tableaus[1].addCardToStack(new Card(1, 2)); //random card
+        tableaus[1].addCardToStack(tableauCard);
+
+        tableaus[2].addCardToStack(new Card(0, 3));
+        tableaus[3].addCardToStack(new Card(1, 4)); //random card
+        tableaus[4].addCardToStack(new Card(1, 6)); //random card
+
+        tableaus[5].addCardToStack(new Card(1, 3)); //random card
+        tableaus[5].addCardToStack(new Card(0, 2)); //random card
+
+        tableaus[6].addCardToStack(new Card(1, 7)); //random card
+
+        //Create a wastepile with 8 of Hearts on top
+        List<Card> wasteCards = new ArrayList<Card>();
+        wasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(wasteCards, true);
+
+        GameLogic gamelogic = new GameLogic();
+
+        gamelogic.setTableau(tableaus);
+        gamelogic.setFoundation(foundations);
+        gamelogic.setWaste(waste);
+
+        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 1)); //Have moved an ace from this position before
+
+        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+
+        assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+    }
+
+    /**
+     * Tests that it gives instructions to the player that there are no more possible moves
+     */
+    @Test
+    public void testGetBestMove102(){
+
+        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+
+        Card tableauCard = new Card(0,1); //ace of hearts
+
+        tableaus[0].addCardToStack(new Card(1, 3)); //random card
+
+        tableaus[1].addCardToStack(new Card(1, 2)); //random card
+        tableaus[1].addCardToStack(tableauCard);
+
+        tableaus[2].addCardToStack(new Card(0, 3));
+        tableaus[3].addCardToStack(new Card(1, 4)); //random card
+        tableaus[4].addCardToStack(new Card(1, 6)); //random card
+
+        tableaus[5].addCardToStack(new Card(1, 3)); //random card
+
+        tableaus[6].addCardToStack(new Card(1, 7)); //random card
+
+
+        //Create a wastepile with 8 of Hearts on top
+        List<Card> wasteCards = new ArrayList<Card>();
+        wasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(wasteCards, true);
+
+        GameLogic gamelogic = new GameLogic();
+
+        gamelogic.setTableau(tableaus);
+        gamelogic.setFoundation(foundations);
+        gamelogic.setWaste(waste);
+
+        //add seven repeats of same outsome to ensure that every other possible move is skipped
+        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 7)); //Last possible move is the last possible suggested move
+
+        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+
+        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+    }
+
+    /**
+     * Tests if it skips previous possible moves, if later move have been made
+     */
+    @Test
+    public void testGetBestMove103() {
+        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+
+        Card tableauCard = new Card(0,1); //ace of hearts
+
+        tableaus[0].addCardToStack(new Card(1, 4)); //random card
+        tableaus[0].addCardToStack(new Card(2, 3)); //random card
+
+        tableaus[1].addCardToStack(new Card(1, 2)); //random card
+        tableaus[1].addCardToStack(tableauCard);
+
+        tableaus[2].addCardToStack(new Card(1, 9));
+
+        tableaus[3].addCardToStack(new Card(1, 11));
+
+        tableaus[4].addCardToStack(new Card(0, 10));
+
+        //Create a wastepile with 8 of Hearts on top
+        List<Card> wasteCards = new ArrayList<Card>();
+        wasteCards.add(new Card(0, 12));
+        wasteCards.add(new Card(0, 11));
+        Waste waste = new Waste(wasteCards, true);
+
+        GameLogic gamelogic = new GameLogic();
+
+        gamelogic.setTableau(tableaus);
+        gamelogic.setFoundation(foundations);
+        gamelogic.setWaste(waste);
+
+        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 1)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 6)); //Previously moved a 10 to 11
+
+
+        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+
+        assertEquals( "Vend et kort fra grundbunken"
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+    }
+
+    /**
      * Test what ace is prioritised to go into the foundation
      */
     @Test
-    public void testCheckEs(){
-
+    public void testCheckAce101(){
+        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer(); //kan være tom da der ikke forvents nogle tidliger layouts
         Card tableauCard = new Card(0,1); //ace of hearts
         Card tableauCard2 = new Card(1,1); //ace of spades
 
@@ -61,15 +191,14 @@ public class MoveAlgoritmTest {
 
         algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
 
-        assertEquals("Ryk " + tableauCard2.toString() + " til Foundation", algoritmCtrl.getBestMove());
+        assertEquals("Ryk " + tableauCard2.toString() + " til Foundation", algoritmCtrl.checkAce());
     }
 
     /**
-     * Test if ace with highest cards found from the bottom is chosen for checkEs
+     * Test if ace with highest cards found from the bottom is chosen for checkAce
      */
     @Test
-    public void testCheckEs2(){
-
+    public void testCheckAce102(){
         Card tableauCard = new Card(0,1); //ace of hearts
         Card tableauCard2 = new Card(1,1); //ace of spades
 
@@ -96,7 +225,24 @@ public class MoveAlgoritmTest {
 
         algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
 
-        assertEquals("Ryk " + tableauCard.toString() + " til Foundation", algoritmCtrl.getBestMove());
+        assertEquals("Ryk " + tableauCard.toString() + " til Foundation", algoritmCtrl.checkAce());
+    }
+
+    /**
+     * Test for crash if no Ace and empty space
+     */
+    @Test
+    public void testCheckAce103() {
+        tableaus[0].addCardToStack(new Card(0, 6));
+        tableaus[2].addCardToStack(new Card(0, 3));
+
+        List<Card> wasteCards = new ArrayList<Card>();
+        wasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(wasteCards, true);
+
+        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+
+        assertEquals("", algoritmCtrl.checkAce());
     }
 
     /**
