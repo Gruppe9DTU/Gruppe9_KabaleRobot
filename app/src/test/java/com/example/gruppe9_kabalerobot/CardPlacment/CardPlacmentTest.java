@@ -2,7 +2,6 @@ package com.example.gruppe9_kabalerobot.CardPlacment;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -24,50 +23,50 @@ public class CardPlacmentTest {
         winningCard.add(coordinates.get(4));
 
         //Extra card
-        assertEquals(cardPlacement.extraCard.get(0), coordinates.get(0));
-        assertEquals(cardPlacement.extraCard.size(),1);
+        assertEquals(cardPlacement.waste.get(0), coordinates.get(0));
+        assertEquals(cardPlacement.waste.size(),1);
 
         //Winning stack
-        assertEquals(cardPlacement.winningStack,winningCard);
-        assertEquals(cardPlacement.winningStack.size(),3);
+        assertEquals(cardPlacement.foundation,winningCard);
+        assertEquals(cardPlacement.foundation.size(),3);
 
         //Stack 1
-        assertEquals(cardPlacement.stack1.get(0), coordinates.get(7));
-        assertEquals(cardPlacement.stack1.get(1), coordinates.get(5));
-        assertEquals(cardPlacement.stack1.size(),2);
+        assertEquals(cardPlacement.tableau1.get(0), coordinates.get(7));
+        assertEquals(cardPlacement.tableau1.get(1), coordinates.get(5));
+        assertEquals(cardPlacement.tableau1.size(),2);
 
         //Stack 2
-        assertEquals(cardPlacement.stack2.get(0), coordinates.get(6));
-        assertEquals(cardPlacement.stack2.size(),1);
+        assertEquals(cardPlacement.tableau2.get(0), coordinates.get(6));
+        assertEquals(cardPlacement.tableau2.size(),1);
 
         //Stack 3
-        assertEquals(cardPlacement.stack3.get(0),coordinates.get(8));
-        assertEquals(cardPlacement.stack3.size(),1);
+        assertEquals(cardPlacement.tableau3.get(0),coordinates.get(8));
+        assertEquals(cardPlacement.tableau3.size(),1);
 
         //Stack 4
-        assertEquals(cardPlacement.stack4.get(0),coordinates.get(9));
-        assertEquals(cardPlacement.stack4.get(1),coordinates.get(11));
-        assertEquals(cardPlacement.stack4.get(2),coordinates.get(2));
-        assertEquals(cardPlacement.stack4.get(3),coordinates.get(10));
-        assertEquals(cardPlacement.stack4.size(),4);
+        assertEquals(cardPlacement.tableau4.get(0),coordinates.get(9));
+        assertEquals(cardPlacement.tableau4.get(1),coordinates.get(11));
+        assertEquals(cardPlacement.tableau4.get(2),coordinates.get(2));
+        assertEquals(cardPlacement.tableau4.get(3),coordinates.get(10));
+        assertEquals(cardPlacement.tableau4.size(),4);
 
         //Stack 5
-        assertEquals(cardPlacement.stack5.get(0),coordinates.get(14));
-        assertEquals(cardPlacement.stack5.get(1),coordinates.get(13));
-        assertEquals(cardPlacement.stack5.get(2),coordinates.get(12));
-        assertEquals(cardPlacement.stack5.size(),3);
+        assertEquals(cardPlacement.tableau5.get(0),coordinates.get(14));
+        assertEquals(cardPlacement.tableau5.get(1),coordinates.get(13));
+        assertEquals(cardPlacement.tableau5.get(2),coordinates.get(12));
+        assertEquals(cardPlacement.tableau5.size(),3);
 
         //Stack 6
-        assertEquals(cardPlacement.stack6.get(0),coordinates.get(16));
-        assertEquals(cardPlacement.stack6.get(1),coordinates.get(15));
-        assertEquals(cardPlacement.stack6.size(),2);
+        assertEquals(cardPlacement.tableau6.get(0),coordinates.get(16));
+        assertEquals(cardPlacement.tableau6.get(1),coordinates.get(15));
+        assertEquals(cardPlacement.tableau6.size(),2);
 
 
-        assertEquals(cardPlacement.stack7.get(0),coordinates.get(17));
-        assertEquals(cardPlacement.stack7.get(1),coordinates.get(20));
-        assertEquals(cardPlacement.stack7.get(2),coordinates.get(18));
-        assertEquals(cardPlacement.stack7.get(3),coordinates.get(19));
-        assertEquals(cardPlacement.stack7.size(),4);
+        assertEquals(cardPlacement.tableau7.get(0),coordinates.get(17));
+        assertEquals(cardPlacement.tableau7.get(1),coordinates.get(20));
+        assertEquals(cardPlacement.tableau7.get(2),coordinates.get(18));
+        assertEquals(cardPlacement.tableau7.get(3),coordinates.get(19));
+        assertEquals(cardPlacement.tableau7.size(),4);
 
     }
 
