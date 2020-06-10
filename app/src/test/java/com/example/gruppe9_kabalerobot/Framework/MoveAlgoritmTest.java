@@ -42,6 +42,8 @@ public class MoveAlgoritmTest {
 
         tableaus[0].addCardToStack(new Card(1, 3)); //random card
 
+        tableaus[1].addCardToStack(new Card(3, 4)); //random card
+        tableaus[1].addCardToStack(new Card(2, 3)); //random card
         tableaus[1].addCardToStack(new Card(1, 2)); //random card
         tableaus[1].addCardToStack(tableauCard);
 
@@ -109,7 +111,7 @@ public class MoveAlgoritmTest {
         gamelogic.setWaste(waste);
 
         //add seven repeats of same outsome to ensure that every other possible move is skipped
-        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 7)); //Last possible move is the last possible suggested move
+        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 8)); //Last possible move is the last possible suggested move
 
         MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
 
