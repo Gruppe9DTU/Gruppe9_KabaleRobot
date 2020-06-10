@@ -7,18 +7,11 @@ public class Waste {
     private List<Card> knowncards = new ArrayList<Card>();
     private List<Card> unknowncards;
     private int iterator = 0;
-    private boolean pileStatus;
+    private boolean pileStatus; //TODO Why is this here? Why not just check the status and return that?
 
     public Waste(List<Card> cards, boolean pileStatus) {
         unknowncards = cards;
         this.pileStatus = pileStatus;
-    }
-
-    public Waste(int n, Deck deck) {
-        unknowncards = new ArrayList<Card>();
-        for(int i = 0 ; i < n ; i++) {
-            unknowncards.add(deck.getNextCard());
-        }
     }
 
     public Card takeCard() {

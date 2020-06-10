@@ -1,26 +1,14 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameLogic {
-    Deck deck;
     Waste waste;
     Tableau[] tableau;
     Foundation[] foundation;
 
     public GameLogic() {
-        deck = new Deck();
-        deck.shuffle();
-        foundation = new Foundation[4];
-        for(int i = 0 ; i < foundation.length ; i++ ) foundation[i] = new Foundation();
+        waste = new Waste(null, false);
         tableau = new Tableau[7];
-        for(int i = 0 ; i < tableau.length ; i++) {
-            List<Card> visibleCards = new ArrayList();
-            visibleCards.add(deck.getNextCard());
-            tableau[i] = new Tableau(i, visibleCards); //'i' in constructor needs to be replaced by a read value of how many hidden cards we can see
-        }
-        waste = new Waste(deck.getDeck().size() - 21, deck);
+        foundation = new Foundation[4];
     }
 
     public String printGame() {
