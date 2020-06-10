@@ -48,7 +48,7 @@ public class MoveAlgoritm {
                 if (!bestMove.equals("")) break;
 
             case 4:
-                bestMove = foundationToTableau();
+                bestMove = moveTableau();
                 if (!bestMove.equals("")) break;
 
             case 5:
@@ -60,6 +60,10 @@ public class MoveAlgoritm {
                 if (!bestMove.equals("")) break;
 
             case 7:
+                bestMove = foundationToTableau();
+                if (!bestMove.equals("")) break;
+
+            case 8:
                 bestMove = revealCardFromWaste();
                 if (!bestMove.equals("")) break;
 
