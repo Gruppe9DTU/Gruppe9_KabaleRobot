@@ -1,5 +1,14 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
+import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
+import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
+import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
+import com.example.gruppe9_kabalerobot.Framework.model.Waste;
+
 import org.junit.Before;
 import org.junit.Test;
 

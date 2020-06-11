@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.model;
 
 public class Card {
     private int suit;

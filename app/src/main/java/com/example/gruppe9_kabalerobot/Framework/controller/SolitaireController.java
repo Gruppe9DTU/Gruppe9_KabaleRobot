@@ -1,4 +1,6 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
+
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
 
 public class SolitaireController {
     PreviousStatesContainer prevStates;

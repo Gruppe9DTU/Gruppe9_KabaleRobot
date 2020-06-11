@@ -1,4 +1,9 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
+
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
+import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
 
 import java.util.ArrayList;
 import java.util.Arrays;

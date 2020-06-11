@@ -1,4 +1,8 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
+
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
+import com.example.gruppe9_kabalerobot.Framework.model.Waste;
 
 public class GameLogic {
     Waste waste;
