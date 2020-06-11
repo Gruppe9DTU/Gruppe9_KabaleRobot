@@ -77,7 +77,7 @@ public class CardTranslatorTest {
         //AssertEqual expected Lists by reading from game
         assertEquals(wasteListExpected.toString(),game.getWaste().getKnownCards().toString());
 
-       // assertEquals(wasteListExpected.get(3).toString(),game.getWaste().lookAtTop().toString());
+        assertEquals(wasteListExpected.get(3).toString(),game.getWaste().lookAtTop().toString());
     }
 
     /**
