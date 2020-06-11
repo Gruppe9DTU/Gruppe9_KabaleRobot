@@ -1,12 +1,5 @@
 package com.example.gruppe9_kabalerobot.CardPlacment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-import com.example.gruppe9_kabalerobot.CardPlacment.CardObj;
-import com.example.gruppe9_kabalerobot.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,14 +10,15 @@ public class CardPlacement  {
     int semaphore1 = 0, semaphore2 = 0;
 
     ArrayList<CardObj> coordinates = new ArrayList<>();
-    ArrayList<CardObj> extraCard = new ArrayList<>();
-    ArrayList<CardObj> winningStack = new ArrayList<>();
-    ArrayList<CardObj> stack1 = new ArrayList<>();
-    ArrayList<CardObj> stack2 = new ArrayList<>();
-    ArrayList<CardObj> stack3 = new ArrayList<>();
-    ArrayList<CardObj> stack4 = new ArrayList<>();
-    ArrayList<CardObj> stack5 = new ArrayList<>();
-    ArrayList<CardObj> stack6 = new ArrayList<>();
+    ArrayList<CardObj> waste = new ArrayList<>();
+    ArrayList<CardObj> foundation = new ArrayList<>();
+    ArrayList<CardObj> tableau1 = new ArrayList<>();
+    ArrayList<CardObj> tableau2 = new ArrayList<>();
+    ArrayList<CardObj> tableau3 = new ArrayList<>();
+    ArrayList<CardObj> tableau4 = new ArrayList<>();
+    ArrayList<CardObj> tableau5 = new ArrayList<>();
+    ArrayList<CardObj> tableau6 = new ArrayList<>();
+    ArrayList<CardObj> tableau7 = new ArrayList<>();
 
     /**
      * Method that sorts the cards
@@ -59,6 +53,8 @@ public class CardPlacement  {
         });
         t2.start();
 
+        while(semaphore1 == 0 && semaphore2 == 0);
+
     }
 
     /**
@@ -66,9 +62,10 @@ public class CardPlacement  {
      */
     private void sortStack1(){
 
-        compareY(stack1);
-        compareY(stack2);
-        compareY(stack3);
+        compareY(tableau1);
+        compareY(tableau2);
+        compareY(tableau3);
+        compareY(tableau7);
 
         //semaphore to make sure both threads finish at the same time
         while(semaphore1 == 0 ){
@@ -81,9 +78,9 @@ public class CardPlacement  {
      */
     private void sortStack2(){
 
-        compareY(stack4);
-        compareY(stack5);
-        compareY(stack6);
+        compareY(tableau4);
+        compareY(tableau5);
+        compareY(tableau6);
 
         //semaphore to make sure both threads finish at the same time
         while (semaphore2 == 0){
@@ -97,7 +94,7 @@ public class CardPlacement  {
     private void stacks(){
         ArrayList<CardObj> test = new ArrayList<>(coordinates);
         for (CardObj x: test ) {
-            if (extraCard.contains(x) || winningStack.contains(x)) {
+            if (waste.contains(x) || foundation.contains(x)) {
                 coordinates.remove(x);
             }
         }
@@ -108,6 +105,10 @@ public class CardPlacement  {
         for (int i = 0; i < coordinates.size() ; i++) {
 
             if (i == 0) {
+                stackList(stackNumber,i);
+                continue;
+            }
+            if (stackNumber == 7){
                 stackList(stackNumber,i);
                 continue;
             }
@@ -135,22 +136,25 @@ public class CardPlacement  {
     private void stackList(int stackNumber, int i) {
         switch (stackNumber) {
             case 1:
-                stack1.add(coordinates.get(i));
+                tableau1.add(coordinates.get(i));
                 break;
             case 2:
-                stack2.add(coordinates.get(i));
+                tableau2.add(coordinates.get(i));
                 break;
             case 3:
-                stack3.add(coordinates.get(i));
+                tableau3.add(coordinates.get(i));
                 break;
             case 4:
-                stack4.add(coordinates.get(i));
+                tableau4.add(coordinates.get(i));
                 break;
             case 5:
-                stack5.add(coordinates.get(i));
+                tableau5.add(coordinates.get(i));
                 break;
             case 6:
-                stack6.add(coordinates.get(i));
+                tableau6.add(coordinates.get(i));
+                break;
+            case 7:
+                tableau7.add(coordinates.get(i));
                 break;
         }
     }
@@ -166,22 +170,22 @@ public class CardPlacement  {
         Collections.reverse(coordinates);
 
         for (int i = 0; i<5;i++) {
-            extraCard.add(coordinates.get(i));
+            waste.add(coordinates.get(i));
         }
 
-        compareX(extraCard);
+        compareX(waste);
 
         //Lower- and upperTail are +/- 10% of the x-coordinat
-        int lowerTail = (int) (extraCard.get(0).getY()*0.9);
-        int upperTail = (int) (extraCard.get(0).getY()*1.1);
-        for (int i = 1; i <extraCard.size() ; i++) {
+        int lowerTail = (int) (waste.get(0).getY()*0.9);
+        int upperTail = (int) (waste.get(0).getY()*1.1);
+        for (int i = 1; i < waste.size() ; i++) {
 
-            if( extraCard.get(i).getY() >= lowerTail && extraCard.get(i).getY() <= upperTail) {
-                winningStack.add(extraCard.get(i));
+            if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
+                foundation.add(waste.get(i));
             }
         }
-        extraCard.subList(1,extraCard.size()).clear();
-        coordinates.remove(extraCard);
+        waste.subList(1, waste.size()).clear();
+        coordinates.remove(waste);
     }
 
     /**
@@ -215,63 +219,70 @@ public class CardPlacement  {
      * Getter for stack1
      * @return the stack1
      */
-    public ArrayList<CardObj> getStack1() {
-        return stack1;
+    public ArrayList<CardObj> getTableau1() {
+        return tableau1;
     }
 
     /**
      * Getter for stack2
      * @return the stack2
      */
-    public ArrayList<CardObj> getStack2() {
-        return stack2;
+    public ArrayList<CardObj> getTableau2() {
+        return tableau2;
     }
 
     /**
      * Getter for stack3
      * @return the stack3
      */
-    public ArrayList<CardObj> getStack3() {
-        return stack3;
+    public ArrayList<CardObj> getTableau3() {
+        return tableau3;
     }
 
     /**
      * Getter for stack4
      * @return the stack4
      */
-    public ArrayList<CardObj> getStack4() {
-        return stack4;
+    public ArrayList<CardObj> getTableau4() {
+        return tableau4;
     }
 
     /**
      * Getter for stack5
      * @return the stack5
      */
-    public ArrayList<CardObj> getStack5() {
-        return stack5;
+    public ArrayList<CardObj> getTableau5() {
+        return tableau5;
+    }
+
+    /**
+     * Getter for stack7
+     * @return the stack7
+     */
+    public ArrayList<CardObj> getTableau6() {
+        return tableau6;
     }
 
     /**
      * Getter for stack6
      * @return the stack6
      */
-    public ArrayList<CardObj> getStack6() {
-        return stack6;
+    public ArrayList<CardObj> getTableau7() {
+        return tableau7;
     }
-
     /**
      * Getter for winningStack
      * @return the winnngStack
      */
-    public ArrayList<CardObj> getWinningStack() {
-        return winningStack;
+    public ArrayList<CardObj> getFoundation() {
+        return foundation;
     }
 
     /**
      * Getter for extraCard
      * @return the extraCard
      */
-    public ArrayList<CardObj> getExtraCard() {
-        return extraCard;
+    public ArrayList<CardObj> getWaste() {
+        return waste;
     }
 }
