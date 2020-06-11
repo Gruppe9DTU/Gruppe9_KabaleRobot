@@ -72,14 +72,15 @@ public class CardPlacement  {
     private void sortStack1(){
 
         compareY(tableau1);
+        Collections.reverse(tableau1);
         compareY(tableau2);
+        Collections.reverse(tableau2);
         compareY(tableau3);
+        Collections.reverse(tableau3);
         compareY(tableau7);
+        Collections.reverse(tableau7);
 
-        //semaphore to make sure both threads finish at the same time
-        while(semaphore1 == 0 ){
-            semaphore2 = 1;
-        }
+        semaphore2 = 1;
     }
 
     /**
@@ -88,13 +89,15 @@ public class CardPlacement  {
     private void sortStack2(){
 
         compareY(tableau4);
+        Collections.reverse(tableau4);
         compareY(tableau5);
+        Collections.reverse(tableau5);
         compareY(tableau6);
+        Collections.reverse(tableau6);
 
-        //semaphore to make sure both threads finish at the same time
-        while (semaphore2 == 0){
-            semaphore1 = 1;
-        }
+
+        semaphore1 = 1;
+
     }
 
     /**
@@ -184,17 +187,40 @@ public class CardPlacement  {
 
         compareX(waste);
 
-        //Lower- and upperTail are +/- 10% of the x-coordinat
-        int lowerTail = (int) (waste.get(0).getY()*0.9);
-        int upperTail = (int) (waste.get(0).getY()*1.1);
-        for (int i = 1; i < waste.size() ; i++) {
-
-            if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
-                foundations.add(waste.get(i));
+        if(doesWasteExist()){
+            //Lower- and upperTail are +/- 10% of the y-coordinat
+            int lowerTail = (int) (waste.get(0).getY()*0.9);
+            int upperTail = (int) (waste.get(0).getY()*1.1);
+            for (int i = 1; i < waste.size() ; i++) {
+                if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
+                    foundations.add(waste.get(i));
+                }
             }
+            waste.subList(1, waste.size()).clear();
+            coordinates.remove(waste);
         }
-        waste.subList(1, waste.size()).clear();
-        coordinates.remove(waste);
+        else {
+            int lowerTail = (int) (waste.get(0).getY()*0.9);
+            int upperTail = (int) (waste.get(0).getY()*1.1);
+            for (int i = 0; i < waste.size() ; i++) {
+                if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
+                    foundations.add(waste.get(i));
+                }
+            }
+            waste.clear();
+            coordinates.remove(foundations);
+        }
+    }
+
+    /**
+     * Checks if we have a waste stack or not
+     * @return true or false
+     */
+    private boolean doesWasteExist(){
+
+        //Checks the distance between waste index 1 and 2 are bigger than the uppertail.
+        int upperTail = (int) (waste.get(0).getX()*1.2);
+        return (waste.get(1).getX() - waste.get(0).getX()) >= upperTail;
     }
 
     /**
@@ -221,7 +247,6 @@ public class CardPlacement  {
                 return Integer.compare(o1.getY(), o2.getY());
             }
         });
-
     }
 
     /**
