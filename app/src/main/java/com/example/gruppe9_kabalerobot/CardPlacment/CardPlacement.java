@@ -12,7 +12,7 @@ public class CardPlacement  {
     ArrayList<CardObj> coordinates = new ArrayList<>();
     ArrayList<CardObj> waste = new ArrayList<>();
     ArrayList<CardObj> foundation = new ArrayList<>();
-    ArrayList<CardObj> tableau1 = new ArrayList<>();
+    ArrayList<CardObj> tableau1 = new ArrayList<>();    //TODO We are not getting hidden cards atm.
     ArrayList<CardObj> tableau2 = new ArrayList<>();
     ArrayList<CardObj> tableau3 = new ArrayList<>();
     ArrayList<CardObj> tableau4 = new ArrayList<>();
