@@ -47,37 +47,6 @@ public class CardTranslatorTest {
         //AssertEqual expected Lists by reading from game
         assertEquals(wasteListExpected.get(0).toString(),game.getWaste().lookAtTop().toString());
     }
-    /**
-     * Only Waste for multiple cards are filled
-     */
-    @Test
-    public void insertCards101Multiple() {
-
-        //Setup expected Lists
-        List<CardObj> wasteList = new ArrayList<>();
-        wasteList.add(new CardObj(0,0,10,0)); //10 of hearts
-        wasteList.add(new CardObj(0,0,9,1)); //9 of spades
-        wasteList.add(new CardObj(0,0,8,2)); //8 of diamonds
-        wasteList.add(new CardObj(0,0,7,3)); //7 of clubs
-
-        List<Card> wasteListExpected = new ArrayList<>();
-        wasteListExpected.add(new Card(0,10)); //10 of hearts
-        wasteListExpected.add(new Card(1,9)); //9 of spades
-        wasteListExpected.add(new Card(2,8)); //8 of diamonds
-        wasteListExpected.add(new Card(3,7)); //7 of clubs
-
-        //Insert cards into CardPlacement
-        placement.setWaste(wasteList);
-
-
-        //Translate cards
-        translator.insertCards(game);
-
-        //AssertEqual expected Lists by reading from game
-        assertEquals(wasteListExpected.toString(),game.getWaste().getKnownCards().toString());
-
-        assertEquals(wasteListExpected.get(3).toString(),game.getWaste().lookAtTop().toString());
-    }
 
     /**
      * Only Foundation are filled
