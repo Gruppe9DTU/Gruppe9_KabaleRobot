@@ -59,7 +59,8 @@ public class GameLogic {
     }
     public void setTableaus(List<Integer> hiddenCards, List<List<Card>> transTableaus) {
         for (int i = 0 ; i < 7 ; i++) {
-            tableau[i] = new Tableau(hiddenCards.get(i), transTableaus.get(i));
+            if(!transTableaus.isEmpty())
+                tableau[i] = new Tableau(hiddenCards.get(i), transTableaus.get(i));
         }
     }
 
@@ -69,7 +70,8 @@ public class GameLogic {
 
     public void setFoundations(List<Card> cards) {
         for(int i = 0 ; i < 4 ; i++) {
-            foundation[i] = new Foundation(cards.get(i));
+            if(!cards.isEmpty())
+                foundation[i] = new Foundation(cards.get(i));
         }
     }
 

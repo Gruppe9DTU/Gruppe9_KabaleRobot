@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class CardTranslatorTest {
     private CardPlacement placement;
@@ -23,6 +22,7 @@ public class CardTranslatorTest {
     public void setup() {
         this.placement = new CardPlacement();
         this.translator = new CardTranslator(placement);
+        this.game = new GameLogic();
     }
 
     /**
@@ -77,7 +77,34 @@ public class CardTranslatorTest {
      */
     @Test
     public void insertCards103() {
+        //Insert cards into CardPlacement
+        List<CardObj> tab1 = new ArrayList<>(); //List with one card
+        tab1.add(new CardObj(0, 0, 10, 0)); //10 of Hearts
+        placement.setTableau1(tab1);
 
+        List<CardObj> tab2 = new ArrayList<>(); //List with more cards cards
+        tab2.add(new CardObj(0, 0, 11, 0)); //11 of Hearts
+        tab2.add(new CardObj(0, 0, 10, 1)); //10 of Spades
+        placement.setTableau2(tab2);
+
+        List<CardObj> tab3 = new ArrayList<>(); //List with no cards
+        placement.setTableau3(tab3);
+
+        //Setup expected Lists
+        List<Card> tab1Exp = new ArrayList<>();
+        tab1Exp.add(new Card(0, 10)); //10 of Hearts
+        List<Card> tab2Exp = new ArrayList<>();
+        tab2Exp.add(new Card(0, 11)); //11 of Hearts
+        tab2Exp.add(new Card(1, 10)); //10 of Spades
+        List<Card> tab3Exp = new ArrayList<>();
+
+        //Translate cards
+        translator.insertCards(game);
+
+        //AssertEqual expected Lists by reading from game
+        assertEquals(tab1Exp, Arrays.asList(game.getTableau()[1].getVisibleCards()));
+        assertEquals(tab2Exp, Arrays.asList(game.getTableau()[2].getVisibleCards()));
+        assertEquals(tab3Exp, Arrays.asList(game.getTableau()[3].getVisibleCards()));
     }
 
     /**
