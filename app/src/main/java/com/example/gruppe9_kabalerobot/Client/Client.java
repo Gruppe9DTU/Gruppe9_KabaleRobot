@@ -1,18 +1,51 @@
 package com.example.gruppe9_kabalerobot.Client;
 
+import android.graphics.Bitmap;
+
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+
 public class Client {
 
-    final int ClientPORT = 6000;
+    private Socket socket;
+
+    final int clientPort = 8888;
+    private final String server_ip = "192.168.0.51";
 
     private static Client instance;
 
-    private Client(){}
+    private Client(){
+        new Thread(new ClientThread()).start();
+    }
 
     public static synchronized Client getInstance(){
         if(instance == null){
             instance = new Client();
         }
         return instance;
+    }
+
+    public void sendImage(Bitmap imageToSend) {
+        Mat matrix = new Mat();
+        Utils.bitmapToMat(imageToSend, matrix);
+    }
+
+    class ClientThread implements Runnable {
+        @Override
+        public void run() {
+            try {
+                InetAddress serverAddr = InetAddress.getByName(server_ip);
+
+                socket = new Socket(serverAddr, clientPort);
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
 }
