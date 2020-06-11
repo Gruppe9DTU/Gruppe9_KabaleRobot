@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 public class CardTranslatorTest {
     private CardPlacement placement;
     private CardTranslator translator;
@@ -63,7 +66,10 @@ public class CardTranslatorTest {
         translator.insertCards(game);
 
         //AssertEqual expected Lists by reading from game
-        Assert.assertEquals(Arrays.asList(game.getFoundation()),foundationListExpected);
+        assertEquals(foundationListExpected.get(0),game.getFoundation()[0].peekCard());
+        assertEquals(foundationListExpected.get(1),game.getFoundation()[1].peekCard());
+        assertEquals(foundationListExpected.get(2),game.getFoundation()[2].peekCard());
+        assertEquals(foundationListExpected.get(3),game.getFoundation()[3].peekCard());
     }
 
     /**
