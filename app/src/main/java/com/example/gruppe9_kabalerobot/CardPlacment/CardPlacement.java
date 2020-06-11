@@ -196,7 +196,7 @@ public class CardPlacement  {
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj a, CardObj o2) {
-                return Integer.compare(a.x, o2.x);
+                return Integer.compare(a.getX(), o2.getX());
             }
         });
     }
@@ -209,7 +209,7 @@ public class CardPlacement  {
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj o1, CardObj o2) {
-                return Integer.compare(o1.y, o2.y);
+                return Integer.compare(o1.getY(), o2.getY());
             }
         });
 

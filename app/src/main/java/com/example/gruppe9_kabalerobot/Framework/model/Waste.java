@@ -39,6 +39,7 @@ public class Waste {
     }
 
     public void addToKnown(Card card) { knowncards.add(card); }
+    public void addListToKnown(List<Card> cards) { knowncards = cards; }
 
     public List<Card> getKnownCards() { return knowncards; }
 
