@@ -3,7 +3,6 @@ package com.example.gruppe9_kabalerobot.CardPlacement;
 import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -135,7 +134,7 @@ public class CardTranslatorTest {
         List<Card> tab1Exp = new ArrayList<>();
         tab1Exp.add(new Card(0, 10)); //10 of Hearts
         List<Card> tab2Exp = new ArrayList<>();
-        tab2Exp.add(new Card(0, 11)); //11 of Hearts
+        tab2Exp.add(new Card(0, 11)); //Jack of Hearts
         tab2Exp.add(new Card(1, 10)); //10 of Spades
         List<Card> tab3Exp = new ArrayList<>();
 
@@ -143,9 +142,9 @@ public class CardTranslatorTest {
         translator.insertCards(game);
 
         //AssertEqual expected Lists by reading from game
-        assertEquals(tab1Exp, Arrays.asList(game.getTableau()[1].getVisibleCards()));
-        assertEquals(tab2Exp, Arrays.asList(game.getTableau()[2].getVisibleCards()));
-        assertEquals(tab3Exp, Arrays.asList(game.getTableau()[3].getVisibleCards()));
+        assertEquals(tab1Exp.toString(), Arrays.asList(game.getTableau()[0].getVisibleCards()).toString());
+        assertEquals(tab2Exp.toString(), Arrays.asList(game.getTableau()[1].getVisibleCards()).toString());
+        assertEquals(tab3Exp.toString(), Arrays.asList(game.getTableau()[2].getVisibleCards()).toString());
     }
 
     /**
