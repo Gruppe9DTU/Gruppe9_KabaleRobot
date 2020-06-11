@@ -8,7 +8,8 @@ public class SolitaireController {
     }
 
     public String takeMove() {
-        GameLogic game = new GameLogic();
+        GameLogic game = new GameLogic(); //TODO Needs information
+
         MoveAlgorithm moveAlgo = new MoveAlgorithm(game);
         return moveAlgo.getBestMove(prevStates.getLatestSolutionToState(game.printGame()));
     }
