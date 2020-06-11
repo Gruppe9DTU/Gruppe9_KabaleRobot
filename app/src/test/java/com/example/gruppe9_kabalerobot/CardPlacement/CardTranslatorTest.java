@@ -26,17 +26,58 @@ public class CardTranslatorTest {
     }
 
     /**
-     * Only Waste are filled
+     * Only Waste for one card are filled
      */
     @Test
     public void insertCards101() {
-        //Insert cards into CardPlacement
+
         //Setup expected Lists
+        List<CardObj> wasteList = new ArrayList<>();
+        wasteList.add(new CardObj(0,0,10,0)); //10 of hearts
+
+        List<Card> wasteListExpected = new ArrayList<>();
+        wasteListExpected.add(new Card(0,10)); //10 of hearts
+
+        //Insert cards into CardPlacement
+        placement.setWaste(wasteList);
+
 
         //Translate cards
         translator.insertCards(game);
 
         //AssertEqual expected Lists by reading from game
+        assertEquals(wasteListExpected.get(0).toString(),game.getWaste().lookAtTop().toString());
+    }
+    /**
+     * Only Waste for multiple cards are filled
+     */
+    @Test
+    public void insertCards101Multiple() {
+
+        //Setup expected Lists
+        List<CardObj> wasteList = new ArrayList<>();
+        wasteList.add(new CardObj(0,0,10,0)); //10 of hearts
+        wasteList.add(new CardObj(0,0,9,1)); //9 of spades
+        wasteList.add(new CardObj(0,0,8,2)); //8 of diamonds
+        wasteList.add(new CardObj(0,0,7,3)); //7 of clubs
+
+        List<Card> wasteListExpected = new ArrayList<>();
+        wasteListExpected.add(new Card(0,10)); //10 of hearts
+        wasteListExpected.add(new Card(1,9)); //9 of spades
+        wasteListExpected.add(new Card(2,8)); //8 of diamonds
+        wasteListExpected.add(new Card(3,7)); //7 of clubs
+
+        //Insert cards into CardPlacement
+        placement.setWaste(wasteList);
+
+
+        //Translate cards
+        translator.insertCards(game);
+
+        //AssertEqual expected Lists by reading from game
+        assertEquals(wasteListExpected.toString(),game.getWaste().getKnownCards().toString());
+
+       // assertEquals(wasteListExpected.get(3).toString(),game.getWaste().lookAtTop().toString());
     }
 
     /**
@@ -66,10 +107,10 @@ public class CardTranslatorTest {
         translator.insertCards(game);
 
         //AssertEqual expected Lists by reading from game
-        assertEquals(foundationListExpected.get(0),game.getFoundation()[0].peekCard());
-        assertEquals(foundationListExpected.get(1),game.getFoundation()[1].peekCard());
-        assertEquals(foundationListExpected.get(2),game.getFoundation()[2].peekCard());
-        assertEquals(foundationListExpected.get(3),game.getFoundation()[3].peekCard());
+        assertEquals(foundationListExpected.get(0).toString(),game.getFoundation()[0].peekCard().toString());
+        assertEquals(foundationListExpected.get(1).toString(),game.getFoundation()[1].peekCard().toString());
+        assertEquals(foundationListExpected.get(2).toString(),game.getFoundation()[2].peekCard().toString());
+        assertEquals(foundationListExpected.get(3).toString(),game.getFoundation()[3].peekCard().toString());
     }
 
     /**
