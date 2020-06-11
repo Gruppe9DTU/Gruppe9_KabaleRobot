@@ -27,8 +27,8 @@ public class CardPlacmentTest {
         assertEquals(cardPlacement.waste.size(),1);
 
         //Winning stack
-        assertEquals(cardPlacement.foundation,winningCard);
-        assertEquals(cardPlacement.foundation.size(),3);
+        assertEquals(cardPlacement.foundations,winningCard);
+        assertEquals(cardPlacement.foundations.size(),3);
 
         //Stack 1
         assertEquals(cardPlacement.tableau1.get(0), coordinates.get(7));

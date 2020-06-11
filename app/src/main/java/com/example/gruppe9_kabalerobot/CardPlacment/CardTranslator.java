@@ -14,8 +14,16 @@ public class CardTranslator {
     }
 
     public void insertCards(GameLogic game) {
+        //Waste
         game.getWaste().addListToKnown(translateCardList(placement.getWaste()));
-
+        //Foundation
+        game.setFoundations(translateCardList(placement.getFoundations()));
+        //Tableau
+        List<List<Card>> transTableaus = new ArrayList<>();
+        for(ArrayList<CardObj> cardObj : placement.getTableaus()) {
+            transTableaus.add(translateCardList(cardObj));
+        }
+        game.setTableaus(placement.getHiddenCards(), transTableaus);
     }
 
     private List<Card> translateCardList(List<CardObj> cardObjs) {

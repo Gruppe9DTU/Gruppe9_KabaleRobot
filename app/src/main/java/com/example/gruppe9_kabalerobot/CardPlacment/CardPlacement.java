@@ -11,7 +11,8 @@ public class CardPlacement  {
 
     ArrayList<CardObj> coordinates = new ArrayList<>();
     ArrayList<CardObj> waste = new ArrayList<>();
-    ArrayList<CardObj> foundation = new ArrayList<>();
+    ArrayList<CardObj> foundations = new ArrayList<>();
+    ArrayList<Integer> hiddenCards = new ArrayList<>();
     ArrayList<CardObj> tableau1 = new ArrayList<>();    //TODO We are not getting hidden cards atm.
     ArrayList<CardObj> tableau2 = new ArrayList<>();
     ArrayList<CardObj> tableau3 = new ArrayList<>();
@@ -94,7 +95,7 @@ public class CardPlacement  {
     private void stacks(){
         ArrayList<CardObj> test = new ArrayList<>(coordinates);
         for (CardObj x: test ) {
-            if (waste.contains(x) || foundation.contains(x)) {
+            if (waste.contains(x) || foundations.contains(x)) {
                 coordinates.remove(x);
             }
         }
@@ -181,7 +182,7 @@ public class CardPlacement  {
         for (int i = 1; i < waste.size() ; i++) {
 
             if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
-                foundation.add(waste.get(i));
+                foundations.add(waste.get(i));
             }
         }
         waste.subList(1, waste.size()).clear();
@@ -214,6 +215,12 @@ public class CardPlacement  {
         });
 
     }
+
+    /**
+     * Getter for hiddencards
+     * @return the hiddencards
+     */
+    public ArrayList<Integer> getHiddenCards() { return hiddenCards; }
 
     /**
      * Getter for stack1
@@ -270,12 +277,25 @@ public class CardPlacement  {
     public ArrayList<CardObj> getTableau7() {
         return tableau7;
     }
+
+    public ArrayList<ArrayList<CardObj>> getTableaus() {
+        ArrayList<ArrayList<CardObj>> tableaus = new ArrayList<>();
+        tableaus.add(tableau1);
+        tableaus.add(tableau2);
+        tableaus.add(tableau3);
+        tableaus.add(tableau4);
+        tableaus.add(tableau5);
+        tableaus.add(tableau6);
+        tableaus.add(tableau7);
+        return tableaus;
+    }
+
     /**
      * Getter for winningStack
      * @return the winnngStack
      */
-    public ArrayList<CardObj> getFoundation() {
-        return foundation;
+    public ArrayList<CardObj> getFoundations() {
+        return foundations;
     }
 
     /**

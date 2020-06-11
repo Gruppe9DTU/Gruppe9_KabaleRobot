@@ -1,8 +1,12 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
 import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
 import com.example.gruppe9_kabalerobot.Framework.model.Waste;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameLogic {
     Waste waste;
@@ -53,9 +57,20 @@ public class GameLogic {
     public void setTableau(Tableau[] tableau){
         this.tableau = tableau;
     }
+    public void setTableaus(ArrayList<Integer> hiddenCards, List<List<Card>> transTableaus) {
+        for (int i = 0 ; i < 7 ; i++) {
+            tableau[i] = new Tableau(hiddenCards.get(i), transTableaus.get(i));
+        }
+    }
 
     public void setFoundation(Foundation[] foundation){
         this.foundation = foundation;
+    }
+
+    public void setFoundations(List<Card> cards) {
+        for(int i = 0 ; i < 4 ; i++) {
+            foundation[i] = new Foundation(cards.get(i));
+        }
     }
 
     public void setWaste(Waste waste) {
