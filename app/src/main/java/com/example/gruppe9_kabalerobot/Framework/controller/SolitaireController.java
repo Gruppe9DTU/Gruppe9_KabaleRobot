@@ -1,6 +1,6 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.CardPlacment.CardTranslator;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardTranslator;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
 
 public class SolitaireController {
@@ -15,6 +15,6 @@ public class SolitaireController {
         translator.insertCards(game);
 
         MoveAlgorithm moveAlgo = new MoveAlgorithm(game);
-        return moveAlgo.getBestMove(prevStates.getLatestSolutionToState(game.printGame()));
+        return moveAlgo.getBestMove(prevStates.getLatestSolutionToState(game.getGameState()));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 public class CardObj {
 

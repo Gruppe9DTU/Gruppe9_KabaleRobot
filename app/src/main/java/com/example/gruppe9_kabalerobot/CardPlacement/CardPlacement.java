@@ -1,25 +1,26 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class CardPlacement  {
 
     int semaphore1 = 0, semaphore2 = 0;
 
-    ArrayList<CardObj> coordinates = new ArrayList<>();
-    ArrayList<CardObj> waste = new ArrayList<>();
-    ArrayList<CardObj> foundations = new ArrayList<>();
-    ArrayList<Integer> hiddenCards = new ArrayList<>();
-    ArrayList<CardObj> tableau1 = new ArrayList<>();    //TODO We are not getting hidden cards atm.
-    ArrayList<CardObj> tableau2 = new ArrayList<>();
-    ArrayList<CardObj> tableau3 = new ArrayList<>();
-    ArrayList<CardObj> tableau4 = new ArrayList<>();
-    ArrayList<CardObj> tableau5 = new ArrayList<>();
-    ArrayList<CardObj> tableau6 = new ArrayList<>();
-    ArrayList<CardObj> tableau7 = new ArrayList<>();
+    List<CardObj> coordinates = new ArrayList<>();
+    List<CardObj> waste = new ArrayList<>();
+    List<CardObj> foundations = new ArrayList<>();
+    List<Integer> hiddenCards = new ArrayList<>();
+    List<CardObj> tableau1 = new ArrayList<>();    //TODO We are not getting hidden cards atm.
+    List<CardObj> tableau2 = new ArrayList<>();
+    List<CardObj> tableau3 = new ArrayList<>();
+    List<CardObj> tableau4 = new ArrayList<>();
+    List<CardObj> tableau5 = new ArrayList<>();
+    List<CardObj> tableau6 = new ArrayList<>();
+    List<CardObj> tableau7 = new ArrayList<>();
 
     /**
      * Method that sorts the cards
@@ -193,7 +194,7 @@ public class CardPlacement  {
      * Sort the arraylist for x
      * @param list the given list that i want to sort
      */
-    private void  compareX(ArrayList<CardObj> list){
+    private void  compareX(List<CardObj> list){
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj a, CardObj o2) {
@@ -206,7 +207,7 @@ public class CardPlacement  {
      * Sort the arraylist for y
      * @param list the given list that i want to sort
      */
-    private void compareY(ArrayList<CardObj> list ){
+    private void compareY(List<CardObj> list ){
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj o1, CardObj o2) {
@@ -220,66 +221,48 @@ public class CardPlacement  {
      * Getter for hiddencards
      * @return the hiddencards
      */
-    public ArrayList<Integer> getHiddenCards() { return hiddenCards; }
+    public List<Integer> getHiddenCards() { return hiddenCards; }
 
     /**
-     * Getter for stack1
-     * @return the stack1
+     * Getter and setters for tableaus
      */
-    public ArrayList<CardObj> getTableau1() {
+    public List<CardObj> getTableau1() {
         return tableau1;
     }
+    public void setTableau1(List<CardObj> cardObjs) { this.tableau1 = cardObjs; }
 
-    /**
-     * Getter for stack2
-     * @return the stack2
-     */
-    public ArrayList<CardObj> getTableau2() {
+    public List<CardObj> getTableau2() {
         return tableau2;
     }
+    public void setTableau2(List<CardObj> cardObjs) { this.tableau2 = cardObjs; }
 
-    /**
-     * Getter for stack3
-     * @return the stack3
-     */
-    public ArrayList<CardObj> getTableau3() {
+    public List<CardObj> getTableau3() {
         return tableau3;
     }
+    public void setTableau3(List<CardObj> cardObjs) { this.tableau3 = cardObjs; }
 
-    /**
-     * Getter for stack4
-     * @return the stack4
-     */
-    public ArrayList<CardObj> getTableau4() {
+    public List<CardObj> getTableau4() {
         return tableau4;
     }
+    public void setTableau4(List<CardObj> cardObjs) { this.tableau4 = cardObjs; }
 
-    /**
-     * Getter for stack5
-     * @return the stack5
-     */
-    public ArrayList<CardObj> getTableau5() {
+    public List<CardObj> getTableau5() {
         return tableau5;
     }
+    public void setTableau5(List<CardObj> cardObjs) { this.tableau5 = cardObjs; }
 
-    /**
-     * Getter for stack7
-     * @return the stack7
-     */
-    public ArrayList<CardObj> getTableau6() {
+    public List<CardObj> getTableau6() {
         return tableau6;
     }
+    public void setTableau6(List<CardObj> cardObjs) { this.tableau6 = cardObjs; }
 
-    /**
-     * Getter for stack6
-     * @return the stack6
-     */
-    public ArrayList<CardObj> getTableau7() {
+    public List<CardObj> getTableau7() {
         return tableau7;
     }
+    public void setTableau7(List<CardObj> cardObjs) { this.tableau7 = cardObjs; }
 
-    public ArrayList<ArrayList<CardObj>> getTableaus() {
-        ArrayList<ArrayList<CardObj>> tableaus = new ArrayList<>();
+    public ArrayList<List<CardObj>> getTableaus() {
+        ArrayList<List<CardObj>> tableaus = new ArrayList<>();
         tableaus.add(tableau1);
         tableaus.add(tableau2);
         tableaus.add(tableau3);
@@ -294,7 +277,7 @@ public class CardPlacement  {
      * Getter for winningStack
      * @return the winnngStack
      */
-    public ArrayList<CardObj> getFoundations() {
+    public List<CardObj> getFoundations() {
         return foundations;
     }
 
@@ -302,7 +285,7 @@ public class CardPlacement  {
      * Getter for extraCard
      * @return the extraCard
      */
-    public ArrayList<CardObj> getWaste() {
+    public List<CardObj> getWaste() {
         return waste;
     }
 }

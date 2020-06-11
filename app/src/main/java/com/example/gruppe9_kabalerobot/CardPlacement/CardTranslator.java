@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
@@ -20,7 +20,7 @@ public class CardTranslator {
         game.setFoundations(translateCardList(placement.getFoundations()));
         //Tableau
         List<List<Card>> transTableaus = new ArrayList<>();
-        for(ArrayList<CardObj> cardObj : placement.getTableaus()) {
+        for(List<CardObj> cardObj : placement.getTableaus()) {
             transTableaus.add(translateCardList(cardObj));
         }
         game.setTableaus(placement.getHiddenCards(), transTableaus);

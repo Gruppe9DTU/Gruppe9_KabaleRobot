@@ -78,12 +78,12 @@ public class MoveAlgorithmTest {
         game.setFoundation(foundations);
         game.setWaste(waste);
 
-        previousStatesContainer.addPreviousMove(new PreviousState(game.printGame(), 1)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
 
         MoveAlgorithm move = new MoveAlgorithm(game);
 
         assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.printGame())));
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -120,11 +120,11 @@ public class MoveAlgorithmTest {
         game.setWaste(waste);
 
         //add seven repeats of same outsome to ensure that every other possible move is skipped
-        previousStatesContainer.addPreviousMove(new PreviousState(game.printGame(), 8)); //Last possible move is the last possible suggested move
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 8)); //Last possible move is the last possible suggested move
 
         MoveAlgorithm move = new MoveAlgorithm(game);
 
-        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.printGame())));
+        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -158,13 +158,13 @@ public class MoveAlgorithmTest {
         game.setFoundation(foundations);
         game.setWaste(waste);
 
-        previousStatesContainer.addPreviousMove(new PreviousState(game.printGame(), 1)); //Have moved an ace from this position before
-        previousStatesContainer.addPreviousMove(new PreviousState(game.printGame(), 6)); //Previously moved a 10 to 11
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 6)); //Previously moved a 10 to 11
 
         MoveAlgorithm move = new MoveAlgorithm(game);
 
         assertEquals( "Vend et kort fra grundbunken"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.printGame())));
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**

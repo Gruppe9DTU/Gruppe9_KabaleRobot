@@ -19,7 +19,7 @@ public class GameLogic {
         foundation = new Foundation[4];
     }
 
-    public String printGame() {
+    public String getGameState() {
         //Waste
         String wasteNfoundation, shownWaste = "";
 //        for(Card c : waste.getKnownCards()) { shownWaste += c.shortString() + "|"; }
@@ -57,7 +57,7 @@ public class GameLogic {
     public void setTableau(Tableau[] tableau){
         this.tableau = tableau;
     }
-    public void setTableaus(ArrayList<Integer> hiddenCards, List<List<Card>> transTableaus) {
+    public void setTableaus(List<Integer> hiddenCards, List<List<Card>> transTableaus) {
         for (int i = 0 ; i < 7 ; i++) {
             tableau[i] = new Tableau(hiddenCards.get(i), transTableaus.get(i));
         }

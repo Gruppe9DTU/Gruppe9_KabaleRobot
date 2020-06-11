@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class CardPlacmentTest {
+public class CardPlacementTest {
 
     CardPlacement cardPlacement = new CardPlacement();
     ArrayList<CardObj> coordinates = new ArrayList<>();
