@@ -14,13 +14,20 @@ public class CardPlacement  {
     List<CardObj> waste = new ArrayList<>();
     List<CardObj> foundations = new ArrayList<>();
     List<Integer> hiddenCards = new ArrayList<>();
-    List<CardObj> tableau1 = new ArrayList<>();    //TODO We are not getting hidden cards atm.
+    List<CardObj> tableau1 = new ArrayList<>();
     List<CardObj> tableau2 = new ArrayList<>();
     List<CardObj> tableau3 = new ArrayList<>();
     List<CardObj> tableau4 = new ArrayList<>();
     List<CardObj> tableau5 = new ArrayList<>();
     List<CardObj> tableau6 = new ArrayList<>();
     List<CardObj> tableau7 = new ArrayList<>();
+
+    //TODO We are not getting hidden cards atm. This is a placeholder to avoid nullpointer
+    public CardPlacement() {
+        for(int i = 0 ; i < 7 ; i++) {
+            hiddenCards.add(0);
+        }
+    }
 
     /**
      * Method that sorts the cards
