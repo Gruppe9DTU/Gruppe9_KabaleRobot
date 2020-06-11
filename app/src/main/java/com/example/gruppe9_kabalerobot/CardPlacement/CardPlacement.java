@@ -274,18 +274,20 @@ public class CardPlacement  {
     }
 
     /**
-     * Getter for winningStack
-     * @return the winnngStack
+     * Getters and setters for foundations
      */
     public List<CardObj> getFoundations() {
         return foundations;
     }
 
+    public void setFoundations(List<CardObj> foundations) { this.foundations = foundations; }
+
     /**
-     * Getter for extraCard
-     * @return the extraCard
+     * Getters and setters for waste
      */
     public List<CardObj> getWaste() {
         return waste;
     }
+
+    public void setWaste(List<CardObj> waste) { this.waste = waste; }
 }
