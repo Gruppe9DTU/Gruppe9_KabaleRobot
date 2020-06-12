@@ -16,30 +16,21 @@ public class TableauTest {
         Deck game = new Deck();
         game.generateDeck();
         List<Card> deck = game.getDeck();
-        Tableau stack = new Tableau(6);
+        Tableau stack = new Tableau(6, null);
         stack.addCardToStack(deck.get(0));
         Card[] expected = {new Card(0,1)};
         assertEquals(expected[0].toString(), stack.getVisibleCards()[0].toString());
     }
 
     @Test
-    public void testRevealCard() {
-        Tableau stack = new Tableau(6);
-        Card card = new Card(0, 1);
-        stack.revealCard(card);
-        assertEquals(5, stack.countHiddenCards());
-        assertEquals("Ace of Hearts", stack.getVisibleCards()[0].toString());
-    }
-
-    @Test
     public void testIsEmpty() {
-        Tableau stack = new Tableau(0);
+        Tableau stack = new Tableau(0, null);
         assertTrue(stack.isEmpty());
     }
 
     @Test
     public void testAddCardToStack() {
-        Tableau stack = new Tableau(3);
+        Tableau stack = new Tableau(3, null);
         Card testcard1 = new Card(1, 2);
         Card testcard2 = new Card(0, 1);
         Card testcard3 = new Card(0, 3);

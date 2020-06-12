@@ -32,7 +32,7 @@ public class MoveAlgorithmTest {
         game = new GameLogic();
         tableaus = new Tableau[7];
         for(int i = 0 ; i < 7 ; i++){
-            tableaus[i] = new Tableau(0);
+            tableaus[i] = new Tableau(0, null);
         }
         game.setTableau(tableaus); //TODO move to GameLogic constructor?
         foundations = new Foundation[4];
@@ -168,26 +168,27 @@ public class MoveAlgorithmTest {
     }
 
     /**
-     * Test what ace is prioritised to go into the foundation
+     * Tests that Ace with more hidden cards behind it is prioritized over other Ace.
      */
     @Test
     public void testCheckAce101(){
-        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer(); //kan være tom da der ikke forvents nogle tidliger layouts
-        Card tableauCard = new Card(0,1); //ace of hearts
-        Card tableauCard2 = new Card(1,1); //ace of spades
+        Card distractionCard = new Card(0,1); //ace of hearts
+        Card wantedCard = new Card(1,1); //ace of spades
 
         tableaus[0].addCardToStack(new Card(1, 3)); //random card
 
+        tableaus[1] = new Tableau(2, null);
         tableaus[1].addCardToStack(new Card(1, 2)); //random card
-        tableaus[1].addCardToStack(tableauCard);
+        tableaus[1].addCardToStack(distractionCard);
 
         tableaus[2].addCardToStack(new Card(0, 3));
         tableaus[3].addCardToStack(new Card(1, 4)); //random card
         tableaus[4].addCardToStack(new Card(1, 6)); //random card
 
+        tableaus[5] = new Tableau(3, null);
         tableaus[5].addCardToStack(new Card(1, 3)); //random card
         tableaus[5].addCardToStack(new Card(0, 2)); //random card
-        tableaus[5].addCardToStack(tableauCard2);
+        tableaus[5].addCardToStack(wantedCard);
 
         tableaus[6].addCardToStack(new Card(1, 7)); //random card
 
@@ -200,7 +201,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Ryk " + tableauCard2.toString() + " til Foundation", algoritmCtrl.checkAce());
+        assertEquals("Ryk " + wantedCard.toString() + " til Foundation", algoritmCtrl.checkAce());
     }
 
     /**
@@ -726,7 +727,7 @@ public class MoveAlgorithmTest {
     public void testMoveToFoundation103() {
         Card tableauCard = new Card(0,11);
         tableaus[1].addCardToStack(tableauCard);
-        tableaus[2] = new Tableau(3);
+        tableaus[2] = new Tableau(3, null);
         tableaus[2].addCardToStack(new Card(3, 13));
 
         for(int i = 1 ; i < 10 ; i++) {
@@ -971,9 +972,9 @@ public class MoveAlgorithmTest {
 
     @Test
     public void testRevealHiddenCard() {
-        tableaus[1] = new Tableau(3);
+        tableaus[1] = new Tableau(3, null);
         tableaus[1].addCardToStack(new Card(0, 4));
-        tableaus[2] = new Tableau(2);
+        tableaus[2] = new Tableau(2, null);
 
         game.setWaste(new Waste(null, true));
 

@@ -23,6 +23,7 @@ public class MoveAlgorithm {
         this.foundations = Arrays.asList(game.getFoundation()); //Get list of foundations
         this.waste = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
         this.wastePile = game.getWaste().getPileStatus();       //Get if there is a wastepile to draw from or not
+        Collections.sort(tableaus,Tableau.HiddenCardsCompare);  //Sort the cards after how many hidden cards is in the tableau
     }
 
     public String getBestMove(PreviousState preState) {
@@ -89,7 +90,7 @@ public class MoveAlgorithm {
      * @return Instructions to Player
      */
     public String checkAce() {
-        Collections.sort(tableaus,Tableau.AllCardsCompare); //TODO Why not just hidden cards?
+
 
         for (Tableau tableau : tableaus) {
             Card[] visibleCards = tableau.getVisibleCards();
@@ -312,7 +313,7 @@ public class MoveAlgorithm {
     private boolean checkForMoveableCardFromValue(int value) {
         boolean result = false;
         for (Tableau tableau : tableaus) {
-            result = tableau.searchMoveableCardByValue(value) && !(value == 13 && tableau.countHiddenCards() == 0); //True if card found and it isn't a King on an empty space
+            result = tableau.searchForMoveableCardByValue(value) && !(value == 13 && tableau.countHiddenCards() == 0); //True if card found and it isn't a King on an empty space
             if (result) break;
         }
         return result || waste != null && (waste.getValue() == value); //returns true if found in tableau or in waste
@@ -328,7 +329,7 @@ public class MoveAlgorithm {
     private boolean checkForMoveableCardFromSuitAndValue(int suit, int value) {
         boolean result = false;
         for (Tableau tableau : tableaus) {
-            result = tableau.searchMoveableCardBySuitAndValue(suit, value);
+            result = tableau.searchForMoveableCardBySuitAndValue(suit, value);
             if (result) break;
         }
         return result || waste != null && (waste.getSuit() == suit && waste.getValue() == value); //returns true if found in tableau or in waste
