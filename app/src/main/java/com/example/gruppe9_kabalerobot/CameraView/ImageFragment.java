@@ -64,9 +64,16 @@ public class ImageFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        loadingDialog.dismiss();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         getActivity().getSupportFragmentManager().popBackStack();
+        loadingDialog.dismiss();
     }
 
     //endregion
