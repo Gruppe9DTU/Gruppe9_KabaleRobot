@@ -45,14 +45,15 @@ public class Foundation {
      *
      * @return  Card instance of the top card
      */
-    public Card peekCard() { return cards.get(cards.size()-1); }
+    public Card peekCard() { return cards.size() > 0 ? cards.get(cards.size()-1) : null; }
 
     /**
-     * Returns the amount of cards in the pile, according to the top card.
+     * Returns the amount of cards in the pile, from the value of the top card.
+     * This gives the correct value, for a proper played game, even if only the top card is added.
      *
      * @return  Amount of cards in foundation
      */
-    public int countCards() { return peekCard().getValue(); }
+    public int countCards() { return peekCard() != null ? peekCard().getValue() : 0; }
 
     /**
      * Looks if the top card is an ace, if so marks it as complete.
