@@ -4,8 +4,8 @@ package com.example.gruppe9_kabalerobot.Framework.model;
  * Class to act as a playing card from a normal deck of cards
  */
 public class Card {
-    private int suit;
-    private int value;
+    private int suit;   //What suit that card is: Heart, spade, etc.
+    private int value;  //What value it has, from ace to king (1-13)
 
     /***
      * Constructor for the Card object. A playing card.
