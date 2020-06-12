@@ -22,7 +22,7 @@ public class MoveAlgorithm {
         this.tableaus = Arrays.asList(game.getTableau());       //Get list of tableau
         this.foundations = Arrays.asList(game.getFoundation()); //Get list of foundations
         this.waste = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
-        this.wastePile = game.getWaste().getPileStatus();       //Get if there is a wastepile to draw from or not
+        this.wastePile = game.getWaste().isWastePilePresent();       //Get if there is a wastepile to draw from or not
         Collections.sort(tableaus,Tableau.HiddenCardsCompare);  //Sort the cards after how many hidden cards is in the tableau
     }
 

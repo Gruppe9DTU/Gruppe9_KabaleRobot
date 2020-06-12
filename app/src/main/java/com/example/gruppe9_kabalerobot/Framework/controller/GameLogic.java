@@ -14,7 +14,7 @@ public class GameLogic {
     Foundation[] foundation;
 
     public GameLogic() {
-        waste = new Waste(null, false);
+        waste = new Waste(false, null);
         tableau = new Tableau[7];
         foundation = new Foundation[4];
     }
@@ -31,7 +31,8 @@ public class GameLogic {
         for(int i = 0 ; i < foundation.length ; i++){
             foundationString += foundation[i].countCards() > 0 ? foundation[i].peekCard().shortString()+ " " : "Emp ";
         }
-        wasteNfoundation = waste.wasteSize() + "|"+ shownWaste + "     " + foundationString;
+        wasteNfoundation = waste.isWastePilePresent() ? "W" : "Emp";
+        wasteNfoundation += "|"+ shownWaste + "     " + foundationString;
         System.out.println(wasteNfoundation);
         //Tableau
         String tableauLengths = "";
