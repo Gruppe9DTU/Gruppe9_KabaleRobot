@@ -1,5 +1,8 @@
 package com.example.gruppe9_kabalerobot.Framework.model;
 
+/**
+ * Class to act as a playing card from a normal deck of cards
+ */
 public class Card {
     private int suit;
     private int value;
@@ -18,19 +21,11 @@ public class Card {
     /**
      * Getters and Setters for Card class
      */
-    public int getSuit() {
-        return this.suit;
-    }
-    public void setSuit(int suit) {
-        this.suit = suit;
-    }
+    public int getSuit() { return this.suit; }
+    public void setSuit(int suit) { this.suit = suit; }
 
-    public int getValue() {
-        return this.value;
-    }
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public int getValue() { return this.value; }
+    public void setValue(int value) { this.value = value; }
 
     /***
      * A method to get the suit in string form

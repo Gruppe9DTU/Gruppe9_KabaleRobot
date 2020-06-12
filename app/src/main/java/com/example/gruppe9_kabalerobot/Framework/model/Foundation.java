@@ -3,6 +3,9 @@ package com.example.gruppe9_kabalerobot.Framework.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to act as a Foundation of a game of Solitaire. Foundation is where cards are collected to win the game
+ */
 public class Foundation {
     private List<Card> cards = new ArrayList<>();
 
