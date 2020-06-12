@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Foundation {
-    private List<Card> cards = new ArrayList<Card>();
+    private List<Card> cards = new ArrayList<>();
 
     public Foundation() {} //Default constructor
     public Foundation(Card card) { cards.add(card); } //Constructor with top card
 
+    /**
+     * Adds a card to the top of the Foundation, if it is able to.
+     *
+     * @param card  Card instance to be added
+     */
     public void addCard(Card card) {
-        if (cards.size() > 0) {
+        if (cards.size() > 0) { //If there are cards in the Foundation
             Card lastcard = peekCard();
             if(card.getSuit() != lastcard.getSuit() || card.getValue() != (lastcard.getValue() + 1))
                 System.out.println("Cannot add card to deck");
             else
                 cards.add(card);
         }
-        else {
+        else { //If it is the first card in the Foundation
             if(card.getValue() != 1)
                 System.out.println("Cannot add non-aces to empty foundation");
             else
@@ -25,21 +30,31 @@ public class Foundation {
         }
     }
 
+    /**
+     * Takes the card from the top of the foundation
+     *
+     * @return  Card instance to be removed from Foundation
+     */
     public Card takeCard() { return cards.remove(cards.size()-1); }
 
-    public Card peekCard() {
-            return cards.get(cards.size()-1);
-    }
+    /**
+     * Returns the card on the top of the foundation
+     *
+     * @return  Card instance of the top card
+     */
+    public Card peekCard() { return cards.get(cards.size()-1); }
 
-    public int countCards() { return cards.size(); }
+    /**
+     * Returns the amount of cards in the pile, according to the top card.
+     *
+     * @return  Amount of cards in foundation
+     */
+    public int countCards() { return peekCard().getValue(); }
 
-    public Boolean isComplete() {
-        Card lastcard = peekCard();
-        if (lastcard.getValue() == 13 && countCards() == 13)
-            return true;
-        else
-            return false;
-    }
-
-
+    /**
+     * Looks if the top card is an ace, if so marks it as complete.
+     *
+     * @return True if foundation is complete, else false
+     */
+    public Boolean isComplete() { return peekCard().getValue() == 13 && countCards() == 13; }
 }

@@ -42,6 +42,8 @@ public class MoveAlgorithm {
         String bestMove;
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
 
+            //TODO Check for if game is completed?
+
             case 1:
                 bestMove = checkAce();
                 if (!bestMove.equals("")) break;

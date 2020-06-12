@@ -15,10 +15,12 @@ public class Card {
         this.value = value;
     }
 
+    /**
+     * Getters and Setters for Card class
+     */
     public int getSuit() {
         return this.suit;
     }
-
     public void setSuit(int suit) {
         this.suit = suit;
     }
@@ -26,7 +28,6 @@ public class Card {
     public int getValue() {
         return this.value;
     }
-
     public void setValue(int value) {
         this.value = value;
     }
@@ -34,7 +35,7 @@ public class Card {
     /***
      * A method to get the suit in string form
      *
-     * @return A string explaining the suit, depending on the value of the int
+     * @return A string explaining the suit, depending on the value of Card.suit
      */
     public String readSuit() {
         switch(suit) {
@@ -54,7 +55,7 @@ public class Card {
     /***
      * A method to convert a card to a string
      *
-     * @return A string explaining the card
+     * @return Full description of the card
      */
     public String toString() {
         switch(value){
@@ -73,7 +74,8 @@ public class Card {
 
     /**
      * A method to give a short print of the card
-     * @return
+     *
+     * @return  Short description of the card
      */
     public String shortString() {
         switch (value) {
