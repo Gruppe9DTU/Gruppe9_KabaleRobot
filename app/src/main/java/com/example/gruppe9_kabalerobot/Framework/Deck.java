@@ -1,10 +1,12 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//TODO Denne klasse skal nok slettes før vi aflevere siden den ikke er relevant for programmet.
+//TODO Bliver brugt af tests, kan dette undgås så klassen kan slettes?
 public class Deck {
     List<Card> deck = new ArrayList<Card>();
 

@@ -1,5 +1,8 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;

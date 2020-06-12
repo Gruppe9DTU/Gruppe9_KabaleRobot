@@ -1,10 +1,13 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Foundation {
     private List<Card> cards = new ArrayList<Card>();
+
+    public Foundation() {} //Default constructor
+    public Foundation(Card card) { cards.add(card); } //Constructor with top card
 
     public void addCard(Card card) {
         if (cards.size() > 0) {

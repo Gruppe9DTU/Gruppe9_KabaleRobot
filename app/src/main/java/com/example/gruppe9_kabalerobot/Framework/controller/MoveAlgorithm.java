@@ -1,21 +1,28 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
+
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
+import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MoveAlgoritm {
-
+//TODO Response to user is in either danish or english, choose a language and go with it.
+public class MoveAlgorithm {
     private List<Tableau> tableaus;
     private List<Foundation> foundations;
     private Card waste;
     private boolean wastePile;
 
-    public MoveAlgoritm(List<Tableau> tableaus, List<Foundation> foundations, Card waste, boolean wastePile) {
-        this.tableaus = tableaus;
-        this.foundations = foundations;
-        this.waste = waste;
-        this.wastePile = wastePile;
+    public MoveAlgorithm(GameLogic game) {
+        //TODO Decide on Lists vs arrays
+        this.tableaus = Arrays.asList(game.getTableau());       //Get list of tableau
+        this.foundations = Arrays.asList(game.getFoundation()); //Get list of foundations
+        this.waste = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
+        this.wastePile = game.getWaste().getPileStatus();       //Get if there is a wastepile to draw from or not
     }
 
     public String getBestMove(PreviousState preState) {
