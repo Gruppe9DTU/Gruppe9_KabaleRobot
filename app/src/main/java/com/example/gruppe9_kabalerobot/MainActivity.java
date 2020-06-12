@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
 
-       // Client c = Client.getInstance();
+        Client c = Client.getInstance(); //TODO This is here for testing purposes
 
         startCamera = findViewById(R.id.startCamera);
 

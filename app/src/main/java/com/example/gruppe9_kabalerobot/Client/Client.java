@@ -13,7 +13,7 @@ public class Client {
 
     private Socket socket;
 
-    final int clientPort = 8888;
+    final int serverPort = 8888;
     private final String server_ip = "192.168.0.51";
 
     private static Client instance;
@@ -39,8 +39,7 @@ public class Client {
         public void run() {
             try {
                 InetAddress serverAddr = InetAddress.getByName(server_ip);
-
-                socket = new Socket(serverAddr, clientPort);
+                socket = new Socket(serverAddr, serverPort);
 
             } catch (IOException e1) {
                 e1.printStackTrace();
