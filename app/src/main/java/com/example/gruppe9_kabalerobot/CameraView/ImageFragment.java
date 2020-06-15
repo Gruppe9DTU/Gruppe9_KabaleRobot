@@ -49,8 +49,6 @@ public class ImageFragment extends Fragment {
         haarcascade = new Haarcascade(getActivity());
 
         // Set imageview to the picture you have taken
-        System.out.println("Height: "+bitmap.getHeight()+" Width: "+bitmap.getWidth()+" Size: "+ (bitmap.getRowBytes() * bitmap.getHeight()) / 1024 +" memo size: "+BitmapCompat.getAllocationByteCount(bitmap));
-        Client.getInstance(bitmap); //TODO This is here for testing purposes
 
         imageView.setImageBitmap(bitmap);
 
@@ -95,7 +93,9 @@ public class ImageFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            cascadeResult = haarcascade.runCardRecognition(bitmap);
+            Client c = Client.getInstance();
+
+            c.sendImage(bitmap);
 
             return null;
         }
@@ -103,13 +103,6 @@ public class ImageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            try {
-                getActivity().runOnUiThread(() -> imageView.setImageBitmap(cascadeResult));
-            }
-            catch (NullPointerException e){
-                System.out.println("WARNING!: runOnUIThread encounted Nullpointer at: " + e.getMessage());
-            }
 
             loadingDialog.dismiss();
         }
