@@ -12,8 +12,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.BitmapCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.gruppe9_kabalerobot.Client.Client;
 import com.example.gruppe9_kabalerobot.Haarcascade.Haarcascade;
 import com.example.gruppe9_kabalerobot.R;
 
@@ -47,6 +49,8 @@ public class ImageFragment extends Fragment {
         haarcascade = new Haarcascade(getActivity());
 
         // Set imageview to the picture you have taken
+        System.out.println("Height: "+bitmap.getHeight()+" Width: "+bitmap.getWidth()+" Size: "+ (bitmap.getRowBytes() * bitmap.getHeight()) / 1024 +" memo size: "+BitmapCompat.getAllocationByteCount(bitmap));
+        Client.getInstance(bitmap); //TODO This is here for testing purposes
 
         imageView.setImageBitmap(bitmap);
 
