@@ -8,17 +8,26 @@ import com.example.gruppe9_kabalerobot.Framework.model.Waste;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLogic {
+public class SolitarieLogic {
     Waste waste;
     Tableau[] tableau;
     Foundation[] foundation;
 
-    public GameLogic() {
+    /**
+     * Constructor for the controller
+     */
+    public SolitarieLogic() {
         waste = new Waste(false, null);
         tableau = new Tableau[7];
+        for(int i = 0 ; i < 7 ; i++){
+            tableau[i] = new Tableau(0, null);
+        }
         foundation = new Foundation[4];
     }
 
+    /**
+     * A printet version of the current game state
+     */
     public String getGameState() {
         //Waste
         String wasteNfoundation, shownWaste = "";
@@ -45,19 +54,7 @@ public class GameLogic {
         return (tableauLengths + "\n" + tableauValues);
     }
 
-    public Tableau[] getTableau() {
-        return tableau;
-    }
-
-    public Foundation[] getFoundation() {
-        return foundation;
-    }
-
-    public Waste getWaste() { return waste; }
-
-    public void setTableau(Tableau[] tableau){
-        this.tableau = tableau;
-    }
+    public Tableau[] getTableau() { return tableau; }
     public void setTableaus(List<Integer> hiddenCards, List<List<Card>> transTableaus) {
         for (int i = 0 ; i < 7 ; i++) {
             if(!transTableaus.isEmpty())
@@ -65,10 +62,7 @@ public class GameLogic {
         }
     }
 
-    public void setFoundation(Foundation[] foundation){
-        this.foundation = foundation;
-    }
-
+    public Foundation[] getFoundation() { return foundation; }
     public void setFoundations(List<Card> cards) {
         for(int i = 0 ; i < 4 ; i++) {
             if(!cards.isEmpty())
@@ -76,7 +70,16 @@ public class GameLogic {
         }
     }
 
+    public Waste getWaste() { return waste; }
     public void setWaste(Waste waste) {
         this.waste = waste;
+    }
+
+    /**
+     * Used for tests, to easily set the tableau
+     * @param foundation
+     */
+    public void setFoundation(Foundation[] foundation){
+        this.foundation = foundation;
     }
 }

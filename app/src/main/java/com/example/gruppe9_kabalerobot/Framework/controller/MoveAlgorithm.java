@@ -10,15 +10,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-//TODO Response to user is in either danish or english, choose a language and go with it.
 public class MoveAlgorithm {
     private List<Tableau> tableaus;
     private List<Foundation> foundations;
     private Card waste;
     private boolean wastePile;
 
-    public MoveAlgorithm(GameLogic game) {
-        //TODO Decide on Lists vs arrays
+    /**
+     * Constructor for the move Algorithm
+     *
+     * @param game  The current game
+     */
+    public MoveAlgorithm(SolitarieLogic game) {
         this.tableaus = Arrays.asList(game.getTableau());       //Get list of tableau
         this.foundations = Arrays.asList(game.getFoundation()); //Get list of foundations
         this.waste = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
@@ -26,6 +29,12 @@ public class MoveAlgorithm {
         Collections.sort(tableaus,Tableau.HiddenCardsCompare);  //Sort the cards after how many hidden cards is in the tableau
     }
 
+    /**
+     * Method to get the best move for the user
+     *
+     * @param preState  The current state of the game
+     * @return          Instructions for the user
+     */
     public String getBestMove(PreviousState preState) {
         int latestMove;
         String bestMove;
@@ -34,16 +43,17 @@ public class MoveAlgorithm {
         if(preState == null) latestMove = 0;
         else latestMove = preState.getMove();
 
-        bestMove = moveChecker(latestMove);
+        bestMove = moveChoicer(latestMove);
 
         return bestMove;
     }
 
-    private String moveChecker(int latestMove) {
+    /**
+     * Chooses the move to be instructed to the user, by selecting the first viable move possible
+     */
+    private String moveChoicer(int latestMove) {
         String bestMove;
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
-
-            //TODO Check for if game is completed?
 
             case 1:
                 bestMove = checkAce();
@@ -230,7 +240,6 @@ public class MoveAlgorithm {
      * @return Instructions to player
      */
     public String foundationToTableau() {
-        //TODO Should this be sorted?
         for (Foundation foundation : foundations) {
             if (foundation.countCards() > 0) {  //If there is a card in the foundation
                 Card foundationCard = foundation.peekCard(); //Set current possible card
@@ -410,7 +419,5 @@ public class MoveAlgorithm {
      *
      * @return Instructions to player
      */
-    public String revealCardFromWaste() {
-        return wastePile ? "Vend et kort fra grundbunken" : "";
-    }
+    public String revealCardFromWaste() { return wastePile ? "Vend et kort fra grundbunken" : ""; }
 }

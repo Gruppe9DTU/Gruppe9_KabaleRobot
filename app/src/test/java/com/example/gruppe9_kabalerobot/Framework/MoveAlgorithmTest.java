@@ -1,6 +1,6 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
-import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
+import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
 import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class MoveAlgorithmTest {
-    private GameLogic game;
+    private SolitarieLogic game;
     private MoveAlgorithm algoritmCtrl;
     private Tableau[] tableaus;
     private Foundation[] foundations;
@@ -29,12 +29,8 @@ public class MoveAlgorithmTest {
      */
     @Before
     public void setup() {
-        game = new GameLogic();
-        tableaus = new Tableau[7];
-        for(int i = 0 ; i < 7 ; i++){
-            tableaus[i] = new Tableau(0, null);
-        }
-        game.setTableau(tableaus); //TODO move to GameLogic constructor?
+        game = new SolitarieLogic();
+        tableaus = game.getTableau();
         foundations = new Foundation[4];
         for(int i = 0 ; i < 4 ; i++){
             foundations[i] = new Foundation();
@@ -74,7 +70,6 @@ public class MoveAlgorithmTest {
         wasteCards.add(new Card(0, 8));
         Waste waste = new Waste(true, wasteCards);
 
-        game.setTableau(tableaus);
         game.setFoundation(foundations);
         game.setWaste(waste);
 
@@ -115,7 +110,6 @@ public class MoveAlgorithmTest {
         wasteCards.add(new Card(0, 8));
         Waste waste = new Waste(true, wasteCards);
 
-        game.setTableau(tableaus);
         game.setFoundation(foundations);
         game.setWaste(waste);
 
@@ -154,7 +148,6 @@ public class MoveAlgorithmTest {
         wasteCards.add(new Card(0, 11));
         Waste waste = new Waste(true, wasteCards);
 
-        game.setTableau(tableaus);
         game.setFoundation(foundations);
         game.setWaste(waste);
 

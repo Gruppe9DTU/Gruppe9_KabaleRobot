@@ -11,7 +11,7 @@ public class SolitaireController {
     }
 
     public String takeMove(CardTranslator translator) {
-        GameLogic game = new GameLogic(); //TODO Needs information
+        SolitarieLogic game = new SolitarieLogic();
         translator.insertCards(game);
 
         MoveAlgorithm moveAlgo = new MoveAlgorithm(game);
