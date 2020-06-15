@@ -27,6 +27,7 @@ public class ImageFragment extends Fragment {
     private Bitmap bitmap, cascadeResult;
     private Haarcascade haarcascade;
     private ProgressDialog loadingDialog;
+    private Client c = Client.getInstance();
 
     //endregion
 
@@ -92,8 +93,6 @@ public class ImageFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-            Client c = Client.getInstance();
 
             c.sendImage(bitmap);
 
