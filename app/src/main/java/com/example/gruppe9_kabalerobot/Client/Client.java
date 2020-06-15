@@ -20,7 +20,7 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 9999;
+    private final int serverPort = 7777;
     private final String server_ip = "192.168.0.27";
 
     private static Client instance;
