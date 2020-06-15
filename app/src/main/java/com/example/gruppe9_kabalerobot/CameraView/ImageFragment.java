@@ -97,6 +97,10 @@ public class ImageFragment extends Fragment {
 
             c.sendImage(bitmap);
 
+            c.recieveData();
+
+            c.closeAllStreams();
+
             return null;
         }
 
