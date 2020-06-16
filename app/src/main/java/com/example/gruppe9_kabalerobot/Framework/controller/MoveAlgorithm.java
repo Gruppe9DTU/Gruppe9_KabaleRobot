@@ -15,6 +15,7 @@ public class MoveAlgorithm {
     private List<Foundation> foundations;
     private Card waste;
     private boolean wastePile;
+    private int moveChosen;
 
     /**
      * Constructor for the move Algorithm
@@ -39,7 +40,7 @@ public class MoveAlgorithm {
         int latestMove;
         String bestMove;
 
-        //Gets latest move done
+        //Gets latest move done for position
         if(preState == null) latestMove = 0;
         else latestMove = preState.getMove();
 
@@ -51,41 +52,66 @@ public class MoveAlgorithm {
     /**
      * Chooses the move to be instructed to the user, by selecting the first viable move possible
      */
-    private String moveChoicer(int latestMove) {
+    private String moveChoicer(int latestMove) { //FixMe Change name to MoveChooser, just me being a fucktard at spelling. FixMe since I have to fix diagrams at the same time.
         String bestMove;
+
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
 
             case 1:
                 bestMove = checkAce();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 1;
+                    break;
+                }
 
             case 2:
                 bestMove = kingCheck();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 2;
+                    break;
+                }
 
             case 3:
                 bestMove = revealHiddenCard();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 3;
+                    break;
+                }
 
             case 4:
                 bestMove = moveTableau();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 4;
+                    break;
+                }
 
             case 5:
                 bestMove = moveToFoundation();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 5;
+                    break;
+                }
 
             case 6:
                 bestMove = typeStreak();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 6;
+                    break;
+                }
 
             case 7:
                 bestMove = foundationToTableau();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 7;
+                    break;
+                }
 
             case 8:
                 bestMove = revealCardFromWaste();
-                if (!bestMove.equals("")) break;
+                if (!bestMove.equals("")) {
+                    moveChosen = 8;
+                    break;
+                }
 
             default:
                 if(latestMove == 1) bestMove = "Intet træk blev fundet for nuværende spil";
@@ -420,4 +446,13 @@ public class MoveAlgorithm {
      * @return Instructions to player
      */
     public String revealCardFromWaste() { return wastePile ? "Vend et kort fra grundbunken" : ""; }
+
+    /**
+     * Getter for move chosen
+     *
+     * @return  Priority of latest move chosen by the moveChooser method
+     */
+    public int getMoveChosen() {
+        return moveChosen;
+    }
 }
