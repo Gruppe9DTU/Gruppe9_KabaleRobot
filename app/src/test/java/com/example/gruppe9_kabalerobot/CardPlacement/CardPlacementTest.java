@@ -46,7 +46,7 @@ public class CardPlacementTest {
         //Stack 4
         assertEquals(cardPlacement.tableau4.get(0),coordinates.get(10));
         assertEquals(cardPlacement.tableau4.get(1),coordinates.get(2));
-        assertEquals(cardPlacement.tableau4.get(2),coordinates.get(11));
+        assertEquals(cardPlacement.getTableau4().get(2),coordinates.get(11));
         assertEquals(cardPlacement.tableau4.get(3),coordinates.get(9));
         assertEquals(cardPlacement.tableau4.size(),4);
 

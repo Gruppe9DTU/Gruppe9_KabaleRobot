@@ -103,11 +103,11 @@ public class MoveAlgorithm {
 
 
         for (Tableau tableau : tableaus) {
-            Card[] visibleCards = tableau.getVisibleCards();
+            List<Card> visibleCards = tableau.getVisibleCards();
 
             //Check if first visible card in tableau is es
-            if(visibleCards.length > 0) {
-                Card card = visibleCards[visibleCards.length - 1];
+            if(visibleCards.size() > 0) {
+                Card card = visibleCards.get(visibleCards.size() - 1);
 
                 if (card.getValue() == 1) {
                     return "Ryk " + card.toString() + " til Foundation";
@@ -132,8 +132,8 @@ public class MoveAlgorithm {
         for (Tableau tableau : tableaus) {
             if (tableau.isEmpty()) {
                 emptySpaces++;
-            } else if (tableau.getVisibleCards().length > 0) {//Check if first card is king
-                Card card = tableau.getVisibleCards()[0];
+            } else if (tableau.getVisibleCards().size() > 0) {//Check if first card is king
+                Card card = tableau.getVisibleCards().get(0);
 
                 if (card.getValue() == 13 && tableau.countHiddenCards() != 0) {
                     kingsAvailable.add(card);
@@ -156,8 +156,8 @@ public class MoveAlgorithm {
                     for (Tableau tab : tableaus) {
 
                         //There are cards to check
-                        if (tab.getVisibleCards().length > 0) {
-                            Card backCard = tab.getVisibleCards()[0]; //Take card from the back of the stack
+                        if (tab.getVisibleCards().size() > 0) {
+                            Card backCard = tab.getVisibleCards().get(0); //Take card from the back of the stack
 
                             //Is the card we're looking for
                             if (backCard.getValue() == currSearchValue && tab.countHiddenCards() > currMostFreedCards) {
@@ -226,7 +226,7 @@ public class MoveAlgorithm {
      */
     public String revealHiddenCard() {
         for (Tableau tableau : tableaus) {
-            if (tableau.getVisibleCards() == null || tableau.getVisibleCards().length == 0
+            if (tableau.getVisibleCards() == null || tableau.getVisibleCards().size() == 0
                     && tableau.countHiddenCards() > 0) {
                 return "Turn over a card from the tableau with the highest amount of hidden cards";
             }
@@ -245,25 +245,25 @@ public class MoveAlgorithm {
                 Card foundationCard = foundation.peekCard(); //Set current possible card
 
                 for (Tableau tableau : tableaus) {
-                    Card[] tableauCards = tableau.getVisibleCards();
+                    List<Card> tableauCards = tableau.getVisibleCards();
                     //Check if possible to place card
-                    if (tableauCards.length != 0 &&
-                            tableauCards[tableauCards.length - 1].getValue() - 1 == foundationCard.getValue()
-                            && tableauCards[tableauCards.length - 1].getSuit() % 2 != foundationCard.getSuit() % 2) { //Check if possible to move card from foundation to tableau
+                    if (tableauCards.size() != 0 &&
+                            tableauCards.get(tableauCards.size() - 1).getValue() - 1 == foundationCard.getValue()
+                            && tableauCards.get(tableauCards.size() - 1).getSuit() % 2 != foundationCard.getSuit() % 2) { //Check if possible to move card from foundation to tableau
                         //Check if it opens up possibilities
                         //First check tableaus
                         for (Tableau otherTableau : tableaus) {
                             if (tableau != otherTableau) {
                                 for (Card card : otherTableau.getVisibleCards()) {
                                     if (card.getValue() == foundationCard.getValue() - 1 && card.getSuit() % 2 != foundationCard.getSuit() % 2) {
-                                        return "Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCards[tableauCards.length - 1].toString();
+                                        return "Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCards.get(tableauCards.size() - 1).toString();
                                     }
                                 }
                             }
                         }
                         //Then check waste
                         if (waste != null && waste.getValue() == foundationCard.getValue() - 1 && waste.getSuit() % 2 != foundationCard.getSuit() % 2) {
-                            return "Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCards[tableauCards.length - 1].toString();
+                            return "Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCards.get(tableauCards.size() - 1).toString();
                         }
                     }
                 }
@@ -291,7 +291,7 @@ public class MoveAlgorithm {
                             card.getSuit() == foundation.peekCard().getSuit()) {
 
                         //If creating empty space, controls King is there to replace or next card in foundation is able to be put up aswell
-                        if (tableau.getVisibleCards().length - 1 != 0 || tableau.countHiddenCards() != 0 || //Is card left behind
+                        if (tableau.getVisibleCards().size() - 1 != 0 || tableau.countHiddenCards() != 0 || //Is card left behind
                                 checkForMoveableCardFromValue(13) || //Is there a king to take the space
                                 checkForMoveableCardFromSuitAndValue(card.getSuit(), card.getValue() + 1)) { //Is the card needed for another card
                             return "Move " + card.toString() + " to it's respective foundation";
@@ -350,7 +350,7 @@ public class MoveAlgorithm {
      * @return Instructions for player
      */
     public String moveTableau() {
-        Card[] cards, cards2;
+        List<Card> cards, cards2;
         String move = "";
 
         for (Tableau tableau : tableaus) {
@@ -359,11 +359,11 @@ public class MoveAlgorithm {
                 cards2 = tableau2.getVisibleCards();
 
                 //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                if (cards.length - 1 >= 0 && cards2.length - 1 >= 0) {
+                if (cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
                     //Hvis der er mere end ét kort tilstæde i byggestablen og det nederste kort passer på det øverste kort i en anden byggestabel, ryk alle de synlige kort fra byggestablen over til den anden byggestabel
-                    if (cards.length - 1 != 0 && cards[0].getValue() == cards2[cards2.length - 1].getValue() - 1 && cards[0].getSuit() % 2 != cards2[cards2.length - 1].getSuit() % 2) {
-                        move = "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards[0] + " og placer dem på " + cards2[cards2.length - 1].toString();
-                        if (cards2.length - 2 >= 0 && cards[0].getSuit() == cards2[cards2.length - 2].getSuit()) {
+                    if (cards.size() - 1 != 0 && cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                        move = "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
+                        if (cards2.size() - 2 >= 0 && cards.get(0).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
                             return move;
                         }
                     }
@@ -381,7 +381,7 @@ public class MoveAlgorithm {
      */
     //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
-        Card[] cards, cards2;
+        List<Card> cards, cards2;
         String move = "", prioMove = "";
         for (Tableau tableau : tableaus) {
             cards = tableau.getVisibleCards();
@@ -390,12 +390,12 @@ public class MoveAlgorithm {
                 cards2 = tableau2.getVisibleCards();
 
                 //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                if (cards.length - 1 >= 0 && cards2.length - 1 >= 0) {
+                if (cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
 
                     //Hvis øverste kort i tableu passer med anden tableus øverste kort lig den på hvis "typerne" passer ellers vent
-                    if (cards[cards.length - 1].getValue() == cards2[cards2.length - 1].getValue() - 1 && cards[cards.length - 1].getSuit() % 2 != cards2[cards2.length - 1].getSuit() % 2) {
-                        move = "Tag " + cards[cards.length - 1] + " og placer kortet på " + cards2[cards2.length - 1].toString();
-                        if (cards2.length - 2 >= 0 && cards[cards.length - 1].getSuit() == cards2[cards2.length - 2].getSuit()) {
+                    if (cards.get(cards.size() - 1).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(cards.size() - 1).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                        move = "Tag " + cards.get(cards.size() - 1) + " og placer kortet på " + cards2.get(cards2.size() - 1).toString();
+                        if (cards2.size() - 2 >= 0 && cards.get(cards.size() - 1).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
                             return move;
                         }
                     }
@@ -403,9 +403,9 @@ public class MoveAlgorithm {
             }
 
             //hvis waste passer så lig den på
-            if (waste != null && cards.length - 1 >= 0 && cards[cards.length - 1].getValue() - 1 == waste.getValue() && cards[cards.length - 1].getSuit() % 2 != waste.getSuit() % 2) {
-                move = "Tag " + waste.toString() + " og placer kortet på " + cards[cards.length - 1].toString();
-                if (cards.length - 2 >= 0 && waste.getSuit() == cards[cards.length - 2].getSuit()) {
+            if (waste != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == waste.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != waste.getSuit() % 2) {
+                move = "Tag " + waste.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
+                if (cards.size() - 2 >= 0 && waste.getSuit() == cards.get(cards.size() - 2).getSuit()) {
                     prioMove = move;
                 }
             }

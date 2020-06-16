@@ -86,13 +86,7 @@ public class Tableau {
      *
      * @return  List of the visible cards of the Tableau
      */
-    public Card[] getVisibleCards() {
-        Card[] returnval = new Card[visibleCards.size()];
-        for(int i = 0; i < visibleCards.size(); i++) {
-            returnval[i] = visibleCards.get(i);
-        }
-        return returnval;
-    }
+    public List<Card> getVisibleCards() { return visibleCards; }
 
     /**
      * Returns instance of the card in the back of the Tableau, aka the Card with the highest value.

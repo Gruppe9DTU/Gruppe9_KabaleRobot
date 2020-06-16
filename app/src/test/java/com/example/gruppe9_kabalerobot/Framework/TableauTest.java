@@ -19,7 +19,7 @@ public class TableauTest {
         Tableau stack = new Tableau(6, null);
         stack.addCardToStack(deck.get(0));
         Card[] expected = {new Card(0,1)};
-        assertEquals(expected[0].toString(), stack.getVisibleCards()[0].toString());
+        assertEquals(expected[0].toString(), stack.getVisibleCards().get(0).toString());
     }
 
     @Test
@@ -36,17 +36,17 @@ public class TableauTest {
         Card testcard3 = new Card(0, 3);
         Card testcard4 = new Card(1, 1);
         stack.addCardToStack(testcard1);
-        assertEquals("2 of Spades", stack.getVisibleCards()[0].toString());
+        assertEquals("2 of Spades", stack.getVisibleCards().get(0).toString());
         stack.addCardToStack(testcard3);
-        assertEquals(1, stack.getVisibleCards().length);
-        assertEquals("2 of Spades", stack.getVisibleCards()[0].toString());
+        assertEquals(1, stack.getVisibleCards().size());
+        assertEquals("2 of Spades", stack.getVisibleCards().get(0).toString());
         stack.addCardToStack(testcard4);
-        assertEquals(1, stack.getVisibleCards().length);
-        assertEquals("2 of Spades", stack.getVisibleCards()[0].toString());
+        assertEquals(1, stack.getVisibleCards().size());
+        assertEquals("2 of Spades", stack.getVisibleCards().get(0).toString());
         stack.addCardToStack(testcard2);
-        assertEquals(2, stack.getVisibleCards().length);
-        assertEquals("2 of Spades", stack.getVisibleCards()[0].toString());
-        assertEquals("Ace of Hearts", stack.getVisibleCards()[1].toString());
+        assertEquals(2, stack.getVisibleCards().size());
+        assertEquals("2 of Spades", stack.getVisibleCards().get(0).toString());
+        assertEquals("Ace of Hearts", stack.getVisibleCards().get(1).toString());
 
     }
 }

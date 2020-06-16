@@ -111,9 +111,9 @@ public class CardTranslatorTest {
         translator.insertCards(game);
 
         //AssertEqual expected Lists by reading from game
-        assertEquals(tab1Exp.toString(), Arrays.asList(game.getTableau()[0].getVisibleCards()).toString());
-        assertEquals(tab2Exp.toString(), Arrays.asList(game.getTableau()[1].getVisibleCards()).toString());
-        assertEquals(tab3Exp.toString(), Arrays.asList(game.getTableau()[2].getVisibleCards()).toString());
+        assertEquals(tab1Exp.toString(), Arrays.asList(game.getTableau()).get(0).getVisibleCards().toString());
+        assertEquals(tab2Exp.toString(), Arrays.asList(game.getTableau()).get(1).getVisibleCards().toString());
+        assertEquals(tab3Exp.toString(), Arrays.asList(game.getTableau()).get(2).getVisibleCards().toString());
     }
 
     /**
@@ -175,9 +175,9 @@ public class CardTranslatorTest {
         assertEquals(foundationListExpected.get(2).toString(),game.getFoundation()[2].peekCard().toString());
         assertEquals(foundationListExpected.get(3).toString(),game.getFoundation()[3].peekCard().toString());
 
-        assertEquals(tab1Exp.toString(), Arrays.asList(game.getTableau()[0].getVisibleCards()).toString());
-        assertEquals(tab2Exp.toString(), Arrays.asList(game.getTableau()[1].getVisibleCards()).toString());
-        assertEquals(tab3Exp.toString(), Arrays.asList(game.getTableau()[2].getVisibleCards()).toString());
+        assertEquals(tab1Exp.toString(), Arrays.asList(game.getTableau()).get(0).getVisibleCards().toString());
+        assertEquals(tab2Exp.toString(), Arrays.asList(game.getTableau()).get(1).getVisibleCards().toString());
+        assertEquals(tab3Exp.toString(), Arrays.asList(game.getTableau()).get(2).getVisibleCards().toString());
 
 
     }
