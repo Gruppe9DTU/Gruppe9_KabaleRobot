@@ -39,7 +39,7 @@ public class Haarcascade {
 
             Imgproc.rectangle(matrix, new Point(data[i][0], data[i][1]), //x y
                     new Point(data[i][2] + data[i][0], data[i][3] + data[i][1]), //w h
-                    new Scalar(255, 0, 0));
+                    new Scalar(0, 255 , 0),4);
 
         }
         Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
