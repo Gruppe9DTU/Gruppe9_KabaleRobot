@@ -20,7 +20,7 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 8889;
+    private final int serverPort = 8888;
     private final String server_ip = "192.168.0.51";
 
     private static Client instance;
@@ -83,12 +83,17 @@ public class Client {
         String[] splitString = s.trim().split(" ");
         int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
         int[][] newIntArray = new int[intArray.length/4][4];
+        int j=0;
 
         for (int i=0; i < intArray.length; i+=4){
             for (int k=0; k<4; k++){
-                newIntArray[i%4][k] = intArray[k+i];
+                newIntArray[j][k] = intArray[k+i];
+                if (k==3){
+                    j++;
+                }
             }
         }
+        System.out.println(Arrays.deepToString(newIntArray));
         return newIntArray;
     }
 
