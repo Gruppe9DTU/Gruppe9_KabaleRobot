@@ -1,5 +1,7 @@
-package com.example.gruppe9_kabalerobot.CardPlacement;
+package com.example.gruppe9_kabalerobot.Framework.controller;
 
+import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
 import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 

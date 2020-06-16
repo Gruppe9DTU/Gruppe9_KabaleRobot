@@ -1,4 +1,4 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
 
 import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
 import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;

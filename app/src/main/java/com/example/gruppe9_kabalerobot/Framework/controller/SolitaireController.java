@@ -1,6 +1,5 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.CardPlacement.CardTranslator;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
 
