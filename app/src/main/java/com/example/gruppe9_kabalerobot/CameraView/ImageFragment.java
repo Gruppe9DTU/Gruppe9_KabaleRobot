@@ -9,15 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.BitmapCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.gruppe9_kabalerobot.CardPlacement.OpenCV;
 import com.example.gruppe9_kabalerobot.Client.Client;
-import com.example.gruppe9_kabalerobot.Haarcascade.Haarcascade;
 import com.example.gruppe9_kabalerobot.R;
 
 public class ImageFragment extends Fragment {
@@ -26,7 +24,7 @@ public class ImageFragment extends Fragment {
 
     private ImageView imageView;
     private Bitmap bitmap, rectanglesDrawn;
-    private Haarcascade haarcascade;
+    private OpenCV openCV;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
     private int[][] dataArray;
@@ -49,7 +47,7 @@ public class ImageFragment extends Fragment {
 
         imageView = view.findViewById(R.id.imageView);
 
-        haarcascade = new Haarcascade(getActivity());
+        openCV = new OpenCV();
 
         // Set imageview to the picture you have taken
 
@@ -95,7 +93,7 @@ public class ImageFragment extends Fragment {
 
             super.onPreExecute();
 
-             loadingDialog = ProgressDialog.show(getActivity(), "",
+            loadingDialog = ProgressDialog.show(getActivity(), "",
                     "Indlæser. Vent venligst", true);
 
         }
@@ -107,9 +105,7 @@ public class ImageFragment extends Fragment {
 
             dataArray = c.recieveData();
 
-            rectanglesDrawn = haarcascade.drawRectangles(bitmap,dataArray);
-
-            //c.closeAllStreams();
+            rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
 
             return null;
         }
