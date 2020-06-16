@@ -81,8 +81,8 @@ public class Client {
     }
 
     public int[][] stringToIntArrays(String result){
-        String s = result.replaceAll("[\\[\\]]", "").replaceAll("\\s+", " ");
-        String[] splitString = s.split(" ");
+        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ");
+        String[] splitString = s.trim().split(" ");
         int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
         int[][] newIntArray = new int[intArray.length/4][4];
 
