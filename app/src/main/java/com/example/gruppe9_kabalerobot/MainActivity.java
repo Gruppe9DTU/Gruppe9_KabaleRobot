@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.gruppe9_kabalerobot.CameraView.CameraViewActivity;
+import com.example.gruppe9_kabalerobot.Client.Client;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+
+        //Client c = Client.getInstance(); //TODO This is here for testing purposes
 
         startCamera = findViewById(R.id.startCamera);
 

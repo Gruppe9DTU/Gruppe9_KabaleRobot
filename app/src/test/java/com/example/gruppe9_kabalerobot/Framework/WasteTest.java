@@ -2,7 +2,6 @@ package com.example.gruppe9_kabalerobot.Framework;
 
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Waste;
-
 import org.junit.Test;
 
 import java.util.List;

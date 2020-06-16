@@ -1,7 +1,6 @@
 package com.example.gruppe9_kabalerobot.Framework;
 
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
