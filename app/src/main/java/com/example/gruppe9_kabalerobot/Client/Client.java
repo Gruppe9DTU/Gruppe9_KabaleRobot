@@ -20,8 +20,8 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 8888;
-    private final String server_ip = "192.168.0.27";
+    private final int serverPort = 8889;
+    private final String server_ip = "192.168.0.51";
 
     private static Client instance;
     private BufferedReader reader;
@@ -61,23 +61,37 @@ public class Client {
 
     }
 
-    public void recieveData() {
+    public int[][] recieveData() {
 
         try {
-            String fromServer;
+            String fromServer, result="";
             while ((fromServer=reader.readLine())!=null) {
                 System.out.println("Recieved: " + fromServer);
-
+                result += fromServer;
                 // The last element of that data will be two square brackets
-                if (fromServer.contains("]]")){
+                if (fromServer.contains("]")){
                     break;
                 }
             }
-
+            return stringToIntArrays(result);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+    }
 
+    public int[][] stringToIntArrays(String result){
+        String s = result.replaceAll("[\\[\\]]", "").replaceAll("\\s+", " ");
+        String[] splitString = s.split(" ");
+        int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
+        int[][] newIntArray = new int[intArray.length/4][4];
+
+        for (int i=0; i < intArray.length; i+=4){
+            for (int k=0; k<4; k++){
+                newIntArray[i%4][k] = intArray[k+i];
+            }
+        }
+        return newIntArray;
     }
 
     public void closeAllStreams() {
