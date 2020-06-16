@@ -20,7 +20,7 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 7777;
+    private final int serverPort = 8888;
     private final String server_ip = "192.168.0.27";
 
     private static Client instance;
@@ -42,13 +42,9 @@ public class Client {
     public void sendImage(Bitmap imageToSend) {
 
         try{
-            stream = new ByteArrayOutputStream();
-
             imageToSend.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
             byte[] byteArray = stream.toByteArray();
-
-            output = new BufferedOutputStream(socket.getOutputStream());
 
             output.write((Integer.toString(stream.size())).getBytes());
             output.flush();
@@ -68,13 +64,15 @@ public class Client {
     public void recieveData() {
 
         try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String fromServer;
-            System.out.println("BEFORE recieveData");
             while ((fromServer=reader.readLine())!=null) {
                 System.out.println("Recieved: " + fromServer);
+
+                // The last element of that data will be two square brackets
+                if (fromServer.contains("]]")){
+                    break;
+                }
             }
-            System.out.println("AFTER recieveData");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +96,9 @@ public class Client {
             try {
                 InetAddress serverAddr = InetAddress.getByName(server_ip);
                 socket = new Socket(serverAddr, serverPort);
+                stream = new ByteArrayOutputStream();
+                output = new BufferedOutputStream(socket.getOutputStream());
+                reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

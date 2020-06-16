@@ -24,7 +24,7 @@ public class ImageFragment extends Fragment {
     //region Fields
 
     private ImageView imageView;
-    private Bitmap bitmap, cascadeResult;
+    private Bitmap bitmap;
     private Haarcascade haarcascade;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
@@ -98,7 +98,7 @@ public class ImageFragment extends Fragment {
 
             c.recieveData();
 
-            c.closeAllStreams();
+            //c.closeAllStreams();
 
             return null;
         }
