@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolitarieLogic {
-    Waste waste;
-    Tableau[] tableau;
-    Foundation[] foundation;
+    private Waste waste;
+    private Tableau[] tableau;
+    private Foundation[] foundation;
 
     /**
      * Constructor for the controller
