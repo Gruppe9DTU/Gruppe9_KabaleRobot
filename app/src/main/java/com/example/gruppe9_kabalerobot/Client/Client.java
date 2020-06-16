@@ -51,8 +51,6 @@ public class Client {
             Thread.sleep(200);
             output.write(byteArray);
             output.flush();
-
-            imageToSend.recycle();
         }
         catch (IOException | InterruptedException e1){
             e1.printStackTrace();
