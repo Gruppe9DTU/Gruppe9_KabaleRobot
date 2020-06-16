@@ -61,7 +61,7 @@ public class Client {
 
     }
 
-    public void recieveData() {
+    public int[] recieveData() {
 
         try {
             String fromServer;
@@ -77,6 +77,7 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
 
     }
 

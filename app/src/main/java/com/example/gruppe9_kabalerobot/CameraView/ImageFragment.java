@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,10 +25,11 @@ public class ImageFragment extends Fragment {
     //region Fields
 
     private ImageView imageView;
-    private Bitmap bitmap;
+    private Bitmap bitmap, rectanglesDrawn;
     private Haarcascade haarcascade;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
+    private int[] dataArray;
 
     //endregion
 
@@ -103,7 +105,9 @@ public class ImageFragment extends Fragment {
 
             c.sendImage(bitmap);
 
-            c.recieveData();
+            dataArray = c.recieveData();
+
+            rectanglesDrawn = haarcascade.drawRectangles(bitmap,dataArray);
 
             //c.closeAllStreams();
 
@@ -113,6 +117,13 @@ public class ImageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.setImageBitmap(rectanglesDrawn);
+                }
+            });
 
             loadingDialog.dismiss();
         }
