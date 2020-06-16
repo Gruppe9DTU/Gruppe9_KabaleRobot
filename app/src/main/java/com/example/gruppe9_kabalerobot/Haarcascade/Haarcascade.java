@@ -4,14 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.example.gruppe9_kabalerobot.R;
-
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -20,6 +16,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Haarcascade {
 
@@ -28,6 +26,41 @@ public class Haarcascade {
     public Haarcascade(Activity activity) {
         this.activity = activity;
     }
+
+
+    public Bitmap drawRectangles(Bitmap image, int[] data ){
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Mat matrix = new Mat();
+        Utils.bitmapToMat(image,matrix);
+        Mat gray = new Mat();
+        Imgproc.cvtColor(matrix, gray, Imgproc.COLOR_BGR2GRAY);
+
+        int currentChunkSize = 0;
+        int len = data.length-1;
+        List<Integer> list = new ArrayList<>();
+
+        for(int i = 0; i<=len; i++){
+
+            list.add(data[i]);
+            currentChunkSize++;
+
+            if (currentChunkSize==4){
+
+                Imgproc.rectangle(matrix, new Point(list.get(i-3), list.get(i-2)),
+                        new Point(list.get(i-3) + list.get(i-1), list.get(i-2) + list.get(i)),
+                        new Scalar(255, 0, 0));
+
+                currentChunkSize = 0;
+            }
+
+        }
+        Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
+        Utils.matToBitmap(matrix,ne);
+        return ne;
+    }
+
+/*
+
 
     public Bitmap runCardRecognition(Bitmap bitmap) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -64,12 +97,13 @@ public class Haarcascade {
             if (i<14) tal.add(c);
             else type.add(c);
         }
-         //*/
+
 
         Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(matrix,ne);
         return ne;
     }
+    */
 
     /*
     private int address(int index){
