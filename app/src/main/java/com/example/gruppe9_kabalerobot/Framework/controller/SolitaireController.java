@@ -4,7 +4,7 @@ import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
 
 public class SolitaireController {
-    PreviousStatesContainer prevStates;
+    private PreviousStatesContainer prevStates;
 
     public SolitaireController() {
          this.prevStates = new PreviousStatesContainer();

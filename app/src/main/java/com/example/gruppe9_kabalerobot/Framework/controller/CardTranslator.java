@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardTranslator {
-    CardPlacement placement;
+    private CardPlacement placement;
 
     public CardTranslator(CardPlacement placement) {
         this.placement = placement;
