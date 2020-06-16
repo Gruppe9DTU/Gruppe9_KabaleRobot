@@ -29,7 +29,7 @@ public class ImageFragment extends Fragment {
     private Haarcascade haarcascade;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
-    private int[] dataArray;
+    private int[][] dataArray;
 
     //endregion
 
