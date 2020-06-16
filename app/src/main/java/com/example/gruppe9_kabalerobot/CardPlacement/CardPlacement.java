@@ -1,24 +1,33 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class CardPlacement  {
 
     int semaphore1 = 0, semaphore2 = 0;
 
-    ArrayList<CardObj> coordinates = new ArrayList<>();
-    ArrayList<CardObj> waste = new ArrayList<>();
-    ArrayList<CardObj> foundation = new ArrayList<>();
-    ArrayList<CardObj> tableau1 = new ArrayList<>();
-    ArrayList<CardObj> tableau2 = new ArrayList<>();
-    ArrayList<CardObj> tableau3 = new ArrayList<>();
-    ArrayList<CardObj> tableau4 = new ArrayList<>();
-    ArrayList<CardObj> tableau5 = new ArrayList<>();
-    ArrayList<CardObj> tableau6 = new ArrayList<>();
-    ArrayList<CardObj> tableau7 = new ArrayList<>();
+    List<CardObj> coordinates = new ArrayList<>();
+    List<CardObj> waste = new ArrayList<>();
+    List<CardObj> foundations = new ArrayList<>();
+    List<Integer> hiddenCards = new ArrayList<>();
+    List<CardObj> tableau1 = new ArrayList<>();
+    List<CardObj> tableau2 = new ArrayList<>();
+    List<CardObj> tableau3 = new ArrayList<>();
+    List<CardObj> tableau4 = new ArrayList<>();
+    List<CardObj> tableau5 = new ArrayList<>();
+    List<CardObj> tableau6 = new ArrayList<>();
+    List<CardObj> tableau7 = new ArrayList<>();
+
+    //TODO We are not getting hidden cards atm. This is a placeholder to avoid nullpointer
+    public CardPlacement() {
+        for(int i = 0 ; i < 7 ; i++) {
+            hiddenCards.add(0);
+        }
+    }
 
     /**
      * Method that sorts the cards
@@ -63,14 +72,15 @@ public class CardPlacement  {
     private void sortStack1(){
 
         compareY(tableau1);
+        Collections.reverse(tableau1);
         compareY(tableau2);
+        Collections.reverse(tableau2);
         compareY(tableau3);
+        Collections.reverse(tableau3);
         compareY(tableau7);
+        Collections.reverse(tableau7);
 
-        //semaphore to make sure both threads finish at the same time
-        while(semaphore1 == 0 ){
-            semaphore2 = 1;
-        }
+        semaphore2 = 1;
     }
 
     /**
@@ -79,13 +89,15 @@ public class CardPlacement  {
     private void sortStack2(){
 
         compareY(tableau4);
+        Collections.reverse(tableau4);
         compareY(tableau5);
+        Collections.reverse(tableau5);
         compareY(tableau6);
+        Collections.reverse(tableau6);
 
-        //semaphore to make sure both threads finish at the same time
-        while (semaphore2 == 0){
-            semaphore1 = 1;
-        }
+
+        semaphore1 = 1;
+
     }
 
     /**
@@ -94,7 +106,7 @@ public class CardPlacement  {
     private void stacks(){
         ArrayList<CardObj> test = new ArrayList<>(coordinates);
         for (CardObj x: test ) {
-            if (waste.contains(x) || foundation.contains(x)) {
+            if (waste.contains(x) || foundations.contains(x)) {
                 coordinates.remove(x);
             }
         }
@@ -175,28 +187,51 @@ public class CardPlacement  {
 
         compareX(waste);
 
-        //Lower- and upperTail are +/- 10% of the x-coordinat
-        int lowerTail = (int) (waste.get(0).getY()*0.9);
-        int upperTail = (int) (waste.get(0).getY()*1.1);
-        for (int i = 1; i < waste.size() ; i++) {
-
-            if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
-                foundation.add(waste.get(i));
+        if(doesWasteExist()){
+            //Lower- and upperTail are +/- 10% of the y-coordinat
+            int lowerTail = (int) (waste.get(0).getY()*0.9);
+            int upperTail = (int) (waste.get(0).getY()*1.1);
+            for (int i = 1; i < waste.size() ; i++) {
+                if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
+                    foundations.add(waste.get(i));
+                }
             }
+            waste.subList(1, waste.size()).clear();
+            coordinates.remove(waste);
         }
-        waste.subList(1, waste.size()).clear();
-        coordinates.remove(waste);
+        else {
+            int lowerTail = (int) (waste.get(0).getY()*0.9);
+            int upperTail = (int) (waste.get(0).getY()*1.1);
+            for (int i = 0; i < waste.size() ; i++) {
+                if( waste.get(i).getY() >= lowerTail && waste.get(i).getY() <= upperTail) {
+                    foundations.add(waste.get(i));
+                }
+            }
+            waste.clear();
+            coordinates.remove(foundations);
+        }
+    }
+
+    /**
+     * Checks if we have a waste stack or not
+     * @return true or false
+     */
+    private boolean doesWasteExist(){
+
+        //Checks the distance between waste index 1 and 2 are bigger than the uppertail.
+        int upperTail = (int) (waste.get(0).getX()*1.2);
+        return (waste.get(1).getX() - waste.get(0).getX()) >= upperTail;
     }
 
     /**
      * Sort the arraylist for x
      * @param list the given list that i want to sort
      */
-    private void  compareX(ArrayList<CardObj> list){
+    private void  compareX(List<CardObj> list){
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj a, CardObj o2) {
-                return Integer.compare(a.x, o2.x);
+                return Integer.compare(a.getX(), o2.getX());
             }
         });
     }
@@ -205,84 +240,86 @@ public class CardPlacement  {
      * Sort the arraylist for y
      * @param list the given list that i want to sort
      */
-    private void compareY(ArrayList<CardObj> list ){
+    private void compareY(List<CardObj> list ){
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj o1, CardObj o2) {
-                return Integer.compare(o1.y, o2.y);
+                return Integer.compare(o1.getY(), o2.getY());
             }
         });
-
     }
 
     /**
-     * Getter for stack1
-     * @return the stack1
+     * Getter for hiddencards
+     * @return the hiddencards
      */
-    public ArrayList<CardObj> getTableau1() {
+    public List<Integer> getHiddenCards() { return hiddenCards; }
+
+    /**
+     * Getter and setters for tableaus
+     */
+    public List<CardObj> getTableau1() {
         return tableau1;
     }
+    public void setTableau1(List<CardObj> cardObjs) { this.tableau1 = cardObjs; }
 
-    /**
-     * Getter for stack2
-     * @return the stack2
-     */
-    public ArrayList<CardObj> getTableau2() {
+    public List<CardObj> getTableau2() {
         return tableau2;
     }
+    public void setTableau2(List<CardObj> cardObjs) { this.tableau2 = cardObjs; }
 
-    /**
-     * Getter for stack3
-     * @return the stack3
-     */
-    public ArrayList<CardObj> getTableau3() {
+    public List<CardObj> getTableau3() {
         return tableau3;
     }
+    public void setTableau3(List<CardObj> cardObjs) { this.tableau3 = cardObjs; }
 
-    /**
-     * Getter for stack4
-     * @return the stack4
-     */
-    public ArrayList<CardObj> getTableau4() {
+    public List<CardObj> getTableau4() {
         return tableau4;
     }
+    public void setTableau4(List<CardObj> cardObjs) { this.tableau4 = cardObjs; }
 
-    /**
-     * Getter for stack5
-     * @return the stack5
-     */
-    public ArrayList<CardObj> getTableau5() {
+    public List<CardObj> getTableau5() {
         return tableau5;
     }
+    public void setTableau5(List<CardObj> cardObjs) { this.tableau5 = cardObjs; }
 
-    /**
-     * Getter for stack7
-     * @return the stack7
-     */
-    public ArrayList<CardObj> getTableau6() {
+    public List<CardObj> getTableau6() {
         return tableau6;
     }
+    public void setTableau6(List<CardObj> cardObjs) { this.tableau6 = cardObjs; }
 
-    /**
-     * Getter for stack6
-     * @return the stack6
-     */
-    public ArrayList<CardObj> getTableau7() {
+    public List<CardObj> getTableau7() {
         return tableau7;
     }
-    /**
-     * Getter for winningStack
-     * @return the winnngStack
-     */
-    public ArrayList<CardObj> getFoundation() {
-        return foundation;
+    public void setTableau7(List<CardObj> cardObjs) { this.tableau7 = cardObjs; }
+
+    public ArrayList<List<CardObj>> getTableaus() {
+        ArrayList<List<CardObj>> tableaus = new ArrayList<>();
+        tableaus.add(tableau1);
+        tableaus.add(tableau2);
+        tableaus.add(tableau3);
+        tableaus.add(tableau4);
+        tableaus.add(tableau5);
+        tableaus.add(tableau6);
+        tableaus.add(tableau7);
+        return tableaus;
     }
 
     /**
-     * Getter for extraCard
-     * @return the extraCard
+     * Getters and setters for foundations
      */
-    public ArrayList<CardObj> getWaste() {
+    public List<CardObj> getFoundations() {
+        return foundations;
+    }
+
+    public void setFoundations(List<CardObj> foundations) { this.foundations = foundations; }
+
+    /**
+     * Getters and setters for waste
+     */
+    public List<CardObj> getWaste() {
         return waste;
     }
+
+    public void setWaste(List<CardObj> waste) { this.waste = waste; }
 }

@@ -77,12 +77,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
     public void onResume() {
         super.onResume();
 
-        // If preview have already been initialized, just set the PreviewSurfaceProvider
-        // Because the lifecycle is already bound to Camera Provider
-        if (preview!=null) {
-            preview.setSurfaceProvider(previewView.getPreviewSurfaceProvider());
-        }
-
     }
 
     //endregion
@@ -117,7 +111,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
 
     private void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
 
-        if (preview == null) {
+        // We have to unbind all to bind new preview. Only way to far
+        cameraProvider.unbindAll();
+
             preview = new Preview.Builder()
                     .build();
 
@@ -157,7 +153,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
             cameraProvider.bindToLifecycle(this, cameraSelector, imageCapture, preview);
         }
 
-    }
 
     /**
      * Callback when an image have been captured by the user
@@ -180,6 +175,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
             transaction.addToBackStack(null);
             // Commit the transaction
             transaction.commit();
+
+            // Close image to prevent leak
+            image.close();
         }
 
         @Override

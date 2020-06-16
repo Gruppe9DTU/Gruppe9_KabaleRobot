@@ -1,12 +1,12 @@
-package com.example.gruppe9_kabalerobot.CardPlacment;
+package com.example.gruppe9_kabalerobot.CardPlacement;
 
 public class CardObj {
 
-    int x, y, value, suits;
-    public CardObj(int x, int y, int value, int suits){
+    private int x, y, value, suit;
+    public CardObj(int x, int y, int value, int suit){
         this.x = x;
         this.y = y;
-        this.suits = suits;
+        this.suit = suit;
         this. value = value;
     }
 
@@ -25,4 +25,8 @@ public class CardObj {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getSuit() { return suit; }
+
+    public int getValue() { return value; }
 }
