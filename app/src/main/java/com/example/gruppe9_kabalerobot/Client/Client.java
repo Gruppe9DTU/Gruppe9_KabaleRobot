@@ -54,7 +54,7 @@ public class Client {
 
             imageToSend.recycle();
         }
-        catch (Exception e1){
+        catch (IOException | InterruptedException e1){
             e1.printStackTrace();
         }
 
