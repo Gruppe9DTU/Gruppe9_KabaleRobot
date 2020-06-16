@@ -28,30 +28,18 @@ public class Haarcascade {
     }
 
 
-    public Bitmap drawRectangles(Bitmap image, int[] data ){
+    public Bitmap drawRectangles(Bitmap image, int[][] data ){
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat matrix = new Mat();
         Utils.bitmapToMat(image,matrix);
         Mat gray = new Mat();
         Imgproc.cvtColor(matrix, gray, Imgproc.COLOR_BGR2GRAY);
 
-        int currentChunkSize = 0;
-        int len = data.length-1;
-        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i<data.length; i++){
 
-        for(int i = 0; i<=len; i++){
-
-            list.add(data[i]);
-            currentChunkSize++;
-
-            if (currentChunkSize==4){
-
-                Imgproc.rectangle(matrix, new Point(list.get(i-3), list.get(i-2)),
-                        new Point(list.get(i-3) + list.get(i-1), list.get(i-2) + list.get(i)),
-                        new Scalar(255, 0, 0));
-
-                currentChunkSize = 0;
-            }
+            Imgproc.rectangle(matrix, new Point(data[i][0], data[i][1]), //x y
+                    new Point(data[i][2] + data[i][0], data[i][3] + data[i][1]), //w h
+                    new Scalar(255, 0, 0));
 
         }
         Bitmap ne=Bitmap.createBitmap(matrix.width(),matrix.height(), Bitmap.Config.RGB_565);
