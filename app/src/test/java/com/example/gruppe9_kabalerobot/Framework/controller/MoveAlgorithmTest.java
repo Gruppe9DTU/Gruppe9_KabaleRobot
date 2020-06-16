@@ -1,4 +1,13 @@
-package com.example.gruppe9_kabalerobot.Framework;
+package com.example.gruppe9_kabalerobot.Framework.controller;
+
+import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
+import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
+import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
+import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
+import com.example.gruppe9_kabalerobot.Framework.model.Waste;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +18,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class MoveAlgoritmTest {
-    private MoveAlgoritm algoritmCtrl;
+public class MoveAlgorithmTest {
+    private SolitarieLogic game;
+    private MoveAlgorithm algoritmCtrl;
     private Tableau[] tableaus;
     private Foundation[] foundations;
 
@@ -19,14 +29,13 @@ public class MoveAlgoritmTest {
      */
     @Before
     public void setup() {
-        tableaus = new Tableau[7];
-        for(int i = 0 ; i < 7 ; i++){
-            tableaus[i] = new Tableau(0);
-        }
+        game = new SolitarieLogic();
+        tableaus = game.getTableau();
         foundations = new Foundation[4];
         for(int i = 0 ; i < 4 ; i++){
             foundations[i] = new Foundation();
         }
+        game.setFoundation(foundations); //TODO move to GameLogic constructor?
     }
 
     /**
@@ -57,22 +66,19 @@ public class MoveAlgoritmTest {
         tableaus[6].addCardToStack(new Card(1, 7)); //random card
 
         //Create a wastepile with 8 of Hearts on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
 
-        GameLogic gamelogic = new GameLogic();
+        game.setFoundation(foundations);
+        game.setWaste(waste);
 
-        gamelogic.setTableau(tableaus);
-        gamelogic.setFoundation(foundations);
-        gamelogic.setWaste(waste);
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
 
-        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 1)); //Have moved an ace from this position before
-
-        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        MoveAlgorithm move = new MoveAlgorithm(game);
 
         assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -100,22 +106,19 @@ public class MoveAlgoritmTest {
 
 
         //Create a wastepile with 8 of Hearts on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
 
-        GameLogic gamelogic = new GameLogic();
-
-        gamelogic.setTableau(tableaus);
-        gamelogic.setFoundation(foundations);
-        gamelogic.setWaste(waste);
+        game.setFoundation(foundations);
+        game.setWaste(waste);
 
         //add seven repeats of same outsome to ensure that every other possible move is skipped
-        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 8)); //Last possible move is the last possible suggested move
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 8)); //Last possible move is the last possible suggested move
 
-        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        MoveAlgorithm move = new MoveAlgorithm(game);
 
-        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -140,60 +143,58 @@ public class MoveAlgoritmTest {
         tableaus[4].addCardToStack(new Card(0, 10));
 
         //Create a wastepile with 8 of Hearts on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 12));
         wasteCards.add(new Card(0, 11));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
 
-        GameLogic gamelogic = new GameLogic();
+        game.setFoundation(foundations);
+        game.setWaste(waste);
 
-        gamelogic.setTableau(tableaus);
-        gamelogic.setFoundation(foundations);
-        gamelogic.setWaste(waste);
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 6)); //Previously moved a 10 to 11
 
-        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 1)); //Have moved an ace from this position before
-        previousStatesContainer.addPreviousMove(new PreviousState(gamelogic.printGame(), 6)); //Previously moved a 10 to 11
-
-
-        MoveAlgoritm move = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        MoveAlgorithm move = new MoveAlgorithm(game);
 
         assertEquals( "Vend et kort fra grundbunken"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(gamelogic.printGame())));
+                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
-     * Test what ace is prioritised to go into the foundation
+     * Tests that Ace with more hidden cards behind it is prioritized over other Ace.
      */
     @Test
     public void testCheckAce101(){
-        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer(); //kan være tom da der ikke forvents nogle tidliger layouts
-        Card tableauCard = new Card(0,1); //ace of hearts
-        Card tableauCard2 = new Card(1,1); //ace of spades
+        Card distractionCard = new Card(0,1); //ace of hearts
+        Card wantedCard = new Card(1,1); //ace of spades
 
         tableaus[0].addCardToStack(new Card(1, 3)); //random card
 
+        tableaus[1] = new Tableau(2, null);
         tableaus[1].addCardToStack(new Card(1, 2)); //random card
-        tableaus[1].addCardToStack(tableauCard);
+        tableaus[1].addCardToStack(distractionCard);
 
         tableaus[2].addCardToStack(new Card(0, 3));
         tableaus[3].addCardToStack(new Card(1, 4)); //random card
         tableaus[4].addCardToStack(new Card(1, 6)); //random card
 
+        tableaus[5] = new Tableau(3, null);
         tableaus[5].addCardToStack(new Card(1, 3)); //random card
         tableaus[5].addCardToStack(new Card(0, 2)); //random card
-        tableaus[5].addCardToStack(tableauCard2);
+        tableaus[5].addCardToStack(wantedCard);
 
         tableaus[6].addCardToStack(new Card(1, 7)); //random card
 
 
         //Create a wastepile with 8 of Hearts on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Ryk " + tableauCard2.toString() + " til Foundation", algoritmCtrl.checkAce());
+        assertEquals("Ryk " + wantedCard.toString() + " til Foundation", algoritmCtrl.checkAce());
     }
 
     /**
@@ -221,11 +222,12 @@ public class MoveAlgoritmTest {
 
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Ryk " + tableauCard.toString() + " til Foundation", algoritmCtrl.checkAce());
     }
@@ -238,11 +240,12 @@ public class MoveAlgoritmTest {
         tableaus[0].addCardToStack(new Card(0, 6));
         tableaus[2].addCardToStack(new Card(0, 3));
 
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.checkAce());
     }
@@ -261,11 +264,12 @@ public class MoveAlgoritmTest {
         tableaus[6].addCardToStack(new Card(0, 13));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -275,11 +279,12 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck102() {
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -295,11 +300,12 @@ public class MoveAlgoritmTest {
         tableaus[3].addCardToStack(new Card(0, 12));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -316,11 +322,12 @@ public class MoveAlgoritmTest {
         tableaus[4].addCardToStack(new Card(0, 6));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -339,11 +346,12 @@ public class MoveAlgoritmTest {
         tableaus[6].addCardToStack(new Card(0, 6));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -353,7 +361,7 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck110() {
-        Card wantedCard[] = {new Card(0,13)}; //King of hearts
+        Card[] wantedCard = {new Card(0,13)}; //King of hearts
 
         tableaus[0].addCardToStack(new Card(1, 3)); //random card
 
@@ -364,11 +372,12 @@ public class MoveAlgoritmTest {
         tableaus[4].addCardToStack(new Card(1, 7)); //random card
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -378,18 +387,19 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck111() {
-        Card wantedCard[] = {new Card(0,13)};
-        Card distractionCard[] = {new Card(2,13)};
+        Card[] wantedCard = {new Card(0,13)};
+        Card[] distractionCard = {new Card(2,13)};
 
         tableaus[0] = new Tableau(1, Arrays.asList(wantedCard));
         tableaus[1] = new Tableau(1, Arrays.asList(distractionCard));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move any king to an empty space", algoritmCtrl.kingCheck());
     }
@@ -399,18 +409,19 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck112() {
-        Card wantedCard[] = {new Card(0,13)};
-        Card distractionCard[] = {new Card(1,13)};
+        Card[] wantedCard = {new Card(0,13)};
+        Card[] distractionCard = {new Card(1,13)};
 
         tableaus[0] = new Tableau(1, Arrays.asList(wantedCard));
         tableaus[1] = new Tableau(1, Arrays.asList(distractionCard));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move any king to an empty space", algoritmCtrl.kingCheck());
     }
@@ -420,18 +431,19 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck113() {
-        Card wantedCard[] = {new Card(0,13)};
-        Card distractionCard[] = {new Card(2,13)};
+        Card[] wantedCard = {new Card(0,13)};
+        Card[] distractionCard = {new Card(2,13)};
 
         tableaus[0] = new Tableau(0, Arrays.asList(wantedCard));
         tableaus[1] = new Tableau(0, Arrays.asList(distractionCard));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.kingCheck());
     }
@@ -441,8 +453,8 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck114() {
-        Card wantedCard[] = {new Card(0,13)}; //King of hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of spades
+        Card[] wantedCard = {new Card(0,13)}; //King of hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of spades
 
         tableaus[0] = new Tableau(2, Arrays.asList(wantedCard));
         tableaus[1].addCardToStack(new Card(0, 10)); //10 of hearts
@@ -451,11 +463,12 @@ public class MoveAlgoritmTest {
         tableaus[4].addCardToStack(new Card(1, 10)); //10 of spades
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -465,8 +478,8 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck115() {
-        Card wantedCard[] = {new Card(0,13)}; //King of hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of spades
+        Card[] wantedCard = {new Card(0,13)}; //King of hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of spades
 
         tableaus[1] = new Tableau(1, Arrays.asList(distractionCard));
         tableaus[1].addCardToStack(new Card(0, 10)); //10 of hearts
@@ -475,11 +488,12 @@ public class MoveAlgoritmTest {
         tableaus[4].addCardToStack(new Card(1, 10)); //10 of spades
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -489,8 +503,8 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck116() {
-        Card wantedCard[] = {new Card(0,13)}; //King of hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of spades
+        Card[] wantedCard = {new Card(0,13)}; //King of hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of spades
 
         tableaus[0].addCardToStack(new Card(0, 12)); //Queen of hearts
         tableaus[1] = new Tableau(2, Arrays.asList(wantedCard));
@@ -499,11 +513,12 @@ public class MoveAlgoritmTest {
         tableaus[4] = new Tableau(2, Arrays.asList(distractionCard));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -513,8 +528,8 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck117() {
-        Card wantedCard[] = {new Card(0,13)}; //King of hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of spades
+        Card[] wantedCard = {new Card(0,13)}; //King of hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of spades
 
         tableaus[0].addCardToStack(new Card(0, 12)); //Queen of hearts
         tableaus[1] = new Tableau(2, Arrays.asList(distractionCard));
@@ -523,11 +538,12 @@ public class MoveAlgoritmTest {
         tableaus[4] = new Tableau(2, Arrays.asList(wantedCard));
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
-        wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        List<Card> knownWasteCards = new ArrayList<>();
+        knownWasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(true, knownWasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -537,9 +553,9 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck118() {
-        Card wantedCard[] = {new Card(0,13)}; //King of Hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of Spades
-        Card cardOfInterest[] = {new Card(1, 12)}; //Queen of Spades
+        Card[] wantedCard = {new Card(0,13)}; //King of Hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of Spades
+        Card[] cardOfInterest = {new Card(1, 12)}; //Queen of Spades
 
         tableaus[0] = new Tableau(2, Arrays.asList(cardOfInterest)); //Queen of Spades
         tableaus[1] = new Tableau(2, Arrays.asList(distractionCard)); //King of Spades
@@ -547,11 +563,12 @@ public class MoveAlgoritmTest {
         tableaus[4] = new Tableau(2, Arrays.asList(wantedCard));//King of Hearts
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
-        wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        List<Card> knownWasteCards = new ArrayList<>();
+        knownWasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(true, knownWasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -561,9 +578,9 @@ public class MoveAlgoritmTest {
      */
     @Test
     public void testKingCheck119() {
-        Card wantedCard[] = {new Card(0,13)}; //King of Hearts
-        Card distractionCard[] = {new Card(1,13)}; //King of Spades
-        Card cardOfInterest[] = {new Card(1, 12)}; //Queen of Spades
+        Card[] wantedCard = {new Card(0,13)}; //King of Hearts
+        Card[] distractionCard = {new Card(1,13)}; //King of Spades
+        Card[] cardOfInterest = {new Card(1, 12)}; //Queen of Spades
 
         tableaus[0].addCardToStack(new Card(0, 12)); //Queen of Hearts
         tableaus[1] = new Tableau(2, Arrays.asList(distractionCard)); //King of Spades
@@ -571,11 +588,12 @@ public class MoveAlgoritmTest {
         tableaus[4] = new Tableau(2, Arrays.asList(wantedCard));//King of Hearts
 
         //Create a dummy wastepile
-        List<Card> wasteCards = new ArrayList<Card>();
-        wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
+        List<Card> knownWasteCards = new ArrayList<>();
+        knownWasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(true, knownWasteCards);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
     }
@@ -602,13 +620,13 @@ public class MoveAlgoritmTest {
         foundations[2].addCard(foundationCard);
 
         //Create a wastepile with 8 of Hearts on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(0, 8));
-        Waste waste = new Waste(wasteCards, true);
-        Card card = waste.revealCard();
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
         //Test
         assertEquals("Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCard, algoritmCtrl.foundationToTableau());
     }
@@ -639,10 +657,11 @@ public class MoveAlgoritmTest {
         foundations[2].addCard(foundationCard);
 
         //Create a wastepile placeholder
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauDestinationCard, algoritmCtrl.foundationToTableau());
@@ -663,9 +682,10 @@ public class MoveAlgoritmTest {
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
     }
@@ -684,9 +704,10 @@ public class MoveAlgoritmTest {
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.moveToFoundation());
     }
@@ -698,7 +719,7 @@ public class MoveAlgoritmTest {
     public void testMoveToFoundation103() {
         Card tableauCard = new Card(0,11);
         tableaus[1].addCardToStack(tableauCard);
-        tableaus[2] = new Tableau(3);
+        tableaus[2] = new Tableau(3, null);
         tableaus[2].addCardToStack(new Card(3, 13));
 
         for(int i = 1 ; i < 10 ; i++) {
@@ -707,9 +728,10 @@ public class MoveAlgoritmTest {
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
     }
@@ -729,9 +751,10 @@ public class MoveAlgoritmTest {
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("", algoritmCtrl.moveToFoundation());
     }
@@ -751,9 +774,10 @@ public class MoveAlgoritmTest {
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
     }
@@ -768,13 +792,13 @@ public class MoveAlgoritmTest {
         }
         Card foundationCard = new Card(0,10);
         foundations[1].addCard(foundationCard);
-        List<Card> wastePile = new ArrayList<Card>();
+        List<Card> wastePile = new ArrayList<>();
         Card wasteCard = new Card(0,11);
         wastePile.add(wasteCard);
-        Waste waste = new Waste(wastePile, true);
-        waste.revealCard();
+        Waste waste = new Waste(true, wastePile);
+        game.setWaste(waste);
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals("Move " + wasteCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
     }
@@ -792,13 +816,13 @@ public class MoveAlgoritmTest {
         tableaus[2].addCardToStack(new Card(0, 6));
 
         //Create a wastepile with 3 of Clubs on top
-        List<Card> wasteCards = new ArrayList<Card>();
+        List<Card> wasteCards = new ArrayList<>();
         wasteCards.add(new Card(3, 7));
-        Waste waste = new Waste(wasteCards, true);
-        waste.revealCard();
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag alle de synlige kort fra byggestablen med det nederste kort " + expected2.toString() + " og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
@@ -818,10 +842,11 @@ public class MoveAlgoritmTest {
         tableaus[3].addCardToStack(new Card(3, 9));
         tableaus[3].addCardToStack(new Card(2, 8));
 
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(true, null);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag alle de synlige kort fra byggestablen med det nederste kort " + expected2.toString() + " og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
@@ -843,10 +868,11 @@ public class MoveAlgoritmTest {
         tableaus[5].addCardToStack(expected2);// 1       7    // Possible move for expected 1
 
         //Create a wastepile placeholder
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(false, null);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag " + expected1.toString() + " og placer kortet på " + expected2.toString(), algoritmCtrl.typeStreak());
@@ -868,10 +894,11 @@ public class MoveAlgoritmTest {
         tableaus[5].addCardToStack(expected2);// 1       7    // Possible move for expected 1 (has matching suit)
 
         //Create a wastepile placeholder
-        Waste waste = new Waste(null, true);
+        Waste waste = new Waste(false, null);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag " + expected1.toString() + " og placer kortet på " + expected2.toString(), algoritmCtrl.typeStreak());
@@ -891,13 +918,13 @@ public class MoveAlgoritmTest {
         tableaus[3].addCardToStack(expected1);// 0       3    // Possible move for expected 1
 
         //Create a wastepile with 3 of Clubs on top
-        List<Card> wasteCards = new ArrayList<Card>();
-        wasteCards.add(expected2);
-        Waste waste = new Waste(wasteCards, true);
-        waste.revealCard();
+        List<Card> knownWasteCards = new ArrayList<>();
+        knownWasteCards.add(expected2);
+        Waste waste = new Waste(true, knownWasteCards);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag " + expected2.toString() + " og placer kortet på " + expected1.toString(), algoritmCtrl.typeStreak());
@@ -919,13 +946,13 @@ public class MoveAlgoritmTest {
         tableaus[5].addCardToStack(new Card(0, 8));
 
         //Create a wastepile with 3 of Clubs on top
-        List<Card> wasteCards = new ArrayList<Card>();
-        wasteCards.add(expected2);
-        Waste waste = new Waste(wasteCards, true);
-        waste.revealCard();
+        List<Card> knownWasteCards = new ArrayList<>();
+        knownWasteCards.add(expected2);
+        Waste waste = new Waste(true, knownWasteCards);
+        game.setWaste(waste);
 
         //Setup Algorithm class
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Tag " + expected2.toString() + " og placer kortet på " + expected1.toString(), algoritmCtrl.typeStreak());
@@ -933,13 +960,13 @@ public class MoveAlgoritmTest {
 
     @Test
     public void testRevealHiddenCard() {
-        tableaus[1] = new Tableau(3);
+        tableaus[1] = new Tableau(3, null);
         tableaus[1].addCardToStack(new Card(0, 4));
-        tableaus[2] = new Tableau(2);
+        tableaus[2] = new Tableau(2, null);
 
-        Waste waste = new Waste(null, true);
+        game.setWaste(new Waste(true, null));
 
-        algoritmCtrl = new MoveAlgoritm(Arrays.asList(tableaus), Arrays.asList(foundations), waste.lookAtTop(), waste.getPileStatus());
+        algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
         assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", algoritmCtrl.revealHiddenCard());

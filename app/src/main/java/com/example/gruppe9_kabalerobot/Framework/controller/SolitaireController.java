@@ -1,20 +1,24 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.CardPlacement.CardTranslator;
+import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousStatesContainer;
 
 public class SolitaireController {
-    PreviousStatesContainer prevStates;
+    private PreviousStatesContainer prevStates;
 
     public SolitaireController() {
          this.prevStates = new PreviousStatesContainer();
     }
 
     public String takeMove(CardTranslator translator) {
-        GameLogic game = new GameLogic(); //TODO Needs information
+        //Setup
+        SolitarieLogic game = new SolitarieLogic();
         translator.insertCards(game);
-
+        //Find move suggestion
         MoveAlgorithm moveAlgo = new MoveAlgorithm(game);
-        return moveAlgo.getBestMove(prevStates.getLatestSolutionToState(game.getGameState()));
+        String moveSuggestion = moveAlgo.getBestMove(prevStates.getLatestSolutionToState(game.getGameState()));
+        //Save and return suggestion
+        prevStates.addPreviousMove(new PreviousState(game.getGameState(), moveAlgo.getMoveChosen()));
+        return moveSuggestion;
     }
 }

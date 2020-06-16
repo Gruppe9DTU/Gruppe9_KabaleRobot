@@ -1,61 +1,51 @@
 package com.example.gruppe9_kabalerobot.Framework.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to act as Waste of a game of Solitaire. Waste is where the rest of the cards in the deck is placed in the beginning and the player looks through throughout the game to find usable cards.
+ * This Class is simplified to looks as an instance of the game, and not collect information of the cards in Waste throughout the game
+ */
 public class Waste {
-    private List<Card> knowncards = new ArrayList<Card>();
-    private List<Card> unknowncards;
-    private int iterator = 0;
-    private boolean pileStatus; //TODO Why is this here? Why not just check the status and return that?
+    private boolean wastePilePresent;   //Boolean to mark if there is a pile of cards to take a card from
+    private List<Card> knownCards;      //List of known cards
 
-    public Waste(List<Card> cards, boolean pileStatus) {
-        unknowncards = cards;
-        this.pileStatus = pileStatus;
+    /**
+     * Constructor for Waste class
+     *
+     * @param wastePilePresent  Boolean to mark the presence of a waste pile
+     * @param knowCards         List of instances of Card
+     */
+    public Waste(boolean wastePilePresent, List<Card> knowCards) {
+        this.wastePilePresent = wastePilePresent;
+        this.knownCards = knowCards;
     }
 
-    public Card takeCard() {
-        Card temp = knowncards.remove(iterator);
-        if(iterator == knowncards.size()-1)
-            iterator--;
-        return temp;
-    }
+    /**
+     * Adds a list of cards to the list of known cards
+     *
+     * @param cards List of Card to be added
+     */
+    public void addListToKnown(List<Card> cards) { knownCards = cards; }
 
-    public Card revealCard() {
-        if(unknowncards.size() > 0) {
-            Card revealed = unknowncards.remove(unknowncards.size() - 1);
-            addToKnown(revealed);
-            iterator = knowncards.size() - 1;
-            return revealed;
-        }
-        else {
-            if(iterator > knowncards.size()-1) {
-                iterator = 0;
-            }
-            Card temp = knowncards.get(iterator);
-            iterator++;
-            return temp;
-        }
-    }
+    /**
+     * Getter for list of cards, from the pile of known cards in Waste
+     *
+     * @return  List of instances of Card
+     */
+    public List<Card> getKnownCards() { return knownCards; }
 
-    public void addToKnown(Card card) { knowncards.add(card); }
-    public void addListToKnown(List<Card> cards) { knowncards = cards; }
+    /**
+     * Getter for card on top of the known cards pile in Waste
+     *
+     * @return  Instance of Card
+     */
+    public Card lookAtTop(){ return knownCards != null ? knownCards.get(0) : null; }
 
-    public List<Card> getKnownCards() { return knowncards; }
-
-    public int wasteSize() { return unknowncards.size(); }
-
-    public Card lookAtTop(){
-        return knowncards.size() > 0 ? knowncards.get(iterator) : null;
-        //TODO Cleanup: delete if works
-//        try {
-//            return knowncards.get(iterator);
-//        }catch (IndexOutOfBoundsException e){
-//            //
-//        }
-//        return null;
-    }
-
-    public void setPileStatus(boolean pileStatus) { this.pileStatus = pileStatus; }
-    public boolean getPileStatus() { return pileStatus; }
+    /**
+     * Getter for status of pile of cards in Waste
+     *
+     * @return  True if there are cards to be revealed
+     */
+    public boolean isWastePilePresent() { return wastePilePresent;}
 }

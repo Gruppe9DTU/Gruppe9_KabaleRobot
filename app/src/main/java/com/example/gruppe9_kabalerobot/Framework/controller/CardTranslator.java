@@ -1,19 +1,21 @@
-package com.example.gruppe9_kabalerobot.CardPlacement;
+package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
+import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardTranslator {
-    CardPlacement placement;
+    private CardPlacement placement;
 
     public CardTranslator(CardPlacement placement) {
         this.placement = placement;
     }
 
-    public void insertCards(GameLogic game) {
+    public void insertCards(SolitarieLogic game) {
         //Waste
         game.getWaste().addListToKnown(translateCardList(placement.getWaste()));
         //Foundation
