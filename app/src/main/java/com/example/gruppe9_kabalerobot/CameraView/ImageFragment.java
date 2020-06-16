@@ -9,14 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
+import com.example.gruppe9_kabalerobot.CardPlacement.CardTranslator;
 import com.example.gruppe9_kabalerobot.CardPlacement.OpenCV;
 import com.example.gruppe9_kabalerobot.Client.Client;
+import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
+import com.example.gruppe9_kabalerobot.Framework.controller.SolitaireController;
+import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.R;
+
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImageFragment extends Fragment {
 
@@ -28,6 +42,14 @@ public class ImageFragment extends Fragment {
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
     private int[][] dataArray;
+    private String suggestedMove;
+
+
+    // Card and algorithm
+    private List<CardObj> cardObjList;
+    private CardPlacement cardPlacement;
+    private CardTranslator translator;
+    private SolitaireController solitaireController;
 
     //endregion
 
@@ -107,6 +129,18 @@ public class ImageFragment extends Fragment {
 
             rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
 
+            //TODO: Uncomment when correct data is available
+
+           /* constructCards();
+
+            cardPlacement.sortCards(cardObjList);
+
+            translator = new CardTranslator(cardPlacement);
+
+            suggestedMove = solitaireController.takeMove(translator);
+
+            */
+
             return null;
         }
 
@@ -114,11 +148,9 @@ public class ImageFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    imageView.setImageBitmap(rectanglesDrawn);
-                }
+            getActivity().runOnUiThread(() -> {
+                imageView.setImageBitmap(rectanglesDrawn);
+                //Toast.makeText(getActivity(), suggestedMove, Toast.LENGTH_LONG).show();
             });
 
             loadingDialog.dismiss();
@@ -126,5 +158,19 @@ public class ImageFragment extends Fragment {
     };
 
     //endregion
+
+    private void constructCards(){
+        solitaireController = new SolitaireController();
+        cardPlacement = new CardPlacement();
+        cardObjList = new ArrayList<>();
+
+        for(int i = 0; i<dataArray.length; i++){
+
+            CardObj cardObj = new CardObj(dataArray[i][0],dataArray[i][1],dataArray[i][4],dataArray[i][5]);
+            cardObjList.add(cardObj);
+
+        }
+
+    }
 
 }
