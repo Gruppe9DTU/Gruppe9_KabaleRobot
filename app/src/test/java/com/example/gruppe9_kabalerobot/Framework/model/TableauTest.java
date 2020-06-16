@@ -3,7 +3,6 @@ package com.example.gruppe9_kabalerobot.Framework.model;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Deck;
 import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
-
 import org.junit.Test;
 
 import java.util.List;

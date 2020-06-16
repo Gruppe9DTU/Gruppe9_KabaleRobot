@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.gruppe9_kabalerobot.Client.Client;
 import com.example.gruppe9_kabalerobot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -41,6 +42,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener, Ca
     private ImageCapture imageCapture;
     private Preview preview;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
+    private Client c = Client.getInstance();
 
     //endregion
 

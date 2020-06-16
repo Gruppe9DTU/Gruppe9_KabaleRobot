@@ -12,8 +12,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.BitmapCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.gruppe9_kabalerobot.Client.Client;
 import com.example.gruppe9_kabalerobot.Haarcascade.Haarcascade;
 import com.example.gruppe9_kabalerobot.R;
 
@@ -22,9 +24,10 @@ public class ImageFragment extends Fragment {
     //region Fields
 
     private ImageView imageView;
-    private Bitmap bitmap, cascadeResult;
+    private Bitmap bitmap;
     private Haarcascade haarcascade;
     private ProgressDialog loadingDialog;
+    private Client c = Client.getInstance();
 
     //endregion
 
@@ -98,7 +101,11 @@ public class ImageFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            cascadeResult = haarcascade.runCardRecognition(bitmap);
+            c.sendImage(bitmap);
+
+            c.recieveData();
+
+            //c.closeAllStreams();
 
             return null;
         }
@@ -106,13 +113,6 @@ public class ImageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            try {
-                getActivity().runOnUiThread(() -> imageView.setImageBitmap(cascadeResult));
-            }
-            catch (NullPointerException e){
-                System.out.println("WARNING!: runOnUIThread encounted Nullpointer at: " + e.getMessage());
-            }
 
             loadingDialog.dismiss();
         }
