@@ -16,22 +16,36 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Arrays;
 
+/**
+ * This class is a singleton which handles connections using Socket.
+ */
 public class Client {
+
+    //region Fields
 
     private Socket socket;
 
-    private final int serverPort = 8889;
-    private final String server_ip = "192.168.0.27";
+    private final int serverPort = 8889; //FIXME: Change to fit server
+    private final String server_ip = "192.168.0.27"; //FIXME: Change to fit server with your own IP-Address
 
     private static Client instance;
     private BufferedReader reader;
     private ByteArrayOutputStream stream;
     private BufferedOutputStream output;
 
+    //endregion
+
+    /**
+     * Basic constructor
+     */
     private Client(){
         new Thread(new ClientThread()).start();
     }
 
+    /**
+     * Singleton pattern, getInstance, which ensures there only exists one Client object
+     * @return instance
+     */
     public static synchronized Client getInstance(){
         if(instance == null){
             instance = new Client();
@@ -39,6 +53,10 @@ public class Client {
         return instance;
     }
 
+    /**
+     * This method sends an image to python server.
+     * @param imageToSend bitmap of the image
+     */
     public void sendImage(Bitmap imageToSend) {
 
         try{
@@ -59,6 +77,10 @@ public class Client {
 
     }
 
+    /**
+     * This method recieves data, using busy waiting.
+     * @return 2D int array of data from server
+     */
     public int[][] recieveData() {
 
         try {
@@ -66,8 +88,14 @@ public class Client {
             while ((fromServer=reader.readLine())!=null) {
                 System.out.println("Recieved: " + fromServer);
                 result += fromServer;
+
+                // If recieved empty list, return null
+                if (fromServer.contains("[]")){
+                    return null;
+                }
+
                 // The last element of that data will be two square brackets
-                if (fromServer.contains("]")){
+                else if (fromServer.contains("]")){
                     break;
                 }
             }
@@ -78,6 +106,11 @@ public class Client {
         }
     }
 
+    /**
+     * This method converts the data stream we recieve into a 2D int array
+     * @param result server result
+     * @return 2D int array of data
+     */
     public int[][] stringToIntArrays(String result){
         String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ");
         System.out.println("with replace " + s);
@@ -98,6 +131,9 @@ public class Client {
         return newIntArray;
     }
 
+    /**
+     * This method closes all streams and therefore connection to the server
+     */
     public void closeAllStreams() {
         try {
             reader.close();
@@ -108,6 +144,10 @@ public class Client {
         }
     }
 
+    /**
+     * This class is a basic ClientThread which implements runnable
+     * This class is being used when creating the single instance of Client.
+     */
     class ClientThread implements Runnable {
         @Override
         public void run() {
