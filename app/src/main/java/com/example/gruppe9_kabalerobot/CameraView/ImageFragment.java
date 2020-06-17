@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,12 +28,14 @@ import com.example.gruppe9_kabalerobot.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageFragment extends Fragment {
+public class ImageFragment extends Fragment implements View.OnClickListener {
 
     //region Fields
 
     private ImageView imageView;
     private Bitmap bitmap, rectanglesDrawn;
+    private Button continueToMove;
+    private ImageButton backButton;
     private OpenCV openCV;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
@@ -63,6 +67,12 @@ public class ImageFragment extends Fragment {
 
         imageView = view.findViewById(R.id.imageView);
 
+        continueToMove = view.findViewById(R.id.continueToMove);
+        backButton = view.findViewById(R.id.back_button);
+
+        continueToMove.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+
         openCV = new OpenCV();
 
         // Set imageview to the picture you have taken
@@ -79,6 +89,29 @@ public class ImageFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == continueToMove){
+
+            //TODO: Uncomment when correct data is available
+/*
+            constructCards();
+
+            cardPlacement.sortCards(cardObjList);
+
+            translator = new CardTranslator(cardPlacement);
+
+            suggestedMove = solitaireController.takeMove(translator);
+
+            */
+        }
+        else if (view == backButton){
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
 
     }
 
@@ -117,27 +150,15 @@ public class ImageFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            c.sendImage(bitmap);
+           // c.sendImage(bitmap);
 
-            dataArray = c.recieveData();
+            //dataArray = c.recieveData();
 
             if (dataArray==null){
                 cancel(true);
             }
 
-            rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
-
-            //TODO: Uncomment when correct data is available
-/*
-            constructCards();
-
-            cardPlacement.sortCards(cardObjList);
-
-            translator = new CardTranslator(cardPlacement);
-
-            suggestedMove = solitaireController.takeMove(translator);
-
-            */
+            //rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
 
             return null;
         }
@@ -158,7 +179,6 @@ public class ImageFragment extends Fragment {
 
             getActivity().runOnUiThread(() -> {
                 imageView.setImageBitmap(rectanglesDrawn);
-                //Toast.makeText(getActivity(), suggestedMove, Toast.LENGTH_LONG).show();
             });
 
             loadingDialog.dismiss();
@@ -180,5 +200,4 @@ public class ImageFragment extends Fragment {
         }
 
     }
-
 }
