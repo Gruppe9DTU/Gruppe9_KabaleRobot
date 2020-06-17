@@ -32,7 +32,7 @@ public class CardPlacement  {
     /**
      * Method that sorts the cards
      */
-    public void sortCards(ArrayList<CardObj> coordinates){
+    public void sortCards(List<CardObj> coordinates){
 
         this.coordinates = coordinates;
         upperRow();

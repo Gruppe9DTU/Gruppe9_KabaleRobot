@@ -20,7 +20,7 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 8888;
+    private final int serverPort = 8889;
     private final String server_ip = "192.168.0.27";
 
     private static Client instance;
@@ -51,8 +51,6 @@ public class Client {
             Thread.sleep(200);
             output.write(byteArray);
             output.flush();
-
-            imageToSend.recycle();
         }
         catch (IOException | InterruptedException e1){
             e1.printStackTrace();
@@ -61,23 +59,43 @@ public class Client {
 
     }
 
-    public void recieveData() {
+    public int[][] recieveData() {
 
         try {
-            String fromServer;
+            String fromServer, result="";
             while ((fromServer=reader.readLine())!=null) {
                 System.out.println("Recieved: " + fromServer);
-
+                result += fromServer;
                 // The last element of that data will be two square brackets
-                if (fromServer.contains("]]")){
+                if (fromServer.contains("]")){
                     break;
                 }
             }
-
+            return stringToIntArrays(result);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+    }
 
+    public int[][] stringToIntArrays(String result){
+        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ");
+        System.out.println("with replace " + s);
+        String[] splitString = s.trim().split(" ");
+        int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
+        int[][] newIntArray = new int[intArray.length/6][6];
+        int j=0;
+
+        for (int i=0; i < intArray.length; i+=6){
+            for (int k=0; k<6; k++){
+                newIntArray[j][k] = intArray[k+i];
+                if (k==5){
+                    j++;
+                }
+            }
+        }
+        System.out.println(Arrays.deepToString(newIntArray));
+        return newIntArray;
     }
 
     public void closeAllStreams() {
