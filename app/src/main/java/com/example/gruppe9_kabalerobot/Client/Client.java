@@ -20,7 +20,7 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 8888;
+    private final int serverPort = 8889;
     private final String server_ip = "192.168.0.27";
 
     private static Client instance;
@@ -79,7 +79,7 @@ public class Client {
     }
 
     public int[][] stringToIntArrays(String result){
-        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ").replaceAll(","," ");
+        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ");
         System.out.println("with replace " + s);
         String[] splitString = s.trim().split(" ");
         int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
