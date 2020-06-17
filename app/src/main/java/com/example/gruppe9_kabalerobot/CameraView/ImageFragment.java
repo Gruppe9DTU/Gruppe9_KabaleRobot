@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -120,6 +121,10 @@ public class ImageFragment extends Fragment {
 
             dataArray = c.recieveData();
 
+            if (dataArray==null){
+                cancel(true);
+            }
+
             rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
 
             //TODO: Uncomment when correct data is available
@@ -135,6 +140,15 @@ public class ImageFragment extends Fragment {
             */
 
             return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+
+            getActivity().runOnUiThread(() -> {
+                Toast.makeText(getActivity(), "Fandt ingen kort. Tag et nyt billede og prøv igen..", Toast.LENGTH_LONG).show();
+            });
         }
 
         @Override
