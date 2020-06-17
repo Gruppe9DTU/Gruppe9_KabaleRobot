@@ -11,7 +11,7 @@ public class CardPlacement  {
     private List<CardObj> coordinates = new ArrayList<>();
     private List<CardObj> waste = new ArrayList<>();
     private List<CardObj> foundations = new ArrayList<>();
-    private List<Integer> hiddenCards = new ArrayList<>();
+    private List<Integer> hiddenCards = new ArrayList<>(7);
     private List<CardObj> tableau1 = new ArrayList<>();
     private List<CardObj> tableau2 = new ArrayList<>();
     private List<CardObj> tableau3 = new ArrayList<>();
@@ -21,6 +21,11 @@ public class CardPlacement  {
     private List<CardObj> tableau7 = new ArrayList<>();
 
 
+    public CardPlacement(){
+        for (int i = 0; i <7 ; i++) {
+            hiddenCards.add(0);
+        }
+    }
     /**
      * Method that sorts the cards
      */
@@ -214,7 +219,7 @@ public class CardPlacement  {
                     i--;
                 }
             }
-            hiddenCards.add(hiddenCount);
+            hiddenCards.set(hiddenCardIndex,hiddenCount);
         }
     }
 
