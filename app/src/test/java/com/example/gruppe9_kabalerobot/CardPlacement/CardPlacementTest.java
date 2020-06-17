@@ -71,10 +71,6 @@ public class CardPlacementTest {
         assertEquals(cardPlacement.getTableau7().get(2),coordinates.get(20));
         assertEquals(cardPlacement.getTableau7().get(3),coordinates.get(17));
         assertEquals(cardPlacement.getTableau7().size(),4);
-
-
-
-
     }
 
 

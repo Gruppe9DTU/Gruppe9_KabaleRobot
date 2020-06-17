@@ -8,8 +8,6 @@ import java.util.List;
 
 public class CardPlacement  {
 
-
-
     private List<CardObj> coordinates = new ArrayList<>();
     private List<CardObj> waste = new ArrayList<>();
     private List<CardObj> foundations = new ArrayList<>();
@@ -217,16 +215,6 @@ public class CardPlacement  {
                 }
             }
             hiddenCards.add(hiddenCount);
-            /*
-            if (hiddenCount > 0) {
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getSuit() == 0){
-
-                    }
-                }
-            }
-            */
-
         }
     }
 
