@@ -150,15 +150,15 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
 
-           // c.sendImage(bitmap);
+            c.sendImage(bitmap);
 
-            //dataArray = c.recieveData();
+            dataArray = c.recieveData();
 
             if (dataArray==null){
                 cancel(true);
             }
 
-            //rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
+            rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
 
             return null;
         }
