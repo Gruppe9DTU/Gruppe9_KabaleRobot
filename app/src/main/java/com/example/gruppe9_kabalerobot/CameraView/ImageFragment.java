@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,17 +16,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
 import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
-import com.example.gruppe9_kabalerobot.CardPlacement.CardTranslator;
 import com.example.gruppe9_kabalerobot.CardPlacement.OpenCV;
 import com.example.gruppe9_kabalerobot.Client.Client;
-import com.example.gruppe9_kabalerobot.Framework.controller.GameLogic;
+import com.example.gruppe9_kabalerobot.Framework.controller.CardTranslator;
 import com.example.gruppe9_kabalerobot.Framework.controller.SolitaireController;
-import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.R;
-
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,8 +124,8 @@ public class ImageFragment extends Fragment {
 
             //TODO: Uncomment when correct data is available
 
-           /* constructCards();
-
+            constructCards();
+/*
             cardPlacement.sortCards(cardObjList);
 
             translator = new CardTranslator(cardPlacement);
@@ -160,14 +153,16 @@ public class ImageFragment extends Fragment {
     //endregion
 
     private void constructCards(){
-        solitaireController = new SolitaireController();
-        cardPlacement = new CardPlacement();
-        cardObjList = new ArrayList<>();
+      // solitaireController = new SolitaireController();
+       // cardPlacement = new CardPlacement();
+       // cardObjList = new ArrayList<>();
 
         for(int i = 0; i<dataArray.length; i++){
 
             CardObj cardObj = new CardObj(dataArray[i][0],dataArray[i][1],dataArray[i][4],dataArray[i][5]);
             cardObjList.add(cardObj);
+            System.out.println(cardObjList.get(0));
+            System.out.println("Suit " +cardObj.getSuit() + " Number " + cardObj.getValue() );
 
         }
 

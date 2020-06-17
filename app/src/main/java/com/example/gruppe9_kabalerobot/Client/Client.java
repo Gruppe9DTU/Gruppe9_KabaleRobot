@@ -21,7 +21,7 @@ public class Client {
     private Socket socket;
 
     private final int serverPort = 8888;
-    private final String server_ip = "192.168.0.51";
+    private final String server_ip = "192.168.0.27";
 
     private static Client instance;
     private BufferedReader reader;
@@ -79,16 +79,17 @@ public class Client {
     }
 
     public int[][] stringToIntArrays(String result){
-        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ");
+        String s = result.replaceAll("[\\[\\]]", " ").replaceAll("\\s+", " ").replaceAll(","," ");
+        System.out.println("with replace " + s);
         String[] splitString = s.trim().split(" ");
         int[] intArray = Arrays.stream(splitString).mapToInt(Integer::parseInt).toArray();
-        int[][] newIntArray = new int[intArray.length/4][4];
+        int[][] newIntArray = new int[intArray.length/6][6];
         int j=0;
 
-        for (int i=0; i < intArray.length; i+=4){
-            for (int k=0; k<4; k++){
+        for (int i=0; i < intArray.length; i+=6){
+            for (int k=0; k<6; k++){
                 newIntArray[j][k] = intArray[k+i];
-                if (k==3){
+                if (k==5){
                     j++;
                 }
             }
