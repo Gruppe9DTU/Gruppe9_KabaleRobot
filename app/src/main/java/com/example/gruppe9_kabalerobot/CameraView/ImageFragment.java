@@ -147,8 +147,9 @@ public class ImageFragment extends Fragment {
             super.onCancelled();
 
             getActivity().runOnUiThread(() -> {
-                Toast.makeText(getActivity(), "Fandt ingen kort. Tag et nyt billede og prøv igen..", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Fandt ingen kort. Tag et nyt billede og prøv igen...", Toast.LENGTH_LONG).show();
             });
+            loadingDialog.dismiss();
         }
 
         @Override
