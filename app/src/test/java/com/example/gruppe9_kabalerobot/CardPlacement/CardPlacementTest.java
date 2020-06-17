@@ -38,6 +38,9 @@ public class CardPlacementTest {
         //Stack 2
         assertEquals(cardPlacement.getTableau2().get(0), coordinates.get(6));
         assertEquals(cardPlacement.getTableau2().size(),1);
+        int hiddenStack2 = cardPlacement.getHiddenCards().get(1);
+        assertEquals(hiddenStack2,1);
+
 
         //Stack 3
         assertEquals(cardPlacement.getTableau3().get(0),coordinates.get(8));
@@ -60,14 +63,14 @@ public class CardPlacementTest {
         assertEquals(cardPlacement.getTableau6().get(0),coordinates.get(15));
         assertEquals(cardPlacement.getTableau6().get(1),coordinates.get(16));
         assertEquals(cardPlacement.getTableau6().size(),2);
-
+        int hiddenStack6 = cardPlacement.getHiddenCards().get(5);
+        assertEquals(hiddenStack6,2);
 
         assertEquals(cardPlacement.getTableau7().get(0),coordinates.get(19));
         assertEquals(cardPlacement.getTableau7().get(1),coordinates.get(18));
         assertEquals(cardPlacement.getTableau7().get(2),coordinates.get(20));
         assertEquals(cardPlacement.getTableau7().get(3),coordinates.get(17));
         assertEquals(cardPlacement.getTableau7().size(),4);
-
     }
 
 
@@ -75,11 +78,13 @@ public class CardPlacementTest {
      * Test data for testing
      */
     private void addCoordinates(){
-        coordinates.add(new CardObj(1,6,12,1)); //0 extra card
-        coordinates.add(new CardObj(2,6,4,3));  //1 winning stack
+        coordinates.add(new CardObj(1,7,12,1)); //0 extra card
+        coordinates.add(new CardObj(2,7,4,3));  //1 winning stack
         coordinates.add(new CardObj(4,3,7,3));  //2 stack 4, pos 1
-        coordinates.add(new CardObj(3,6,4,0));  //3 winning stack
-        coordinates.add(new CardObj(5,6,2,0));  //4 winning stack
+        coordinates.add(new CardObj(3,7,4,0));  //3 winning stack
+        coordinates.add(new CardObj(5,7,2,0));  //4 winning stack
+
+
 
         coordinates.add(new CardObj(1,3,4,3));  //5 stack 1, pos 0
         coordinates.add(new CardObj(2,1,10,3)); //6 stack 2 pos 0
@@ -97,10 +102,15 @@ public class CardPlacementTest {
         coordinates.add(new CardObj(6,2,9,3));  //15 stack 6 pos 0
         coordinates.add(new CardObj(6,1,9,3));  //16 stack 6 pos 1
 
+
         coordinates.add(new CardObj(7,1,9,3));  //17 stack 7 pos 3
         coordinates.add(new CardObj(7,3,9,3));  //18 stack 7 pos 1
         coordinates.add(new CardObj(7,4,9,3));  //19 stack 7 pos 0
         coordinates.add(new CardObj(7,2,9,3));  //20 stack 7 pos 2
+
+        coordinates.add(new CardObj(2,2,0,0));  //21 hidden card stack 2
+        coordinates.add(new CardObj(6,3,0,0));  //22 hidden card stack 6
+        coordinates.add(new CardObj(6,4,0,0));  //23 hidden card stack 6
     }
 
 }
