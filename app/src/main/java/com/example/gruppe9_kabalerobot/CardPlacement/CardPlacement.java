@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CardPlacement  {
 
-    int semaphore1 = 0, semaphore2 = 0;
+
 
     private List<CardObj> coordinates = new ArrayList<>();
     private List<CardObj> waste = new ArrayList<>();
@@ -22,12 +22,6 @@ public class CardPlacement  {
     private List<CardObj> tableau6 = new ArrayList<>();
     private List<CardObj> tableau7 = new ArrayList<>();
 
-    //TODO We are not getting hidden cards atm. This is a placeholder to avoid nullpointer
-    public CardPlacement() {
-        for(int i = 0 ; i < 7 ; i++) {
-            hiddenCards.add(0);
-        }
-    }
 
     /**
      * Method that sorts the cards
@@ -46,59 +40,24 @@ public class CardPlacement  {
      */
     private void sortStacks(){
 
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sortStack1();
-            }
-        });
-        t1.start();
-
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sortStack2();
-            }
-        });
-        t2.start();
-
-        while(semaphore1 == 0 && semaphore2 == 0);
-
-    }
-
-    /**
-     * This method is made for running thread with,to sort the stacks for the y-coordinate
-     */
-    private void sortStack1(){
-
-        compareY(tableau1);
+        compareY(tableau1,0);
         Collections.reverse(tableau1);
-        compareY(tableau2);
+        compareY(tableau2,1);
         Collections.reverse(tableau2);
-        compareY(tableau3);
+        compareY(tableau3,2);
         Collections.reverse(tableau3);
-        compareY(tableau7);
+
+        compareY(tableau4,3);
+        Collections.reverse(tableau4);
+        compareY(tableau5,4);
+        Collections.reverse(tableau5);
+        compareY(tableau6,5);
+        Collections.reverse(tableau6);
+        compareY(tableau7,6);
         Collections.reverse(tableau7);
 
-        semaphore2 = 1;
     }
 
-    /**
-     * This method is made for running thread with,to sort the stacks for the y-coordinate
-     */
-    private void sortStack2(){
-
-        compareY(tableau4);
-        Collections.reverse(tableau4);
-        compareY(tableau5);
-        Collections.reverse(tableau5);
-        compareY(tableau6);
-        Collections.reverse(tableau6);
-
-
-        semaphore1 = 1;
-
-    }
 
     /**
      * This method finds out which stack the cards from the arraylist coordinates are going to.
@@ -178,7 +137,7 @@ public class CardPlacement  {
      */
     private void upperRow(){
 
-        compareY(coordinates);
+        compareY(coordinates,-1);
         Collections.reverse(coordinates);
 
         for (int i = 0; i<5;i++) {
@@ -240,13 +199,35 @@ public class CardPlacement  {
      * Sort the arraylist for y
      * @param list the given list that i want to sort
      */
-    private void compareY(List<CardObj> list ){
+    private void compareY(List<CardObj> list, int hiddenCardIndex ) {
         Collections.sort(list, new Comparator<CardObj>() {
             @Override
             public int compare(CardObj o1, CardObj o2) {
                 return Integer.compare(o1.getY(), o2.getY());
             }
         });
+
+        if (hiddenCardIndex != -1) {
+            int hiddenCount = 0;
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getSuit() == 0) {
+                    hiddenCount++;
+                    list.remove(i);
+                    i--;
+                }
+            }
+            hiddenCards.add(hiddenCount);
+            /*
+            if (hiddenCount > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getSuit() == 0){
+
+                    }
+                }
+            }
+            */
+
+        }
     }
 
     /**
@@ -258,6 +239,9 @@ public class CardPlacement  {
     /**
      * Getter and setters for tableaus
      */
+
+
+
     public List<CardObj> getTableau1() {
         return tableau1;
     }
