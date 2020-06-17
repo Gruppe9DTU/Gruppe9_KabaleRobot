@@ -23,50 +23,50 @@ public class CardPlacementTest {
         winningCard.add(coordinates.get(4));
 
         //Extra card
-        assertEquals(cardPlacement.waste.get(0), coordinates.get(0));
-        assertEquals(cardPlacement.waste.size(),1);
+        assertEquals(cardPlacement.getWaste().get(0), coordinates.get(0));
+        assertEquals(cardPlacement.getWaste().size(),1);
 
         //Winning stack
-        assertEquals(cardPlacement.foundations,winningCard);
-        assertEquals(cardPlacement.foundations.size(),3);
+        assertEquals(cardPlacement.getFoundations(),winningCard);
+        assertEquals(cardPlacement.getFoundations().size(),3);
 
         //Stack 1
-        assertEquals(cardPlacement.tableau1.get(0), coordinates.get(5));
-        assertEquals(cardPlacement.tableau1.get(1), coordinates.get(7));
-        assertEquals(cardPlacement.tableau1.size(),2);
+        assertEquals(cardPlacement.getTableau1().get(0), coordinates.get(5));
+        assertEquals(cardPlacement.getTableau1().get(1), coordinates.get(7));
+        assertEquals(cardPlacement.getTableau1().size(),2);
 
         //Stack 2
-        assertEquals(cardPlacement.tableau2.get(0), coordinates.get(6));
-        assertEquals(cardPlacement.tableau2.size(),1);
+        assertEquals(cardPlacement.getTableau2().get(0), coordinates.get(6));
+        assertEquals(cardPlacement.getTableau2().size(),1);
 
         //Stack 3
-        assertEquals(cardPlacement.tableau3.get(0),coordinates.get(8));
-        assertEquals(cardPlacement.tableau3.size(),1);
+        assertEquals(cardPlacement.getTableau3().get(0),coordinates.get(8));
+        assertEquals(cardPlacement.getTableau3().size(),1);
 
         //Stack 4
-        assertEquals(cardPlacement.tableau4.get(0),coordinates.get(10));
-        assertEquals(cardPlacement.tableau4.get(1),coordinates.get(2));
+        assertEquals(cardPlacement.getTableau4().get(0),coordinates.get(10));
+        assertEquals(cardPlacement.getTableau4().get(1),coordinates.get(2));
         assertEquals(cardPlacement.getTableau4().get(2),coordinates.get(11));
-        assertEquals(cardPlacement.tableau4.get(3),coordinates.get(9));
-        assertEquals(cardPlacement.tableau4.size(),4);
+        assertEquals(cardPlacement.getTableau4().get(3),coordinates.get(9));
+        assertEquals(cardPlacement.getTableau4().size(),4);
 
         //Stack 5
-        assertEquals(cardPlacement.tableau5.get(0),coordinates.get(12));
-        assertEquals(cardPlacement.tableau5.get(1),coordinates.get(13));
-        assertEquals(cardPlacement.tableau5.get(2),coordinates.get(14));
-        assertEquals(cardPlacement.tableau5.size(),3);
+        assertEquals(cardPlacement.getTableau5().get(0),coordinates.get(12));
+        assertEquals(cardPlacement.getTableau5().get(1),coordinates.get(13));
+        assertEquals(cardPlacement.getTableau5().get(2),coordinates.get(14));
+        assertEquals(cardPlacement.getTableau5().size(),3);
 
         //Stack 6
-        assertEquals(cardPlacement.tableau6.get(0),coordinates.get(15));
-        assertEquals(cardPlacement.tableau6.get(1),coordinates.get(16));
-        assertEquals(cardPlacement.tableau6.size(),2);
+        assertEquals(cardPlacement.getTableau6().get(0),coordinates.get(15));
+        assertEquals(cardPlacement.getTableau6().get(1),coordinates.get(16));
+        assertEquals(cardPlacement.getTableau6().size(),2);
 
 
-        assertEquals(cardPlacement.tableau7.get(0),coordinates.get(19));
-        assertEquals(cardPlacement.tableau7.get(1),coordinates.get(18));
-        assertEquals(cardPlacement.tableau7.get(2),coordinates.get(20));
-        assertEquals(cardPlacement.tableau7.get(3),coordinates.get(17));
-        assertEquals(cardPlacement.tableau7.size(),4);
+        assertEquals(cardPlacement.getTableau7().get(0),coordinates.get(19));
+        assertEquals(cardPlacement.getTableau7().get(1),coordinates.get(18));
+        assertEquals(cardPlacement.getTableau7().get(2),coordinates.get(20));
+        assertEquals(cardPlacement.getTableau7().get(3),coordinates.get(17));
+        assertEquals(cardPlacement.getTableau7().size(),4);
 
     }
 
