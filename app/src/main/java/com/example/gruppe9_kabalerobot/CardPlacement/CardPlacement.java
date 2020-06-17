@@ -10,17 +10,17 @@ public class CardPlacement  {
 
     int semaphore1 = 0, semaphore2 = 0;
 
-    List<CardObj> coordinates = new ArrayList<>();
-    List<CardObj> waste = new ArrayList<>();
-    List<CardObj> foundations = new ArrayList<>();
-    List<Integer> hiddenCards = new ArrayList<>();
-    List<CardObj> tableau1 = new ArrayList<>();
-    List<CardObj> tableau2 = new ArrayList<>();
-    List<CardObj> tableau3 = new ArrayList<>();
-    List<CardObj> tableau4 = new ArrayList<>();
-    List<CardObj> tableau5 = new ArrayList<>();
-    List<CardObj> tableau6 = new ArrayList<>();
-    List<CardObj> tableau7 = new ArrayList<>();
+    private List<CardObj> coordinates = new ArrayList<>();
+    private List<CardObj> waste = new ArrayList<>();
+    private List<CardObj> foundations = new ArrayList<>();
+    private List<Integer> hiddenCards = new ArrayList<>();
+    private List<CardObj> tableau1 = new ArrayList<>();
+    private List<CardObj> tableau2 = new ArrayList<>();
+    private List<CardObj> tableau3 = new ArrayList<>();
+    private List<CardObj> tableau4 = new ArrayList<>();
+    private List<CardObj> tableau5 = new ArrayList<>();
+    private List<CardObj> tableau6 = new ArrayList<>();
+    private List<CardObj> tableau7 = new ArrayList<>();
 
     //TODO We are not getting hidden cards atm. This is a placeholder to avoid nullpointer
     public CardPlacement() {
