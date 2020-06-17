@@ -7,4 +7,5 @@
     <string name="maintext">Denne applikation kan hjælpe dig med at løse din 7-kabale hvis du sidder fast. Det eneste du skal gøre er at trykke på knappen nedenfor, og tage et billede af dit spil. Applikationen vil dernæst fortælle dig hvilke træk du kan foretage dig.\nHeld og lykke</string>
     <string name="begynd">Begynd</string>
     <string name="vend">Vend skærmen, således at du kan læse denne tekst</string>
+    <string name="scontinue">Fortsæt</string>
 </resources>

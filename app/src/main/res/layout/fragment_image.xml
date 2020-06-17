@@ -12,4 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/continueToMove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scontinue"
+        android:foreground="?attr/selectableItemBackground"
+        style="@style/textButtonStart"
+        android:background="@drawable/round_button"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_gravity="bottom"
+        />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:src="?attr/homeAsUpIndicator"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
 </FrameLayout>
