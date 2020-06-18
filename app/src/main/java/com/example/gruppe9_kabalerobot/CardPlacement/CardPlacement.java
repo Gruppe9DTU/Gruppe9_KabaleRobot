@@ -210,8 +210,8 @@ public class CardPlacement  {
             }
         });
 
+        int hiddenCount = 0;
         if (hiddenCardIndex != -1) {
-            int hiddenCount = 0;
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getSuit() == 0) {
                     hiddenCount++;
@@ -228,6 +228,7 @@ public class CardPlacement  {
      * @return the hiddencards
      */
     public List<Integer> getHiddenCards() { return hiddenCards; }
+    public void setHiddenCards(List<Integer> hiddenCards) { this.hiddenCards = hiddenCards; }
 
     /**
      * Getter and setters for tableaus

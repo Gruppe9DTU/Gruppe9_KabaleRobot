@@ -40,7 +40,7 @@ public class Waste {
      *
      * @return  Instance of Card
      */
-    public Card lookAtTop(){ return knownCards != null ? knownCards.get(0) : null; }
+    public Card lookAtTop(){ return knownCards != null && knownCards.size() > 0 ? knownCards.get(0) : null; }
 
     /**
      * Getter for status of pile of cards in Waste
