@@ -33,7 +33,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     //region Fields
 
     private ImageView imageView;
-    private Bitmap bitmap, rectanglesDrawn;
+    private Bitmap bitmap, rectanglesDrawn, scaledImage;
     private Button continueToMove;
     private ImageButton backButton;
     private OpenCV openCV;
@@ -73,11 +73,13 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         continueToMove.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
+        scaledImage = Bitmap.createScaledBitmap(bitmap,1920,1080,false);
+
         openCV = new OpenCV();
 
         // Set imageview to the picture you have taken
 
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(scaledImage);
 
         // Run recognition
 
@@ -150,7 +152,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            c.sendImage(bitmap);
+            c.sendImage(scaledImage);
 
             dataArray = c.recieveData();
 
@@ -158,7 +160,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 cancel(true);
             }
 
-            rectanglesDrawn = openCV.drawRectangles(bitmap,dataArray);
+            rectanglesDrawn = openCV.drawRectangles(scaledImage,dataArray);
 
             return null;
         }
