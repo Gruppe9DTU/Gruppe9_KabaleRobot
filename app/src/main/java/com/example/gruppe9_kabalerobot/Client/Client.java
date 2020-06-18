@@ -60,7 +60,9 @@ public class Client {
     public void sendImage(Bitmap imageToSend) {
 
         try{
-            imageToSend.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            Bitmap scaledImage = Bitmap.createScaledBitmap(imageToSend,1920,1080,false);
+            scaledImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
 
             byte[] byteArray = stream.toByteArray();
 
