@@ -5,6 +5,7 @@ import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
 import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
 import com.example.gruppe9_kabalerobot.Framework.model.Waste;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class SolitarieLogic {
         for (int i = 0 ; i < 7 ; i++) {
             if(!transTableaus.isEmpty())
                 tableau[i] = new Tableau(hiddenCards.get(i), transTableaus.get(i));
+            else tableau[i] = new Tableau(hiddenCards.get(i), new ArrayList<>());
         }
     }
 
@@ -67,6 +69,7 @@ public class SolitarieLogic {
         for(int i = 0 ; i < 4 ; i++) {
             if(!cards.isEmpty())
                 foundation[i] = new Foundation(cards.get(i));
+            else foundation[i] = new Foundation();
         }
     }
 

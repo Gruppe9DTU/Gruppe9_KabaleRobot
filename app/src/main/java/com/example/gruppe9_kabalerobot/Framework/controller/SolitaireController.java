@@ -7,7 +7,7 @@ public class SolitaireController {
     private PreviousStatesContainer prevStates;
 
     public SolitaireController() {
-         this.prevStates = new PreviousStatesContainer();
+         this.prevStates = PreviousStatesContainer.getInstance();
     }
 
     public String takeMove(CardTranslator translator) {
@@ -20,5 +20,12 @@ public class SolitaireController {
         //Save and return suggestion
         prevStates.addPreviousMove(new PreviousState(game.getGameState(), moveAlgo.getMoveChosen()));
         return moveSuggestion;
+    }
+
+    /**
+     * Resets the PreviousStateController, so no knowledge of previous moves should be remembered
+     */
+    public void resetMemory() {
+        prevStates.resetMemory();
     }
 }

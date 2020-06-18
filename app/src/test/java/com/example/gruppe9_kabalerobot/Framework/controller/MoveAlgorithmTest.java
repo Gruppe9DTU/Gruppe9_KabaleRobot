@@ -45,7 +45,7 @@ public class MoveAlgorithmTest {
     @Test
     public void testGetBestMove101(){
 
-        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+        PreviousStatesContainer previousStatesContainer = PreviousStatesContainer.getInstance();
 
         Card tableauCard = new Card(0,1); //ace of hearts
 
@@ -87,7 +87,7 @@ public class MoveAlgorithmTest {
     @Test
     public void testGetBestMove102(){
 
-        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+        PreviousStatesContainer previousStatesContainer = PreviousStatesContainer.getInstance();
 
         Card tableauCard = new Card(0,1); //ace of hearts
 
@@ -126,7 +126,7 @@ public class MoveAlgorithmTest {
      */
     @Test
     public void testGetBestMove103() {
-        PreviousStatesContainer previousStatesContainer = new PreviousStatesContainer();
+        PreviousStatesContainer previousStatesContainer = PreviousStatesContainer.getInstance();
 
         Card tableauCard = new Card(0,1); //ace of hearts
 
