@@ -73,7 +73,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         continueToMove.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
-        scaledImage = Bitmap.createScaledBitmap(bitmap,1920,1080,false);
+        scaledImage = Bitmap.createScaledBitmap(bitmap,1440,1080,false);
 
         openCV = new OpenCV();
 
