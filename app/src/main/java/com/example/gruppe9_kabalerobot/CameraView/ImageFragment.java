@@ -100,16 +100,26 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         if (view == continueToMove){
 
             //TODO: Uncomment when correct data is available
-/*
+
             constructCards();
 
             cardPlacement.sortCards(cardObjList);
+
+            System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size());
+            System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size());
+            System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size());
+            System.out.println("Tableau 4 size: " + cardPlacement.getTableau4().size());
+            System.out.println("Tableau 5 size: " + cardPlacement.getTableau5().size());
+            System.out.println("Tableau 6 size: " + cardPlacement.getTableau6().size());
+            System.out.println("Tableau 7 size: " + cardPlacement.getTableau7().size());
+
+            System.out.println("Foundation size: " + cardPlacement.getFoundations().size());
+            System.out.println("Waste size: " + cardPlacement.getWaste().size());
 
             translator = new CardTranslator(cardPlacement);
 
             suggestedMove = solitaireController.takeMove(translator);
 
-            */
         }
         else if (view == backButton){
             getActivity().getSupportFragmentManager().popBackStack();
