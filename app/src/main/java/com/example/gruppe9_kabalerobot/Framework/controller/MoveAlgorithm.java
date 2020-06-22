@@ -55,6 +55,12 @@ public class MoveAlgorithm {
     private String moveChoicer(int latestMove) { //FixMe Change name to MoveChooser, just me being a fucktard at spelling. FixMe since I have to fix diagrams at the same time.
         String bestMove;
 
+        //TODO: maybe add to switch as case 0, unless we deem that oure imageRecognition is perfect and that there is no way that it might mistake other cards in the foundation as king and end the game prematurely
+        bestMove = checkWin();
+        if (!checkWin().equals("")){
+            return bestMove;
+        }
+
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
 
             case 1:
@@ -118,6 +124,36 @@ public class MoveAlgorithm {
                 else bestMove = "Der kunne ikke findes noget nyt træk for denne position af spillet";
         }
         return bestMove;
+    }
+
+    public String checkWin(){
+
+        //if there are a king in each of the foundations then all other card should be below and the game won!
+        for(Foundation foundation : foundations){
+            if (!foundation.isComplete()){
+                return  "";
+            }
+        }
+
+        return "A king is present in each of the foundations and the game should be done";
+
+    }
+
+    /**
+     * if there is no hidden cards and no waste then the game could finish without any problems, if card in waste is present it should be picked up by typestreak first
+     * if the waste card is revealed
+     */
+    public String autoFinishGame(){
+
+        if (!wastePile) {
+            for (Tableau tableau : tableaus) {
+                if (tableau.countHiddenCards() == 0) {
+                    return "All cards should be present and game should be able to be completed";
+
+                }
+            }
+        }
+        return "";
     }
 
     /**
@@ -408,9 +444,9 @@ public class MoveAlgorithm {
     //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
         List<Card> cards, cards2;
-        String move = "", prioMove = "";
-        for (Tableau tableau : tableaus) {
-            cards = tableau.getVisibleCards();
+            String move = "", prioMove = "";
+            for (Tableau tableau : tableaus) {
+                cards = tableau.getVisibleCards();
 
             for (Tableau tableau2 : tableaus) {
                 cards2 = tableau2.getVisibleCards();

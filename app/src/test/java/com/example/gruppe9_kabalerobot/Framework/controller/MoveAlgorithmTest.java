@@ -161,6 +161,82 @@ public class MoveAlgorithmTest {
     }
 
     /**
+     * Tests if kings are present in each foundation that the game is finished
+     */
+
+    @Test
+    public void testCheckWin101(){
+        Card kingOfHearts = new Card(0,13);
+        Card kingOfSpades = new Card(1,13);
+        Card kingOfDiamonds = new Card(2,13);
+        Card kingOfClubs = new Card(3,13);
+
+        foundations[0].setForcedCard(kingOfHearts);
+        foundations[1].setForcedCard(kingOfSpades);
+        foundations[2].setForcedCard(kingOfDiamonds);
+        foundations[3].setForcedCard(kingOfClubs);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("A king is present in each of the foundations and the game should be done", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if response if there is only 3 kings in the foundation
+     */
+    @Test
+    public void testCheckWin102(){
+
+        Card kingOfHearts = new Card(0,13);
+        Card kingOfSpades = new Card(1,13);
+        Card kingOfDiamonds = new Card(2,13);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].setForcedCard(kingOfHearts);
+        foundations[1].setForcedCard(kingOfSpades);
+        foundations[2].setForcedCard(kingOfDiamonds);
+        foundations[3].addCard(aceOfClubs);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if no kings are present
+     */
+    @Test
+    public void testCheckWin103(){
+
+        Card aceOfHearts = new Card(0,1);
+        Card aceOfSpades = new Card(1,1);
+        Card aceOfDiamonds = new Card(2,1);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].addCard(aceOfHearts);
+        foundations[1].addCard(aceOfSpades);
+        foundations[2].addCard(aceOfDiamonds);
+        foundations[3].addCard(aceOfClubs);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if no cards are present at all
+     */
+    @Test
+    public void testCheckWin104(){
+
+        algoritmCtrl = new MoveAlgorithm(game);
+        assertEquals("", algoritmCtrl.checkWin());
+    }
+
+    /**
      * Tests that Ace with more hidden cards behind it is prioritized over other Ace.
      */
     @Test
