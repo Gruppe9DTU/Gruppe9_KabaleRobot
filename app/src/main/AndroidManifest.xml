@@ -13,6 +13,10 @@
         <activity android:name=".CameraView.ImageFragment"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity android:name=".CameraView.EditPlacementFragment"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".CameraView.CameraViewActivity"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />

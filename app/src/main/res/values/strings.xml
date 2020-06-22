@@ -8,4 +8,8 @@
     <string name="begynd">Begynd</string>
     <string name="vend">Vend skærmen, således at du kan læse denne tekst</string>
     <string name="scontinue">Fortsæt</string>
+    <string name="bagerste_kort">Bagerste kort</string>
+    <string name="forreste_kort">Forreste kort</string>
+    <string name="skjulte_kort">Skjulte kort</string>
+    <string name="kort">Kort</string>
 </resources>
