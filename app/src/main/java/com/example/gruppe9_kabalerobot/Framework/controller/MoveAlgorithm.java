@@ -59,57 +59,70 @@ public class MoveAlgorithm {
         String bestMove;
 
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
-
             case 1:
+                bestMove = checkWin();
+                if (!bestMove.equals("")){
+                    moveChosen = 0;
+                    return bestMove;
+                }
+
+            case 2:
+                bestMove = autoFinish();
+                if (!bestMove.equals("")){
+                    moveChosen = 0;
+                    return bestMove;
+                }
+
+            case 3:
                 bestMove = checkAce();
                 if (!bestMove.equals("")) {
                     moveChosen = 1;
                     break;
                 }
 
-            case 2:
+            case 4:
                 bestMove = kingCheck();
                 if (!bestMove.equals("")) {
                     moveChosen = 2;
                     break;
                 }
 
-            case 3:
+            case 5:
                 bestMove = revealHiddenCard();
                 if (!bestMove.equals("")) {
                     moveChosen = 3;
                     break;
                 }
 
-            case 4:
+            case 6:
                 bestMove = moveTableau();
                 if (!bestMove.equals("")) {
                     moveChosen = 4;
                     break;
                 }
 
-            case 5:
+            case 7:
                 bestMove = moveToFoundation();
                 if (!bestMove.equals("")) {
                     moveChosen = 5;
                     break;
                 }
 
-            case 6:
+            case 8:
                 bestMove = typeStreak();
                 if (!bestMove.equals("")) {
                     moveChosen = 6;
                     break;
                 }
 
-            case 7:
+            case 9:
                 bestMove = foundationToTableau();
                 if (!bestMove.equals("")) {
                     moveChosen = 7;
                     break;
                 }
 
-            case 8:
+            case 10:
                 bestMove = revealCardFromWaste();
                 if (!bestMove.equals("")) {
                     moveChosen = 8;
@@ -121,6 +134,36 @@ public class MoveAlgorithm {
                 else bestMove = "Der kunne ikke findes noget nyt træk for denne position af spillet";
         }
         return bestMove;
+    }
+
+    public String checkWin(){
+
+        //if there are a king in each of the foundations then all other card should be below and the game won!
+        for(Foundation foundation : foundations){
+            if (!foundation.isComplete()){
+                return  "";
+            }
+        }
+
+        return "A king is present in each of the foundations thus the game should be done " +
+                "(are cards still present in the tableau or waste pile, then you did something wrong)";
+
+    }
+
+    /**
+     * if there is no hidden cards and no waste then the game could finish without any problems
+     */
+    public String autoFinish(){
+
+        if (!wastePile) {
+            for (Tableau tableau : tableaus) {
+                if (tableau.countHiddenCards() != 0) {
+                    return "";
+                }
+            }
+            return "All cards should be present and game should be able to be completed";
+        }
+        return "";
     }
 
     /**
@@ -411,9 +454,9 @@ public class MoveAlgorithm {
     //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
         List<Card> cards, cards2;
-        String move = "", prioMove = "";
-        for (Tableau tableau : tableaus) {
-            cards = tableau.getVisibleCards();
+            String move = "", prioMove = "";
+            for (Tableau tableau : tableaus) {
+                cards = tableau.getVisibleCards();
 
             for (Tableau tableau2 : tableaus) {
                 cards2 = tableau2.getVisibleCards();
