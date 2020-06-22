@@ -73,7 +73,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         continueToMove.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
-        scaledImage = Bitmap.createScaledBitmap(bitmap,1920,1080,false);
+        scaledImage = bitmap;
 
         openCV = new OpenCV();
 
@@ -119,6 +119,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             translator = new CardTranslator(cardPlacement);
 
             suggestedMove = solitaireController.takeMove(translator);
+            System.out.println(suggestedMove);
 
         }
         else if (view == backButton){
