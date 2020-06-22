@@ -103,7 +103,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             constructCards();
 
-            cardPlacement.sortCards(cardObjList);
+            cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
 
             System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size());
             System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size());

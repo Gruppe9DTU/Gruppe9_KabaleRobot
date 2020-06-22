@@ -29,12 +29,72 @@ public class CardPlacement  {
     /**
      * Method that sorts the cards
      */
-    public void sortCards(List<CardObj> coordinates){
+    public void sortCards(List<CardObj> coordinates, double screenWidth, double screenHeight){
 
         this.coordinates = coordinates;
-        upperRow();
-        stacks();
-        sortStacks();
+        sort(screenWidth,screenHeight);
+       // upperRow(screenWidth,screenHeight);
+        //stacks();
+        //sortStacks();
+    }
+
+    private void sort(double screenWidth, double screenHeight) {
+
+
+
+        for(CardObj obj: coordinates){
+
+            if(obj.getY()<screenHeight*0.2){
+
+
+                if(obj.getX()<=screenWidth*(2.0/7.0)){
+                    waste.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
+                    foundations.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(5.0/7.0) && obj.getX()>screenWidth*(4.0/7.0)){
+                    foundations.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(6.0/7.0) && obj.getX()>screenWidth*(5.0/7.0)){
+                    foundations.add(obj);
+                }
+                else if (obj.getX()<=screenWidth && obj.getX()>screenWidth*6/7){
+                    foundations.add(obj);
+                }
+
+            }
+            else {
+
+
+                if(obj.getX()<=screenWidth*(1.0/7.0)){
+                    tableau1.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(2.0/7.0) && obj.getX()>screenWidth*(1.0/7.0)){
+                    tableau2.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(3.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
+                    tableau3.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(3.0/7.0)){
+                    tableau4.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(5.0/7.0) && obj.getX()>screenWidth*(4.0/7.0)) {
+                    tableau5.add(obj);
+                }
+                else if (obj.getX()<=screenWidth*(6.0/7.0) && obj.getX()>screenWidth*(5.0/7.0)){
+                    tableau6.add(obj);
+                }
+                else if (obj.getX()<=screenWidth && obj.getX()>screenWidth*(6.0/7.0)){
+                    tableau7.add(obj);
+                }
+            }
+
+        }
+
+
+
+
     }
 
 
@@ -138,13 +198,18 @@ public class CardPlacement  {
      * Extra card is at index 0 after run of this method
      * This finds the upperrow, the extra cards and the winning stack
      */
-    private void upperRow(){
+    private void upperRow(double screenWidth, double screenHeight){
 
         compareY(coordinates,-1);
         Collections.reverse(coordinates);
 
-        for (int i = 0; i<5;i++) {
-            waste.add(coordinates.get(i));
+        List<Integer> upperList = new ArrayList<>();
+
+
+        for (CardObj obj:coordinates) {
+            if (obj.getY()<=screenHeight*0.2){
+
+            }
         }
 
         compareX(waste);
