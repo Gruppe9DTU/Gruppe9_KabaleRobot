@@ -33,6 +33,10 @@ public class Foundation {
         }
     }
 
+    public  void setForcedCard(Card card){
+        cards.add(card);
+    }
+
     /**
      * Takes the card from the top of the foundation
      *
@@ -60,5 +64,12 @@ public class Foundation {
      *
      * @return True if foundation is complete, else false
      */
-    public Boolean isComplete() { return peekCard().getValue() == 13 && countCards() == 13; }
+    public Boolean isComplete() {
+        if (peekCard() == null) {
+            return false;
+        } else {
+            return peekCard().getValue() == 13;
+        }
+    }
+
 }
