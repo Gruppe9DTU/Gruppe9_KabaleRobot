@@ -52,74 +52,74 @@ public class MoveAlgorithm {
     /**
      * Chooses the move to be instructed to the user, by selecting the first viable move possible
      */
-    private String moveChooser(int latestMove) { //FixMe Change name to MoveChooser, just me being a fucktard at spelling. FixMe since I have to fix diagrams at the same time.
+    private String moveChooser(int latestMove) {
         String bestMove;
 
-        //outside switch since move should no be stored for later recognition but just end the game
-        bestMove = checkWin();
-        if (!bestMove.equals("")){
-            moveChosen = 0;
-            return bestMove;
-        }
-/*
-        bestMove = autoFinish();
-        if (!bestMove.equals("")){
-            moveChosen = 0;
-            return bestMove;
-        }
-*/
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
-
             case 1:
+                bestMove = checkWin();
+                if (!bestMove.equals("")){
+                    moveChosen = 0;
+                    return bestMove;
+                }
+
+            case 2:
+                bestMove = autoFinish();
+                if (!bestMove.equals("")){
+                    moveChosen = 0;
+                    return bestMove;
+                }
+
+            case 3:
                 bestMove = checkAce();
                 if (!bestMove.equals("")) {
                     moveChosen = 1;
                     break;
                 }
 
-            case 2:
+            case 4:
                 bestMove = kingCheck();
                 if (!bestMove.equals("")) {
                     moveChosen = 2;
                     break;
                 }
 
-            case 3:
+            case 5:
                 bestMove = revealHiddenCard();
                 if (!bestMove.equals("")) {
                     moveChosen = 3;
                     break;
                 }
 
-            case 4:
+            case 6:
                 bestMove = moveTableau();
                 if (!bestMove.equals("")) {
                     moveChosen = 4;
                     break;
                 }
 
-            case 5:
+            case 7:
                 bestMove = moveToFoundation();
                 if (!bestMove.equals("")) {
                     moveChosen = 5;
                     break;
                 }
 
-            case 6:
+            case 8:
                 bestMove = typeStreak();
                 if (!bestMove.equals("")) {
                     moveChosen = 6;
                     break;
                 }
 
-            case 7:
+            case 9:
                 bestMove = foundationToTableau();
                 if (!bestMove.equals("")) {
                     moveChosen = 7;
                     break;
                 }
 
-            case 8:
+            case 10:
                 bestMove = revealCardFromWaste();
                 if (!bestMove.equals("")) {
                     moveChosen = 8;
