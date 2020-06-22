@@ -59,70 +59,70 @@ public class MoveAlgorithm {
             case 1:
                 bestMove = checkWin();
                 if (!bestMove.equals("")){
-                    moveChosen = 0;
-                    return bestMove;
+                    moveChosen = 1;
+                    break;
                 }
 
             case 2:
                 bestMove = autoFinish();
                 if (!bestMove.equals("")){
-                    moveChosen = 0;
-                    return bestMove;
+                    moveChosen = 2;
+                    break;
                 }
 
             case 3:
                 bestMove = checkAce();
                 if (!bestMove.equals("")) {
-                    moveChosen = 1;
+                    moveChosen = 3;
                     break;
                 }
 
             case 4:
                 bestMove = kingCheck();
                 if (!bestMove.equals("")) {
-                    moveChosen = 2;
+                    moveChosen = 4;
                     break;
                 }
 
             case 5:
                 bestMove = revealHiddenCard();
                 if (!bestMove.equals("")) {
-                    moveChosen = 3;
+                    moveChosen = 5;
                     break;
                 }
 
             case 6:
                 bestMove = moveTableau();
                 if (!bestMove.equals("")) {
-                    moveChosen = 4;
+                    moveChosen = 6;
                     break;
                 }
 
             case 7:
                 bestMove = moveToFoundation();
                 if (!bestMove.equals("")) {
-                    moveChosen = 5;
+                    moveChosen = 7;
                     break;
                 }
 
             case 8:
                 bestMove = typeStreak();
                 if (!bestMove.equals("")) {
-                    moveChosen = 6;
+                    moveChosen = 8;
                     break;
                 }
 
             case 9:
                 bestMove = foundationToTableau();
                 if (!bestMove.equals("")) {
-                    moveChosen = 7;
+                    moveChosen = 9;
                     break;
                 }
 
             case 10:
                 bestMove = revealCardFromWaste();
                 if (!bestMove.equals("")) {
-                    moveChosen = 8;
+                    moveChosen = 10;
                     break;
                 }
 
