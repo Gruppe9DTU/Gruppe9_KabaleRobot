@@ -44,7 +44,7 @@ public class MoveAlgorithm {
         if(preState == null) latestMove = 0;
         else latestMove = preState.getMove();
 
-        bestMove = moveChoicer(latestMove);
+        bestMove = moveChooser(latestMove);
 
         return bestMove;
     }
@@ -52,15 +52,22 @@ public class MoveAlgorithm {
     /**
      * Chooses the move to be instructed to the user, by selecting the first viable move possible
      */
-    private String moveChoicer(int latestMove) { //FixMe Change name to MoveChooser, just me being a fucktard at spelling. FixMe since I have to fix diagrams at the same time.
+    private String moveChooser(int latestMove) { //FixMe Change name to MoveChooser, just me being a fucktard at spelling. FixMe since I have to fix diagrams at the same time.
         String bestMove;
 
-        //TODO: maybe add to switch as case 0, unless we deem that oure imageRecognition is perfect and that there is no way that it might mistake other cards in the foundation as king and end the game prematurely
+        //outside switch since move should no be stored for later recognition but just end the game
         bestMove = checkWin();
-        if (!checkWin().equals("")){
+        if (!bestMove.equals("")){
+            moveChosen = 0;
             return bestMove;
         }
-
+/*
+        bestMove = autoFinish();
+        if (!bestMove.equals("")){
+            moveChosen = 0;
+            return bestMove;
+        }
+*/
         switch (++latestMove) { //Skips previous move, goes to first if none were made before
 
             case 1:
@@ -135,23 +142,23 @@ public class MoveAlgorithm {
             }
         }
 
-        return "A king is present in each of the foundations and the game should be done";
+        return "A king is present in each of the foundations thus the game should be done " +
+                "(are cards still present in the tableau or waste pile, then you did something wrong)";
 
     }
 
     /**
-     * if there is no hidden cards and no waste then the game could finish without any problems, if card in waste is present it should be picked up by typestreak first
-     * if the waste card is revealed
+     * if there is no hidden cards and no waste then the game could finish without any problems
      */
-    public String autoFinishGame(){
+    public String autoFinish(){
 
         if (!wastePile) {
             for (Tableau tableau : tableaus) {
-                if (tableau.countHiddenCards() == 0) {
-                    return "All cards should be present and game should be able to be completed";
-
+                if (tableau.countHiddenCards() != 0) {
+                    return "";
                 }
             }
+            return "All cards should be present and game should be able to be completed";
         }
         return "";
     }
