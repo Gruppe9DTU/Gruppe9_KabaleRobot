@@ -139,7 +139,9 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     //Add to waste
 
     //Add to foundation
-
+    private void insertIntoFoundation(EditText textField, List<CardObj> foundation, int index) {
+        foundation.set(index, editTextToCardDecoder(textField));
+    }
     //Add to hiddencard List (could be done here)
     private void insertIntoHiddenCards(EditText textField, List<Integer> hiddenCards, int index) {
         hiddenCards.set(index, Integer.parseInt(textField.getText().toString()));
