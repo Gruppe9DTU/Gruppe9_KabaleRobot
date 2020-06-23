@@ -73,7 +73,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         continueToMove.setOnClickListener(this);
         backButton.setOnClickListener(this);
 
-        scaledImage = Bitmap.createScaledBitmap(bitmap,1440,1080,false);
+        scaledImage = bitmap;
 
         openCV = new OpenCV();
 
@@ -91,7 +91,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -103,11 +102,23 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 /*
             constructCards();
 
-            cardPlacement.sortCards(cardObjList);
+            cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
+            System.out.println("Width of bitmap: "+bitmap.getWidth()+" Height of bitmap: " + bitmap.getHeight());
+            if (cardPlacement.getTableau1().size()>0) System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size() + " suit: " + cardPlacement.getTableau1().get(0).getSuit() + " value: " + cardPlacement.getTableau1().get(0).getValue());
+            if (cardPlacement.getTableau2().size()>0) System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size() + " suit: " + cardPlacement.getTableau2().get(0).getSuit() + " value: " + cardPlacement.getTableau2().get(0).getValue());
+            if (cardPlacement.getTableau3().size()>0) System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size() + " suit: " + cardPlacement.getTableau3().get(0).getSuit() + " value: " + cardPlacement.getTableau3().get(0).getValue());
+            if (cardPlacement.getTableau4().size()>0) System.out.println("Tableau 4 size: " + cardPlacement.getTableau4().size() + " suit: " + cardPlacement.getTableau4().get(0).getSuit() + " value: " + cardPlacement.getTableau4().get(0).getValue());
+            if (cardPlacement.getTableau5().size()>0) System.out.println("Tableau 5 size: " + cardPlacement.getTableau5().size() + " suit: " + cardPlacement.getTableau5().get(0).getSuit() + " value: " + cardPlacement.getTableau5().get(0).getValue());
+            if (cardPlacement.getTableau6().size()>0) System.out.println("Tableau 6 size: " + cardPlacement.getTableau6().size() + " suit: " + cardPlacement.getTableau6().get(0).getSuit() + " value: " + cardPlacement.getTableau6().get(0).getValue());
+            if (cardPlacement.getTableau7().size()>0) System.out.println("Tableau 7 size: " + cardPlacement.getTableau7().size() + " suit: " + cardPlacement.getTableau7().get(0).getSuit() + " value: " + cardPlacement.getTableau7().get(0).getValue());
+
+            System.out.println("Foundation size: " + cardPlacement.getFoundations().size());
+            System.out.println("Waste size: " + cardPlacement.getWaste().size());
 
             translator = new CardTranslator(cardPlacement);
 
             suggestedMove = solitaireController.takeMove(translator);
+            System.out.println(suggestedMove);
 
             */
         }

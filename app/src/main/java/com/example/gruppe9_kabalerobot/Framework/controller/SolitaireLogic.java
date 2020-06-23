@@ -71,9 +71,10 @@ public class SolitaireLogic {
     }
 
     public Foundation[] getFoundation() { return foundation; }
+
     public void setFoundations(List<Card> cards) {
         for(int i = 0 ; i < 4 ; i++) {
-            if(!cards.isEmpty())
+            if(!(cards.size() <= i))
                 foundation[i] = new Foundation(cards.get(i));
             else foundation[i] = new Foundation();
         }

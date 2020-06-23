@@ -36,5 +36,10 @@
         android:background="@drawable/round_button"
         />
 
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_layout_grid_camera"
+        android:scaleType="fitCenter"
+        />
 </FrameLayout>
