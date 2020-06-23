@@ -12,7 +12,7 @@
     <string name="forreste_kort">Forreste kort</string>
     <string name="skjulte_kort">Skjulte kort</string>
     <string name="kort">Kort</string>
-    <string name="intro_edit">Du kan her tilføje kort til de forskellige rækker. Kortene skrives ved 2S for spar 2, 3H for hjerter 3 4C for spar 4 og 5D for ruder 5</string>
+    <string name="intro_edit">Du kan her tilføje kort til de forskellige rækker. Kortene skrives ved 02S for spar 2, 03H for hjerter 3 12C for klør dame og 01D for ruder es</string>
 
     <string-array name="test">
 
