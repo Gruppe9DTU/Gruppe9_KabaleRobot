@@ -137,7 +137,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     //Set wastepile
 
     //Add to waste
-
+    private void insertIntoWaste(EditText textField, List<CardObj> waste) {
+        //This is for a single card only, add index if we want more cards
+        waste.set(0, editTextToCardDecoder(textField));
+    }
     //Add to foundation
     private void insertIntoFoundation(EditText textField, List<CardObj> foundation, int index) {
         foundation.set(index, editTextToCardDecoder(textField));
