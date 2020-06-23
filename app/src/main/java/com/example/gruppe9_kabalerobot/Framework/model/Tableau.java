@@ -34,7 +34,7 @@ public class Tableau {
      *
      * @return  True if no instance of Card is present, else false
      */
-    public boolean isEmpty() { return hiddenCards == 0 && visibleCards.size() == 0; }
+    public boolean isEmpty() { return visibleCards.size() == 0; }
 
     /**
      * Adds a Card to the stack of visible cards, if conditions are met

@@ -17,6 +17,8 @@ public class SolitaireControllerTest {
     @Before
     public void setup() {
         place = new CardPlacement();
+        SolitaireController game = new SolitaireController();
+        game.resetMemory(); // Needs to reset the memory of gamestates, since it is a singleton
     }
 
     /**
@@ -31,6 +33,9 @@ public class SolitaireControllerTest {
         CardObj card = new CardObj(0, 0, 1, 0);
         tableau1.add(card);
         place.setTableau1(tableau1);
+        List<Integer> hiddenCards = new ArrayList<>();
+        for(int i = 0 ; i < 7 ; i++) hiddenCards.add(1);
+        place.setHiddenCards(hiddenCards);
 
         //Setup Rest of the classes
             //SolitaireController
@@ -48,7 +53,7 @@ public class SolitaireControllerTest {
         //First should ask for moving an Ace of Hearts
         assertEquals("Ryk Ace of Hearts til Foundation", move1);
         //There should be no more solutions possible
-        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move2);
+        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
     }
 
     /**
@@ -63,6 +68,9 @@ public class SolitaireControllerTest {
         CardObj card = new CardObj(0, 0, 1, 0);
         tableau1.add(card);
         place.setTableau1(tableau1);
+        List<Integer> hiddenCards = new ArrayList<>();
+        for(int i = 0 ; i < 7 ; i++) hiddenCards.add(1);
+        place.setHiddenCards(hiddenCards);
 
         //Setup Rest of the classes
         //SolitaireController
@@ -81,7 +89,7 @@ public class SolitaireControllerTest {
         //First should ask for moving an Ace of Hearts
         assertEquals("Ryk Ace of Hearts til Foundation", move1);
         //There should be no more solutions possible
-        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move2);
+        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
     }
 
     /**
