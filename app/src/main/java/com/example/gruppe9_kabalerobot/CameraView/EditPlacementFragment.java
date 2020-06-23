@@ -115,13 +115,6 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations(),1);
             if(foundation3.getText().length() > 0) insertIntoFoundation(foundation3,cardPlacement.getFoundations(),2);
             if(foundation4.getText().length() > 0) insertIntoFoundation(foundation4,cardPlacement.getFoundations(),3);
-            if(tab1Bag.getText().length() > 0) insertIntoTableau(tab1Bag, cardPlacement.getTableau1(), true);
-            if(tab2Bag.getText().length() > 0) insertIntoTableau(tab2Bag, cardPlacement.getTableau2(), true);
-            if(tab3Bag.getText().length() > 0) insertIntoTableau(tab3Bag, cardPlacement.getTableau3(), true);
-            if(tab4Bag.getText().length() > 0) insertIntoTableau(tab4Bag, cardPlacement.getTableau4(), true);
-            if(tab5Bag.getText().length() > 0) insertIntoTableau(tab5Bag, cardPlacement.getTableau5(), true);
-            if(tab6Bag.getText().length() > 0) insertIntoTableau(tab6Bag, cardPlacement.getTableau6(), true);
-            if(tab7Bag.getText().length() > 0) insertIntoTableau(tab7Bag, cardPlacement.getTableau7(), true);
             if(tab1For.getText().length() > 0) insertIntoTableau(tab1For, cardPlacement.getTableau1(), false);
             if(tab2For.getText().length() > 0) insertIntoTableau(tab2For, cardPlacement.getTableau2(), false);
             if(tab3For.getText().length() > 0) insertIntoTableau(tab3For, cardPlacement.getTableau3(), false);
@@ -129,6 +122,13 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(tab5For.getText().length() > 0) insertIntoTableau(tab5For, cardPlacement.getTableau5(), false);
             if(tab6For.getText().length() > 0) insertIntoTableau(tab6For, cardPlacement.getTableau6(), false);
             if(tab7For.getText().length() > 0) insertIntoTableau(tab7For, cardPlacement.getTableau7(), false);
+            if(tab1Bag.getText().length() > 0) insertIntoTableau(tab1Bag, cardPlacement.getTableau1(), true);
+            if(tab2Bag.getText().length() > 0) insertIntoTableau(tab2Bag, cardPlacement.getTableau2(), true);
+            if(tab3Bag.getText().length() > 0) insertIntoTableau(tab3Bag, cardPlacement.getTableau3(), true);
+            if(tab4Bag.getText().length() > 0) insertIntoTableau(tab4Bag, cardPlacement.getTableau4(), true);
+            if(tab5Bag.getText().length() > 0) insertIntoTableau(tab5Bag, cardPlacement.getTableau5(), true);
+            if(tab6Bag.getText().length() > 0) insertIntoTableau(tab6Bag, cardPlacement.getTableau6(), true);
+            if(tab7Bag.getText().length() > 0) insertIntoTableau(tab7Bag, cardPlacement.getTableau7(), true);
             if(hiddencardsTab1.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab1,cardPlacement.getHiddenCards(),0);
             if(hiddencardsTab2.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab2,cardPlacement.getHiddenCards(),1);
             if(hiddencardsTab3.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab3,cardPlacement.getHiddenCards(),2);
@@ -155,7 +155,18 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     }
     //Add to foundation
     private void insertIntoFoundation(EditText textField, List<CardObj> foundation, int index) {
-        foundation.set(index, editTextToCardDecoder(textField));
+        //Look through list for matching suit, if so replace
+        CardObj newCard = editTextToCardDecoder(textField);
+        int i = 0;
+        for(CardObj obj : foundation) {
+            if(obj.getSuit() == newCard.getSuit()) {
+                foundation.set(i, newCard);
+                return;
+            }
+            i++;
+        }
+        //else add
+        foundation.add(newCard);
     }
     //Add to hiddencard List (could be done here)
     private void insertIntoHiddenCards(EditText textField, List<Integer> hiddenCards, int index) {

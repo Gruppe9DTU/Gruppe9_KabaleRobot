@@ -67,7 +67,7 @@ public class SolitarieLogic {
     public Foundation[] getFoundation() { return foundation; }
     public void setFoundations(List<Card> cards) {
         for(int i = 0 ; i < 4 ; i++) {
-            if(!cards.isEmpty())
+            if(i < cards.size() && cards.get(i) != null)
                 foundation[i] = new Foundation(cards.get(i));
             else foundation[i] = new Foundation();
         }
