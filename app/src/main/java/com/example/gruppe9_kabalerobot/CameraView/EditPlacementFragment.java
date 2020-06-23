@@ -121,13 +121,13 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(tab5For.getText().length() > 0) insertIntoTableau(tab5For, cardPlacement.getTableau5(), false);
             if(tab6For.getText().length() > 0) insertIntoTableau(tab6For, cardPlacement.getTableau6(), false);
             if(tab7For.getText().length() > 0) insertIntoTableau(tab7For, cardPlacement.getTableau7(), false);
-            if(hiddencardsTab1.getText().length() > 0) editTextToCardDecoder(hiddencardsTab1.getText().toString());
-            if(hiddencardsTab2.getText().length() > 0) editTextToCardDecoder(hiddencardsTab2.getText().toString());
-            if(hiddencardsTab3.getText().length() > 0) editTextToCardDecoder(hiddencardsTab3.getText().toString());
-            if(hiddencardsTab4.getText().length() > 0) editTextToCardDecoder(hiddencardsTab4.getText().toString());
-            if(hiddencardsTab5.getText().length() > 0) editTextToCardDecoder(hiddencardsTab5.getText().toString());
-            if(hiddencardsTab6.getText().length() > 0) editTextToCardDecoder(hiddencardsTab6.getText().toString());
-            if(hiddencardsTab7.getText().length() > 0) editTextToCardDecoder(hiddencardsTab7.getText().toString());
+            if(hiddencardsTab1.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab1,cardPlacement.getHiddenCards(),0);
+            if(hiddencardsTab2.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab2,cardPlacement.getHiddenCards(),1);
+            if(hiddencardsTab3.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab3,cardPlacement.getHiddenCards(),2);
+            if(hiddencardsTab4.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab4,cardPlacement.getHiddenCards(),3);
+            if(hiddencardsTab5.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab5,cardPlacement.getHiddenCards(),4);
+            if(hiddencardsTab6.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab6,cardPlacement.getHiddenCards(),5);
+            if(hiddencardsTab7.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab7,cardPlacement.getHiddenCards(),6);
 
 
         }
