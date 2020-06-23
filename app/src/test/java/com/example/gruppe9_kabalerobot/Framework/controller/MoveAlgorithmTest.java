@@ -179,7 +179,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("A king is present in each of the foundations thus the game should be done (are cards still present in the tableau or waste pile, then you did something wrong)", algoritmCtrl.checkWin());
+        assertEquals("A king is present in each of the foundations thus the game should be done", algoritmCtrl.checkWin());
 
     }
 

@@ -136,25 +136,26 @@ public class MoveAlgorithm {
         return bestMove;
     }
 
+    /**
+     * Checks if foundations are complete
+     *
+     * @return  Instructions to player
+     */
     public String checkWin(){
-
-        //if there are a king in each of the foundations then all other card should be below and the game won!
         for(Foundation foundation : foundations){
             if (!foundation.isComplete()){
                 return  "";
             }
         }
-
-        return "A king is present in each of the foundations thus the game should be done " +
-                "(are cards still present in the tableau or waste pile, then you did something wrong)";
-
+        return "A king is present in each of the foundations thus the game should be done";
     }
 
     /**
-     * if there is no hidden cards and no waste then the game could finish without any problems
+     * Controls if it's possible for the player to just add cards to foundation to win, ergo there are no hidden cards left.
+     *
+     * @return  Instructions to player
      */
     public String autoFinish(){
-
         if (!wastePile) {
             for (Tableau tableau : tableaus) {
                 if (tableau.countHiddenCards() != 0) {
