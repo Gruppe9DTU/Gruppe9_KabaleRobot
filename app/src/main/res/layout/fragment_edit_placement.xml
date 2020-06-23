@@ -37,7 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/toggleWaste"
-                android:checked="true"/>
+                android:checked="true"
+                android:textOn="Ja"
+                android:textOff="Nej"
+                />
 
 
         </LinearLayout>

@@ -151,7 +151,8 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     //Add to waste
     private void insertIntoWaste(EditText textField, List<CardObj> waste) {
         //This is for a single card only, add index if we want more cards
-        waste.set(0, editTextToCardDecoder(textField));
+        if(waste.size() > 0) waste.set(0, editTextToCardDecoder(textField));
+        else waste.add(editTextToCardDecoder(textField));
     }
     //Add to foundation
     private void insertIntoFoundation(EditText textField, List<CardObj> foundation, int index) {
@@ -183,7 +184,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         String text = textField.getText().toString();
         int value = Integer.parseInt(text.substring(0, 2));
         int suit = 0;
-        switch(text.substring(2,3)) {
+        switch(text.substring(2,3).toUpperCase()) {
             case "H":
                 suit = 1;
                 break;
