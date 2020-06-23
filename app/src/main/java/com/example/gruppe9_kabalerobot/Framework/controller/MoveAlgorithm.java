@@ -183,11 +183,11 @@ public class MoveAlgorithm {
                 Card card = visibleCards.get(visibleCards.size() - 1);
 
                 if (card.getValue() == 1) {
-                    return "Ryk " + card.toString() + " til en grundbunke";
+                    return "Ryk " + card.toString() + " til en tom grundbunke";
                 }
             }
         }
-        if (wasteCard != null && wasteCard.getValue() == 1) return "Ryk " + wasteCard.toString() + " til en grundbunke";
+        if (wasteCard != null && wasteCard.getValue() == 1) return "Ryk " + wasteCard.toString() + " til en tom grundbunke";
         return "";
     }
 
@@ -276,7 +276,7 @@ public class MoveAlgorithm {
             }
             return "Flyt " + bestKing + " til et tomt felt";
         } else if (kingsAvailable.size() == 1 && emptySpaces > 0) { //Only one king found
-            return "Flyte " + kingsAvailable.get(0).toString() + " til et tomt felt";
+            return "Flyt " + kingsAvailable.get(0).toString() + " til et tomt felt";
         }
         return "";
     }
@@ -436,7 +436,7 @@ public class MoveAlgorithm {
                     //Hvis der er mere end ét kort tilstæde i byggestablen og det nederste kort passer på det øverste kort i en anden byggestabel, ryk alle de synlige kort fra byggestablen over til den anden byggestabel
                     if (cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1
                             && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
-                        return "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
+                        return "Tag alle de synlige kort fra byggestablen hvor det forreste kort er " + cards.get(0) + ", og placer dem på " + cards2.get(cards2.size() - 1).toString();
                     }
                 }
             }

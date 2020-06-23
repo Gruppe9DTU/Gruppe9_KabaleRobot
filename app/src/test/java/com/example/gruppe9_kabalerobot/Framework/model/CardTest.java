@@ -13,19 +13,19 @@ public class CardTest {
     public void testReadSuit() {
         testCard.setSuit(0);
 
-        assertEquals("Hearts", testCard.readSuit());
+        assertEquals("Hjerter", testCard.readSuit());
 
         testCard.setSuit(1);
 
-        assertEquals("Spades", testCard.readSuit());
+        assertEquals("Spar", testCard.readSuit());
 
         testCard.setSuit(2);
 
-        assertEquals("Diamonds", testCard.readSuit());
+        assertEquals("Ruder", testCard.readSuit());
 
         testCard.setSuit(3);
 
-        assertEquals("Clubs", testCard.readSuit());
+        assertEquals("Klør", testCard.readSuit());
     }
 
     @Test
