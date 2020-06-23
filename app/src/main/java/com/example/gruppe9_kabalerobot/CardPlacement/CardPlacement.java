@@ -9,8 +9,8 @@ import java.util.List;
 public class CardPlacement  {
 
     private List<CardObj> coordinates = new ArrayList<>();
-    private List<CardObj> waste = new ArrayList<>();
-    private List<CardObj> foundations = new ArrayList<>();
+    private List<CardObj> waste = new ArrayList<>(3);
+    private List<CardObj> foundations = new ArrayList<>(4);
     private List<Integer> hiddenCards = new ArrayList<>(7);
     private List<CardObj> tableau1 = new ArrayList<>();
     private List<CardObj> tableau2 = new ArrayList<>();
