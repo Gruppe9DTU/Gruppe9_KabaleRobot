@@ -440,6 +440,11 @@ public class MoveAlgorithm {
                     }
                 }
             }
+
+//            //hvis waste passer så lig den på //TODO Control that this works, don't think algorithms are controlling waste to tableau at current state
+//            if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
+//                return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
+//            }
         }
         return "";
     }
@@ -453,7 +458,6 @@ public class MoveAlgorithm {
     //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
         List<Card> cards, cards2;
-            String move = "", prioMove = "";
             for (Tableau tableau : tableaus) {
                 cards = tableau.getVisibleCards();
 
@@ -461,13 +465,12 @@ public class MoveAlgorithm {
                     cards2 = tableau2.getVisibleCards();
 
                     //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                    if (cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
+                    if (cards.size() - 1 >= 0 && cards2.size() - 2 >= 0) {
 
                         //Hvis øverste kort i tableu passer med anden tableus øverste kort lig den på hvis "typerne" passer ellers vent
                         if (cards.get(cards.size() - 1).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(cards.size() - 1).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
-                            move = "Tag " + cards.get(cards.size() - 1) + " og placer kortet på " + cards2.get(cards2.size() - 1).toString();
                             if (cards2.size() - 2 >= 0 && cards.get(cards.size() - 1).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
-                                return move;
+                                return "Tag " + cards.get(cards.size() - 1) + " og placer kortet på " + cards2.get(cards2.size() - 1).toString();
                             }
                         }
                     }
@@ -475,14 +478,13 @@ public class MoveAlgorithm {
 
                 //hvis waste passer så lig den på
                 if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
-                    move = "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
                     if (cards.size() - 2 >= 0 && wasteCard.getSuit() == cards.get(cards.size() - 2).getSuit()) {
-                        prioMove = move;
+                        return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
                     }
                 }
             }
 
-        return !prioMove.equals("") ? prioMove : move;
+        return "";
     }
 
     /**
