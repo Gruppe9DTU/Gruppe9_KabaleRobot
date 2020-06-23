@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
 import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
 import com.example.gruppe9_kabalerobot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -114,9 +115,11 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
     }
 
-    private void insertRemainingCards(String text)
-    {
+    private CardObj cardEditTextDecoder(String text) {
+        int value = Integer.parseInt(text.substring(0, 2));
+        int suit = Integer.parseInt(text.substring(2, 3));
 
+        return new CardObj(0, 0, value, suit);
     }
 
 
