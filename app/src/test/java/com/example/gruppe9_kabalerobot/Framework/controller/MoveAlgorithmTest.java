@@ -1,7 +1,5 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
-import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
@@ -19,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class MoveAlgorithmTest {
-    private SolitarieLogic game;
+    private SolitaireLogic game;
     private MoveAlgorithm algoritmCtrl;
     private Tableau[] tableaus;
     private Foundation[] foundations;
@@ -29,7 +27,7 @@ public class MoveAlgorithmTest {
      */
     @Before
     public void setup() {
-        game = new SolitarieLogic();
+        game = new SolitaireLogic();
         tableaus = game.getTableau();
         foundations = new Foundation[4];
         for(int i = 0 ; i < 4 ; i++){
@@ -49,6 +47,7 @@ public class MoveAlgorithmTest {
 
         Card tableauCard = new Card(0,1); //ace of hearts
 
+        tableaus[0] = new Tableau(3, null);
         tableaus[0].addCardToStack(new Card(1, 3)); //random card
 
         tableaus[1].addCardToStack(new Card(3, 4)); //random card
@@ -73,12 +72,12 @@ public class MoveAlgorithmTest {
         game.setFoundation(foundations);
         game.setWaste(waste);
 
-        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 3)); //Have moved an ace from this position before
 
-        MoveAlgorithm move = new MoveAlgorithm(game);
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
+                , algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -114,11 +113,11 @@ public class MoveAlgorithmTest {
         game.setWaste(waste);
 
         //add seven repeats of same outsome to ensure that every other possible move is skipped
-        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 8)); //Last possible move is the last possible suggested move
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 10)); //Last possible move is the last possible suggested move
 
-        MoveAlgorithm move = new MoveAlgorithm(game);
+        algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
+        assertEquals("Der kunne ikke findes noget nyt træk for denne position af spillet", algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -151,14 +150,181 @@ public class MoveAlgorithmTest {
         game.setFoundation(foundations);
         game.setWaste(waste);
 
-        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 1)); //Have moved an ace from this position before
-        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 6)); //Previously moved a 10 to 11
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 3)); //Have moved an ace from this position before
+        previousStatesContainer.addPreviousMove(new PreviousState(game.getGameState(), 8)); //Previously moved a 10 to 11
 
-        MoveAlgorithm move = new MoveAlgorithm(game);
+        algoritmCtrl = new MoveAlgorithm(game);
 
         assertEquals( "Vend et kort fra grundbunken"
-                , move.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
+                , algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
+
+    /**
+     * Tests if kings are present in each foundation that the game is finished
+     */
+
+    @Test
+    public void testCheckWin101(){
+        Card kingOfHearts = new Card(0,13);
+        Card kingOfSpades = new Card(1,13);
+        Card kingOfDiamonds = new Card(2,13);
+        Card kingOfClubs = new Card(3,13);
+
+        foundations[0].setForcedCard(kingOfHearts);
+        foundations[1].setForcedCard(kingOfSpades);
+        foundations[2].setForcedCard(kingOfDiamonds);
+        foundations[3].setForcedCard(kingOfClubs);
+
+        game.setFoundation(foundations);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("A king is present in each of the foundations thus the game should be done", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if response if there is only 3 kings in the foundation
+     */
+    @Test
+    public void testCheckWin102(){
+
+        Card kingOfHearts = new Card(0,13);
+        Card kingOfSpades = new Card(1,13);
+        Card kingOfDiamonds = new Card(2,13);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].setForcedCard(kingOfHearts);
+        foundations[1].setForcedCard(kingOfSpades);
+        foundations[2].setForcedCard(kingOfDiamonds);
+        foundations[3].addCard(aceOfClubs);
+
+        game.setFoundation(foundations);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if no kings are present
+     */
+    @Test
+    public void testCheckWin103(){
+
+        Card aceOfHearts = new Card(0,1);
+        Card aceOfSpades = new Card(1,1);
+        Card aceOfDiamonds = new Card(2,1);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].addCard(aceOfHearts);
+        foundations[1].addCard(aceOfSpades);
+        foundations[2].addCard(aceOfDiamonds);
+        foundations[3].addCard(aceOfClubs);
+
+        game.setFoundation(foundations);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.checkWin());
+
+    }
+
+    /**
+     * Tests if no cards are present at all (for null pointer reference)
+     */
+    @Test
+    public void testCheckWin104(){
+
+        algoritmCtrl = new MoveAlgorithm(game);
+        assertEquals("", algoritmCtrl.checkWin());
+    }
+
+    /**
+     * Tests if kings are present in each foundation that the game is finished
+     */
+
+    /**
+     * Tests if the function can see that the game should not be able to complete since a hidden card is present
+     */
+    @Test
+    public void testAutoFinish101(){
+        Card aceOfHearts = new Card(0,1);
+        Card aceOfSpades = new Card(1,1);
+        Card aceOfDiamonds = new Card(2,1);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].addCard(aceOfHearts);
+        foundations[1].addCard(aceOfSpades);
+        foundations[2].addCard(aceOfDiamonds);
+
+        tableaus[1] = new Tableau(3, null);
+        tableaus[1].addCardToStack(aceOfClubs);
+
+        game.setFoundation(foundations);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.autoFinish());
+    }
+
+    /**
+     * Tests if the function can see that the game should be able to complete since no hidden cards or a wastePile are present
+     */
+    @Test
+    public void testAutoFinish102(){
+        Card aceOfHearts = new Card(0,1);
+        Card aceOfSpades = new Card(1,1);
+        Card aceOfDiamonds = new Card(2,1);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].addCard(aceOfHearts);
+        foundations[1].addCard(aceOfSpades);
+        foundations[2].addCard(aceOfDiamonds);
+        tableaus[1].addCardToStack(aceOfClubs);
+
+        //Create a wastepile with 8 of Hearts on top
+        List<Card> wasteCards = new ArrayList<>();
+        Waste waste = new Waste(false, wasteCards);
+
+        game.setFoundation(foundations);
+        game.setWaste(waste);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("All cards should be present and game should be able to be completed", algoritmCtrl.autoFinish());
+    }
+
+    /**
+     * Tests if the function can see that the game should be not able to complete since a wastepile is present
+     */
+    @Test
+    public void testAutoFinish103(){
+        Card aceOfHearts = new Card(0,1);
+        Card aceOfSpades = new Card(1,1);
+        Card aceOfDiamonds = new Card(2,1);
+        Card aceOfClubs = new Card(3,1);
+
+        foundations[0].addCard(aceOfHearts);
+        foundations[1].addCard(aceOfSpades);
+        foundations[2].addCard(aceOfDiamonds);
+        tableaus[1].addCardToStack(aceOfClubs);
+
+        //Create a wastepile with 8 of Hearts on top
+        List<Card> wasteCards = new ArrayList<>();
+        wasteCards.add(new Card(0, 8));
+        Waste waste = new Waste(true, wasteCards);
+        game.setWaste(waste);
+
+        game.setFoundation(foundations);
+
+        algoritmCtrl = new MoveAlgorithm(game);
+
+        assertEquals("", algoritmCtrl.autoFinish());
+    }
+
+
 
     /**
      * Tests that Ace with more hidden cards behind it is prioritized over other Ace.
@@ -959,7 +1125,7 @@ public class MoveAlgorithmTest {
     }
 
     @Test
-    public void testRevealHiddenCard() {
+    public void testRevealHiddenCard101() {
         tableaus[1] = new Tableau(3, null);
         tableaus[1].addCardToStack(new Card(0, 4));
         tableaus[2] = new Tableau(2, null);
