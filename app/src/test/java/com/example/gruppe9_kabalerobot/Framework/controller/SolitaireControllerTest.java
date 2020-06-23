@@ -30,7 +30,7 @@ public class SolitaireControllerTest {
         //Setup CardPlacement with a possible move
             //Tableau 1
         List<CardObj> tableau1 = new ArrayList<>();
-        CardObj card = new CardObj(0, 0, 1, 0);
+        CardObj card = new CardObj(0, 0, 1, 1);
         tableau1.add(card);
         place.setTableau1(tableau1);
         List<Integer> hiddenCards = new ArrayList<>();
@@ -65,7 +65,7 @@ public class SolitaireControllerTest {
         //Setup CardPlacement with a possible move
         //Tableau 1
         List<CardObj> tableau1 = new ArrayList<>();
-        CardObj card = new CardObj(0, 0, 1, 0);
+        CardObj card = new CardObj(0, 0, 1, 1);
         tableau1.add(card);
         place.setTableau1(tableau1);
         List<Integer> hiddenCards = new ArrayList<>();
