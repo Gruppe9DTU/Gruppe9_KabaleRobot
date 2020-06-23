@@ -109,7 +109,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     public void onClick(View view) {
 
         if (view == done){
-
+            cardPlacement.setWastePile(isWasteDeck);
             if(waste.getText().length() > 0) insertIntoWaste(waste,cardPlacement.getWaste());
             if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations(),0);
             if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations(),1);
