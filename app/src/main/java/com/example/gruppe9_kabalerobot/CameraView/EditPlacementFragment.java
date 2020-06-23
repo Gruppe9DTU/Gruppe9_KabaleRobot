@@ -212,17 +212,9 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
     private void buildDialog(String move) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Det fortrukkende træk")
+                .setTitle("Det foretrukkende træk")
                 .setMessage(move)
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        getActivity().getSupportFragmentManager().popBackStack();
-                        dialogInterface.dismiss();
-
-                    }
-                })
+                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
 
     }
