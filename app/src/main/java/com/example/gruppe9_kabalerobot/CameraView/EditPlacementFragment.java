@@ -103,10 +103,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         if (view == done){
 
             if(waste.getText().length() > 0) editTextToCardDecoder(waste.getText().toString());
-            if(foundation1.getText().length() > 0) editTextToCardDecoder(foundation1.getText().toString());
-            if(foundation2.getText().length() > 0) editTextToCardDecoder(foundation2.getText().toString());
-            if(foundation3.getText().length() > 0) editTextToCardDecoder(foundation3.getText().toString());
-            if(foundation4.getText().length() > 0) editTextToCardDecoder(foundation4.getText().toString());
+            if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations(),0);
+            if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations(),1);
+            if(foundation3.getText().length() > 0) insertIntoFoundation(foundation3,cardPlacement.getFoundations(),2);
+            if(foundation4.getText().length() > 0) insertIntoFoundation(foundation4,cardPlacement.getFoundations(),3);
             if(tab1Bag.getText().length() > 0) insertIntoTableau(tab1Bag, cardPlacement.getTableau1(), true);
             if(tab2Bag.getText().length() > 0) insertIntoTableau(tab2Bag, cardPlacement.getTableau2(), true);
             if(tab3Bag.getText().length() > 0) insertIntoTableau(tab3Bag, cardPlacement.getTableau3(), true);
