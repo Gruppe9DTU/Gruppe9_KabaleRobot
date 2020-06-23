@@ -1,11 +1,6 @@
 package com.example.gruppe9_kabalerobot.Framework.model;
 
-import com.example.gruppe9_kabalerobot.Framework.model.Card;
-import com.example.gruppe9_kabalerobot.Framework.model.Deck;
-import com.example.gruppe9_kabalerobot.Framework.model.Tableau;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -13,11 +8,8 @@ public class TableauTest {
 
     @Test
     public void testGetVisibleCards() {
-        Deck game = new Deck();
-        game.generateDeck();
-        List<Card> deck = game.getDeck();
         Tableau stack = new Tableau(6, null);
-        stack.addCardToStack(deck.get(0));
+        stack.addCardToStack(new Card(0,1));
         Card[] expected = {new Card(0,1)};
         assertEquals(expected[0].toString(), stack.getVisibleCards().get(0).toString());
     }

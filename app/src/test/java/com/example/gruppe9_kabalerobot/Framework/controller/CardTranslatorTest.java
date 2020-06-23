@@ -2,8 +2,6 @@ package com.example.gruppe9_kabalerobot.Framework.controller;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
 import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
-import com.example.gruppe9_kabalerobot.Framework.controller.CardTranslator;
-import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 
 import org.junit.Before;
@@ -18,13 +16,13 @@ import static org.junit.Assert.assertEquals;
 public class CardTranslatorTest {
     private CardPlacement placement;
     private CardTranslator translator;
-    private SolitarieLogic game;
+    private SolitaireLogic game;
 
     @Before
     public void setup() {
         this.placement = new CardPlacement();
         this.translator = new CardTranslator(placement);
-        this.game = new SolitarieLogic();
+        this.game = new SolitaireLogic();
     }
 
     /**

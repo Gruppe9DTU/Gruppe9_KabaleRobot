@@ -10,10 +10,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class to calculate the best possible move for a given game state and return the suggestion to the user
+ */
 public class MoveAlgorithm {
     private List<Tableau> tableaus;
     private List<Foundation> foundations;
-    private Card waste;
+    private Card wasteCard;
     private boolean wastePile;
     private int moveChosen;
 
@@ -22,10 +25,10 @@ public class MoveAlgorithm {
      *
      * @param game  The current game
      */
-    public MoveAlgorithm(SolitarieLogic game) {
+    public MoveAlgorithm(SolitaireLogic game) {
         this.tableaus = Arrays.asList(game.getTableau());       //Get list of tableau
         this.foundations = Arrays.asList(game.getFoundation()); //Get list of foundations
-        this.waste = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
+        this.wasteCard = game.getWaste().lookAtTop();               //Get the top card of waste (1-card rule)
         this.wastePile = game.getWaste().isWastePilePresent();       //Get if there is a wastepile to draw from or not
         Collections.sort(tableaus,Tableau.HiddenCardsCompare);  //Sort the cards after how many hidden cards is in the tableau
     }
@@ -133,25 +136,26 @@ public class MoveAlgorithm {
         return bestMove;
     }
 
+    /**
+     * Checks if foundations are complete
+     *
+     * @return  Instructions to player
+     */
     public String checkWin(){
-
-        //if there are a king in each of the foundations then all other card should be below and the game won!
         for(Foundation foundation : foundations){
             if (!foundation.isComplete()){
                 return  "";
             }
         }
-
-        return "A king is present in each of the foundations thus the game should be done " +
-                "(are cards still present in the tableau or waste pile, then you did something wrong)";
-
+        return "A king is present in each of the foundations thus the game should be done";
     }
 
     /**
-     * if there is no hidden cards and no waste then the game could finish without any problems
+     * Controls if it's possible for the player to just add cards to foundation to win, ergo there are no hidden cards left.
+     *
+     * @return  Instructions to player
      */
     public String autoFinish(){
-
         if (!wastePile) {
             for (Tableau tableau : tableaus) {
                 if (tableau.countHiddenCards() != 0) {
@@ -194,7 +198,7 @@ public class MoveAlgorithm {
     public String kingCheck() {
         //Copy Tableaus and sort
         Collections.sort(tableaus, Tableau.HiddenCardsCompare); //Sort so first found has highest amount of hidden cards
-        List<Card> kingsAvailable = new ArrayList<Card>();
+        List<Card> kingsAvailable = new ArrayList<>();
         int emptySpaces = 0;
 
         //Find available kings and check for empty spaces
@@ -214,7 +218,7 @@ public class MoveAlgorithm {
             boolean bestKingFound = false;
             int currSearchValue = 13; //Start by searching for best king to move
 
-            int redKingScore = 0, blackKingScore = 0, currMostFreedCards = 0;
+            int redKingScore = 0, blackKingScore = 0, currMostFreedCards;
 
             while (!bestKingFound && currSearchValue > 0) {
                 //Reset scores for round
@@ -331,7 +335,7 @@ public class MoveAlgorithm {
                             }
                         }
                         //Then check waste
-                        if (waste != null && waste.getValue() == foundationCard.getValue() - 1 && waste.getSuit() % 2 != foundationCard.getSuit() % 2) {
+                        if (wasteCard != null && wasteCard.getValue() == foundationCard.getValue() - 1 && wasteCard.getSuit() % 2 != foundationCard.getSuit() % 2) {
                             return "Ryk " + foundationCard.toString() + " fra grundbunken ned på rækken med " + tableauCards.get(tableauCards.size() - 1).toString();
                         }
                     }
@@ -349,7 +353,7 @@ public class MoveAlgorithm {
     public String moveToFoundation() {
         //Check if possible to move from tableau
         for (Tableau tableau : tableaus) {
-            if (!tableau.isEmpty()) {
+            if (tableau.getVisibleCards().size() != 0) {
                 Card card = tableau.getTopCard();
 
                 for (Foundation foundation : foundations) {
@@ -370,12 +374,12 @@ public class MoveAlgorithm {
             }
         }
         //Check if possible to move from waste
-        if (waste != null) {
+        if (wasteCard != null) {
             for (Foundation foundation : foundations) {
                 if (foundation.countCards() > 0 &&
-                        waste.getValue() == foundation.peekCard().getValue() + 1 &&
-                        waste.getSuit() == foundation.peekCard().getSuit()) {
-                    return "Move " + waste.toString() + " to it's respective foundation";
+                        wasteCard.getValue() == foundation.peekCard().getValue() + 1 &&
+                        wasteCard.getSuit() == foundation.peekCard().getSuit()) {
+                    return "Move " + wasteCard.toString() + " to it's respective foundation";
                 }
             }
         }
@@ -394,7 +398,7 @@ public class MoveAlgorithm {
             result = tableau.searchForMoveableCardByValue(value) && !(value == 13 && tableau.countHiddenCards() == 0); //True if card found and it isn't a King on an empty space
             if (result) break;
         }
-        return result || waste != null && (waste.getValue() == value); //returns true if found in tableau or in waste
+        return result || wasteCard != null && (wasteCard.getValue() == value); //returns true if found in tableau or in waste
     }
 
     /**
@@ -410,7 +414,7 @@ public class MoveAlgorithm {
             result = tableau.searchForMoveableCardBySuitAndValue(suit, value);
             if (result) break;
         }
-        return result || waste != null && (waste.getSuit() == suit && waste.getValue() == value); //returns true if found in tableau or in waste
+        return result || wasteCard != null && (wasteCard.getSuit() == suit && wasteCard.getValue() == value); //returns true if found in tableau or in waste
     }
 
     /**
@@ -472,9 +476,9 @@ public class MoveAlgorithm {
             }
 
             //hvis waste passer så lig den på
-            if (waste != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == waste.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != waste.getSuit() % 2) {
-                move = "Tag " + waste.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
-                if (cards.size() - 2 >= 0 && waste.getSuit() == cards.get(cards.size() - 2).getSuit()) {
+            if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
+                move = "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
+                if (cards.size() - 2 >= 0 && wasteCard.getSuit() == cards.get(cards.size() - 2).getSuit()) {
                     prioMove = move;
                 }
             }
