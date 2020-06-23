@@ -103,31 +103,31 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         if (view == done){
 
             if(waste.getText().length() > 0) editTextToCardDecoder(waste.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(foundation1.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(foundation2.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(foundation3.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(foundation4.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab1Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab2Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab3Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab4Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab5Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab6Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab7Bag.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab1For.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab2For.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab3For.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab4For.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab5For.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(tab6For.getText().toString());
-            if(.getText().length() > 0) insertIntoTableau(tab7For, cardPlacement.getTableau7(), false);
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab1.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab2.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab3.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab4.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab5.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab6.getText().toString());
-            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab7.getText().toString());
+            if(foundation1.getText().length() > 0) editTextToCardDecoder(foundation1.getText().toString());
+            if(foundation2.getText().length() > 0) editTextToCardDecoder(foundation2.getText().toString());
+            if(foundation3.getText().length() > 0) editTextToCardDecoder(foundation3.getText().toString());
+            if(foundation4.getText().length() > 0) editTextToCardDecoder(foundation4.getText().toString());
+            if(tab1Bag.getText().length() > 0) insertIntoTableau(tab1Bag, cardPlacement.getTableau1(), true);
+            if(tab2Bag.getText().length() > 0) insertIntoTableau(tab2Bag, cardPlacement.getTableau2(), true);
+            if(tab3Bag.getText().length() > 0) insertIntoTableau(tab3Bag, cardPlacement.getTableau3(), true);
+            if(tab4Bag.getText().length() > 0) insertIntoTableau(tab4Bag, cardPlacement.getTableau4(), true);
+            if(tab5Bag.getText().length() > 0) insertIntoTableau(tab5Bag, cardPlacement.getTableau5(), true);
+            if(tab6Bag.getText().length() > 0) insertIntoTableau(tab6Bag, cardPlacement.getTableau6(), true);
+            if(tab7Bag.getText().length() > 0) insertIntoTableau(tab7Bag, cardPlacement.getTableau7(), true);
+            if(tab1For.getText().length() > 0) insertIntoTableau(tab1For, cardPlacement.getTableau1(), false);
+            if(tab2For.getText().length() > 0) insertIntoTableau(tab2For, cardPlacement.getTableau2(), false);
+            if(tab3For.getText().length() > 0) insertIntoTableau(tab3For, cardPlacement.getTableau3(), false);
+            if(tab4For.getText().length() > 0) insertIntoTableau(tab4For, cardPlacement.getTableau4(), false);
+            if(tab5For.getText().length() > 0) insertIntoTableau(tab5For, cardPlacement.getTableau5(), false);
+            if(tab6For.getText().length() > 0) insertIntoTableau(tab6For, cardPlacement.getTableau6(), false);
+            if(tab7For.getText().length() > 0) insertIntoTableau(tab7For, cardPlacement.getTableau7(), false);
+            if(hiddencardsTab1.getText().length() > 0) editTextToCardDecoder(hiddencardsTab1.getText().toString());
+            if(hiddencardsTab2.getText().length() > 0) editTextToCardDecoder(hiddencardsTab2.getText().toString());
+            if(hiddencardsTab3.getText().length() > 0) editTextToCardDecoder(hiddencardsTab3.getText().toString());
+            if(hiddencardsTab4.getText().length() > 0) editTextToCardDecoder(hiddencardsTab4.getText().toString());
+            if(hiddencardsTab5.getText().length() > 0) editTextToCardDecoder(hiddencardsTab5.getText().toString());
+            if(hiddencardsTab6.getText().length() > 0) editTextToCardDecoder(hiddencardsTab6.getText().toString());
+            if(hiddencardsTab7.getText().length() > 0) editTextToCardDecoder(hiddencardsTab7.getText().toString());
 
 
         }
