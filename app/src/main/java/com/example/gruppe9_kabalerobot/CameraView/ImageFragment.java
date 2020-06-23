@@ -99,11 +99,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         if (view == continueToMove){
 
             //TODO: Uncomment when correct data is available
-/*
             constructCards();
 
-            cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
-            System.out.println("Width of bitmap: "+bitmap.getWidth()+" Height of bitmap: " + bitmap.getHeight());
+            cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
+            System.out.println("Width of bitmap: " + bitmap.getWidth() + " Height of bitmap: " + bitmap.getHeight());
             if (cardPlacement.getTableau1().size()>0) System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size() + " suit: " + cardPlacement.getTableau1().get(0).getSuit() + " value: " + cardPlacement.getTableau1().get(0).getValue());
             if (cardPlacement.getTableau2().size()>0) System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size() + " suit: " + cardPlacement.getTableau2().get(0).getSuit() + " value: " + cardPlacement.getTableau2().get(0).getValue());
             if (cardPlacement.getTableau3().size()>0) System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size() + " suit: " + cardPlacement.getTableau3().get(0).getSuit() + " value: " + cardPlacement.getTableau3().get(0).getValue());
@@ -119,8 +118,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             suggestedMove = solitaireController.takeMove(translator);
             System.out.println(suggestedMove);
-
-            */
         }
         else if (view == backButton){
             getActivity().getSupportFragmentManager().popBackStack();
@@ -149,7 +146,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @SuppressLint("StaticFieldLeak")
     private AsyncTask<Void, Void, Void> cascadeBackground = new AsyncTask<Void, Void, Void>() {
 
-
         @Override
         protected void onPreExecute() {
 
@@ -157,7 +153,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             loadingDialog = ProgressDialog.show(getActivity(), "",
                     "Indlæser. Vent venligst", true);
-
         }
 
         @Override
@@ -209,8 +204,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             CardObj cardObj = new CardObj(dataArray[i][0],dataArray[i][1],dataArray[i][4],dataArray[i][5]);
             cardObjList.add(cardObj);
-
         }
-
     }
 }

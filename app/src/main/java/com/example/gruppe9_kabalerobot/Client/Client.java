@@ -25,8 +25,8 @@ public class Client {
 
     private Socket socket;
 
-    private final int serverPort = 8889; //FIXME: Change to fit server
-    private final String server_ip = "192.168.0.19"; //FIXME: Change to fit server with your own IP-Address
+    private final int serverPort = 8888; //FIXME: Change to fit server
+    private final String server_ip = "192.168.0.51"; //FIXME: Change to fit server with your own IP-Address
 
     private static Client instance;
     private BufferedReader reader;
