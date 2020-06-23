@@ -40,12 +40,9 @@ public class CardPlacement  {
 
     private void sort(double screenWidth, double screenHeight) {
 
-
-
         for(CardObj obj: coordinates){
 
-            if(obj.getY()<screenHeight*0.2){
-
+            if(obj.getY()<screenHeight*0.3){
 
                 if(obj.getX()<=screenWidth*(2.0/7.0)){
                     waste.add(obj);
@@ -65,8 +62,6 @@ public class CardPlacement  {
 
             }
             else {
-
-
                 if(obj.getX()<=screenWidth*(1.0/7.0)){
                     tableau1.add(obj);
                 }
@@ -89,12 +84,7 @@ public class CardPlacement  {
                     tableau7.add(obj);
                 }
             }
-
         }
-
-
-
-
     }
 
 
