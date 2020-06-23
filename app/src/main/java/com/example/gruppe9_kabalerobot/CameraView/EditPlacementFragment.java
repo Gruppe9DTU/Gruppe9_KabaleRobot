@@ -1,5 +1,7 @@
 package com.example.gruppe9_kabalerobot.CameraView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,9 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.gruppe9_kabalerobot.R;
@@ -25,6 +30,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             hiddencardsTab4,hiddencardsTab5,hiddencardsTab6,hiddencardsTab7;
     private ToggleButton wasteToggle;
     private FloatingActionButton done;
+    private Spinner typeSpinner, valueSpinner;
 
 
 
@@ -109,6 +115,8 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         switch (view.getId()){
 
             case R.id.wasteCard:
+                //Toast.makeText(getActivity(), "Test", Toast.LENGTH_SHORT).show();
+                 //buildDialog(); break;
 
             case R.id.foundation1:
 
@@ -151,4 +159,42 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         }
 
     }
+
+/*
+    private void buildDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View mView = getLayoutInflater().inflate(R.layout.spinner_dialog,null);
+        builder.setTitle("Test");
+        typeSpinner = mView.findViewById(R.id.type);
+        valueSpinner = mView.findViewById(R.id.value);
+        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.test));
+        adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterValue = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.test));
+        adapterValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(adapterType);
+        valueSpinner.setAdapter(adapterValue);
+
+        builder.setPositiveButton("OK", this);
+        builder.setNegativeButton("Annuller",this);
+
+        builder.setView(mView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+
+        dialogInterface.dismiss();
+    }
+
+ */
 }
