@@ -197,7 +197,6 @@ public class MoveAlgorithm {
      */
     public String kingCheck() {
         //Copy Tableaus and sort
-        Collections.sort(tableaus, Tableau.HiddenCardsCompare); //Sort so first found has highest amount of hidden cards
         List<Card> kingsAvailable = new ArrayList<>();
         int emptySpaces = 0;
 

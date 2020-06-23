@@ -176,12 +176,13 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     //Add to start of tableau
     //Add to end of tableau
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
-        if(atEnd) tableau.add(editTextToCardDecoder(textField));
-        else tableau.add(0, editTextToCardDecoder(textField));
+        if(atEnd) tableau.add(0, editTextToCardDecoder(textField));
+        else tableau.add(editTextToCardDecoder(textField));
     }
 
     private CardObj editTextToCardDecoder(EditText textField) {
-        String text = textField.getText().toString();
+        String textTemp = textField.getText().toString();
+        String text = textTemp.length() == 2 ? "0" + textTemp : textTemp;
         int value = Integer.parseInt(text.substring(0, 2));
         int suit = 0;
         switch(text.substring(2,3).toUpperCase()) {

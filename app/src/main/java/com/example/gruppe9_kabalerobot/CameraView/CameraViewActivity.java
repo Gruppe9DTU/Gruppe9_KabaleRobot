@@ -23,7 +23,8 @@ public class CameraViewActivity extends AppCompatActivity /*implements CameraXCo
         //Sets up the fragment manager
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .add(R.id.fragment_container, new CameraFragment())
+//                .add(R.id.fragment_container, new CameraFragment()) //TODO This if used for testing EditPlacementFragment atm
+                .add(R.id.fragment_container, new EditPlacementFragment())
                 .commit();
 
     }
