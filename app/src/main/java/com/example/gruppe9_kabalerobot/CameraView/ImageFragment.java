@@ -88,7 +88,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         imageView.setImageBitmap(scaledImage);
 
         // Run recognition
-
+        // Check status of AsyncTask before running it, if we are already wait for a message
         if (cascadeBackground.getStatus() == AsyncTask.Status.PENDING) {
             cascadeBackground.execute();
         }
@@ -153,6 +153,8 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
+        // We have to check if we have entered edit.
+        // When replacing fragments onPause is called before change.
         if (!enteredEdit) getActivity().getSupportFragmentManager().popBackStack();
         loadingDialog.dismiss();
     }
@@ -219,6 +221,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     //region Support methods
 
+    /**
+     * This method constructs the CardObjList from the data recieved from the python server.
+     * This method also initialises classes regarding Solitaire Framework and Algorithm
+     */
     private void constructCards(){
         solitaireController = new SolitaireController();
         cardPlacement = new CardPlacement();
@@ -233,6 +239,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * This method builds a dialog with the message text of the suggested move
+     * This String is returned from the SolitaireController class
+     * @param suggestedMove
+     */
     private void buildDialog(String suggestedMove) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Det foretrukkende træk")
