@@ -9,6 +9,7 @@ import java.util.List;
 public class CardPlacement  {
 
     private List<CardObj> coordinates = new ArrayList<>();
+    private boolean wastePile = false;
     private List<CardObj> waste = new ArrayList<>();
     private List<CardObj> foundations = new ArrayList<>();
     private List<Integer> hiddenCards = new ArrayList<>(7);
@@ -43,8 +44,10 @@ public class CardPlacement  {
         for(CardObj obj: coordinates){
 
             if(obj.getY()<screenHeight*0.3){
-
-                if(obj.getX()<=screenWidth*(2.0/7.0)){
+                if(obj.getX()<=screenWidth*(1.0/7.0)){
+                    if(obj.getSuit() == 0) wastePile = true;
+                }
+                else if(obj.getX()<=screenWidth*(2.0/7.0)){
                     waste.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
@@ -63,25 +66,32 @@ public class CardPlacement  {
             }
             else {
                 if(obj.getX()<=screenWidth*(1.0/7.0)){
-                    tableau1.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(0, hiddenCards.get(0)+1);
+                    else tableau1.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(2.0/7.0) && obj.getX()>screenWidth*(1.0/7.0)){
-                    tableau2.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(1, hiddenCards.get(1)+1);
+                    else tableau2.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(3.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
-                    tableau3.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(2, hiddenCards.get(2)+1);
+                    else tableau3.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(3.0/7.0)){
-                    tableau4.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(3, hiddenCards.get(3)+1);
+                    else tableau4.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(5.0/7.0) && obj.getX()>screenWidth*(4.0/7.0)) {
-                    tableau5.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(4, hiddenCards.get(4)+1);
+                    else tableau5.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(6.0/7.0) && obj.getX()>screenWidth*(5.0/7.0)){
-                    tableau6.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(5, hiddenCards.get(5)+1);
+                    else tableau6.add(obj);
                 }
                 else if (obj.getX()<=screenWidth && obj.getX()>screenWidth*(6.0/7.0)){
-                    tableau7.add(obj);
+                    if(obj.getSuit() == 0) hiddenCards.add(6, hiddenCards.get(6)+1);
+                    else tableau7.add(obj);
                 }
             }
         }
@@ -353,6 +363,9 @@ public class CardPlacement  {
     public List<CardObj> getWaste() {
         return waste;
     }
-
     public void setWaste(List<CardObj> waste) { this.waste = waste; }
+
+    public boolean isWastePile() {
+        return wastePile;
+    }
 }

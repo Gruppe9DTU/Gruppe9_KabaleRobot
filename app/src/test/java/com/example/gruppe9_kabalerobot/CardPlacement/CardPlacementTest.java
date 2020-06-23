@@ -16,7 +16,7 @@ public class CardPlacementTest {
     public void testSort() {
         addCoordinates();
         ArrayList<CardObj> testStack = new ArrayList<>(coordinates);
-        cardPlacement.sortCards(testStack);
+        cardPlacement.sortCards(testStack, 7, 7);
 
         winningCard.add(coordinates.get(1));
         winningCard.add(coordinates.get(3));

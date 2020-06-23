@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".CameraView.EditPlacementFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.40"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bunke til stede"
+                />
+
+            <ToggleButton
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/toggleWaste"
+                android:checked="true"
+                android:textOn="Ja"
+                android:textOff="Nej"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="15dp"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/wasteCard"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/intro_edit"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="15dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/foundation1"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="15dp"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/foundation2"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="15dp"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/foundation3"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="15dp"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/foundation4"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.60"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab1"
+                />
+
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab1B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab1F"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab2"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab2B"
+                />
+
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab2F"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab3"
+                />
+
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab3B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab3F"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab4"
+                />
+
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab4B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab4F"
+                />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_marginTop="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:fabCustomSize="50dp"
+                android:id="@+id/done"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_icon_awesome_check"
+                android:backgroundTint="@color/grey"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab5"
+                />
+
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab5B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab5F"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab6"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab6B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab6F"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/skjulte_kort"
+                android:textSize="12sp"
+                android:id="@+id/hiddencardsTab7"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bagerste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab7B"
+                />
+
+            <EditText
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/forreste_kort"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:id="@+id/tab7F"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
