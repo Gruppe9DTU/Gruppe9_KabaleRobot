@@ -30,6 +30,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             hiddencardsTab4,hiddencardsTab5,hiddencardsTab6,hiddencardsTab7;
     private ToggleButton wasteToggle;
     private FloatingActionButton done;
+    private boolean isWasteDeck = true;
 
 
 
@@ -85,9 +86,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+    public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
 
-
+        // If changed, the boolean value will change
+        isWasteDeck = value;
 
     }
 
@@ -95,6 +97,9 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     public void onClick(View view) {
 
         if (view == done){
+
+
+
 
 
 
