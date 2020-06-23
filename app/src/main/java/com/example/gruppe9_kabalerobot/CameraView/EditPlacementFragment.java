@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
 import com.example.gruppe9_kabalerobot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,8 +32,12 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private ToggleButton wasteToggle;
     private FloatingActionButton done;
     private boolean isWasteDeck = true;
+    private CardPlacement cardPlacement;
 
 
+    public EditPlacementFragment(CardPlacement cardPlacement){
+        this.cardPlacement = cardPlacement;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
