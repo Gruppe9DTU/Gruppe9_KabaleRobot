@@ -32,15 +32,15 @@ public class CardTest {
     public void testToString() {
         testCard.setSuit(0);
         testCard.setValue(1);
-        assertEquals("Ace of Hearts", testCard.toString());
+        assertEquals("Hjerter Es", testCard.toString());
         testCard.setValue(11);
-        assertEquals("Jack of Hearts", testCard.toString());
+        assertEquals("Hjerter Knægt", testCard.toString());
         testCard.setValue(12);
-        assertEquals("Queen of Hearts", testCard.toString());
+        assertEquals("Hjerter Dronning", testCard.toString());
         testCard.setValue(13);
-        assertEquals("King of Hearts", testCard.toString());
+        assertEquals("Hjerter Konge", testCard.toString());
         testCard.setValue(4);
-        assertEquals("4 of Hearts", testCard.toString());
+        assertEquals("Hjerter 4", testCard.toString());
     }
 
 }

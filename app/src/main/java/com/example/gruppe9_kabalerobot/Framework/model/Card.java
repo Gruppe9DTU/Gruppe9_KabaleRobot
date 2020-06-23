@@ -35,15 +35,15 @@ public class Card {
     public String readSuit() {
         switch(suit) {
             case 0:
-                return "Hearts";
+                return "Hjerter";
             case 1:
-                return "Spades";
+                return "Spar";
             case 2:
-                return "Diamonds";
+                return "Ruder";
             case 3:
-                return "Clubs";
+                return "Klør";
             default:
-                return "error reading suit, please make sure card is correct.";
+                return "[Fejl i læsning af kulør]";
         }
     }
 
@@ -55,15 +55,15 @@ public class Card {
     public String toString() {
         switch(value){
             case 1:
-                return "Ace of " + readSuit();
+                return readSuit() + " Es";
             case 11:
-                return "Jack of " + readSuit();
+                return readSuit() + " Knægt";
             case 12:
-                return "Queen of " + readSuit();
+                return readSuit() + " Dronning";
             case 13:
-                return "King of " + readSuit();
+                return readSuit() + " Konge";
             default:
-                return value + " of " + readSuit();
+                return readSuit() + " "+ value;
         }
     }
 

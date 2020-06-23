@@ -76,8 +76,8 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
-                , algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
+        assertEquals( "Tag alle de synlige kort fra byggestablen med det nederste kort 3 of Hearts og placer dem på 4 of Spades",
+                algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**

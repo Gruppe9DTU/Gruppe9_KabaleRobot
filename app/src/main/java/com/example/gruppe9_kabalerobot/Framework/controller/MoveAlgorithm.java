@@ -130,7 +130,7 @@ public class MoveAlgorithm {
                 }
 
             default:
-                if(latestMove == 1) bestMove = "Intet træk blev fundet for nuværende spil";
+                if(latestMove == 1) bestMove = "Der kunne ikke findes noget muligt træk for denne position";
                 else bestMove = "Der kunne ikke findes noget nyt træk for denne position af spillet";
         }
         return bestMove;
@@ -147,7 +147,7 @@ public class MoveAlgorithm {
                 return  "";
             }
         }
-        return "A king is present in each of the foundations thus the game should be done";
+        return "Alle grundbunker har en konge og spillet er slut";
     }
 
     /**
@@ -162,7 +162,7 @@ public class MoveAlgorithm {
                     return "";
                 }
             }
-            return "All cards should be present and game should be able to be completed";
+            return "Alle kort er frie og du kan afslutte spillet ved at lægge dem i grundbunkerne";
         }
         return "";
     }
@@ -183,11 +183,11 @@ public class MoveAlgorithm {
                 Card card = visibleCards.get(visibleCards.size() - 1);
 
                 if (card.getValue() == 1) {
-                    return "Ryk " + card.toString() + " til Foundation";
+                    return "Ryk " + card.toString() + " til en grundbunke";
                 }
             }
         }
-        if (wasteCard != null && wasteCard.getValue() == 1) return "Ryk " + wasteCard.toString() + " til Foundation";
+        if (wasteCard != null && wasteCard.getValue() == 1) return "Ryk " + wasteCard.toString() + " til en grundbunke";
         return "";
     }
 
@@ -270,13 +270,13 @@ public class MoveAlgorithm {
                     bestKing = king.toString();
                     break;
                 } else if (redKingScore == blackKingScore) { //If it's either or
-                    bestKing = "any king";
+                    bestKing = "en valgfri konge";
                     break;
                 }
             }
-            return "Move " + bestKing + " to an empty space";
+            return "Flyt " + bestKing + " til et tomt felt";
         } else if (kingsAvailable.size() == 1 && emptySpaces > 0) { //Only one king found
-            return "Move " + kingsAvailable.get(0).toString() + " to an empty space";
+            return "Flyte " + kingsAvailable.get(0).toString() + " til et tomt felt";
         }
         return "";
     }
@@ -302,7 +302,7 @@ public class MoveAlgorithm {
         for (Tableau tableau : tableaus) {
             if (tableau.getVisibleCards() == null || tableau.getVisibleCards().size() == 0
                     && tableau.countHiddenCards() > 0) {
-                return "Turn over a card from the tableau with the highest amount of hidden cards";
+                return "Vend et kort fra en mulig byggestabel";
             }
         }
         return "";
@@ -368,7 +368,7 @@ public class MoveAlgorithm {
                         if (tableau.getVisibleCards().size() - 1 != 0 || tableau.countHiddenCards() != 0 || //Is card left behind
                                 checkForMoveableCardFromValue(13) || //Is there a king to take the space
                                 checkForMoveableCardFromSuitAndValue(card.getSuit(), card.getValue() + 1)) { //Is the card needed for another card
-                            return "Move " + card.toString() + " to it's respective foundation";
+                            return "Flyt " + card.toString() + " til grundbunken med dens kulør";
                         }
                     }
                 }
@@ -380,7 +380,7 @@ public class MoveAlgorithm {
                 if (foundation.countCards() > 0 &&
                         wasteCard.getValue() == foundation.peekCard().getValue() + 1 &&
                         wasteCard.getSuit() == foundation.peekCard().getSuit()) {
-                    return "Move " + wasteCard.toString() + " to it's respective foundation";
+                    return "Flyt " + wasteCard.toString() + " til grundbunken med dens kulør";
                 }
             }
         }
