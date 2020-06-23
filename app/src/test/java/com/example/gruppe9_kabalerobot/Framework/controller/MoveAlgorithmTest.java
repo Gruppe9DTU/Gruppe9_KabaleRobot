@@ -1,7 +1,5 @@
 package com.example.gruppe9_kabalerobot.Framework.controller;
 
-import com.example.gruppe9_kabalerobot.Framework.controller.SolitarieLogic;
-import com.example.gruppe9_kabalerobot.Framework.controller.MoveAlgorithm;
 import com.example.gruppe9_kabalerobot.Framework.model.Card;
 import com.example.gruppe9_kabalerobot.Framework.model.Foundation;
 import com.example.gruppe9_kabalerobot.Framework.model.PreviousState;
@@ -19,7 +17,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class MoveAlgorithmTest {
-    private SolitarieLogic game;
+    private SolitaireLogic game;
     private MoveAlgorithm algoritmCtrl;
     private Tableau[] tableaus;
     private Foundation[] foundations;
@@ -29,7 +27,7 @@ public class MoveAlgorithmTest {
      */
     @Before
     public void setup() {
-        game = new SolitarieLogic();
+        game = new SolitaireLogic();
         tableaus = game.getTableau();
         foundations = new Foundation[4];
         for(int i = 0 ; i < 4 ; i++){
@@ -181,7 +179,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("A king is present in each of the foundations thus the game should be done (are cards still present in the tableau or waste pile, then you did something wrong)", algoritmCtrl.checkWin());
+        assertEquals("A king is present in each of the foundations thus the game should be done", algoritmCtrl.checkWin());
 
     }
 
