@@ -455,7 +455,6 @@ public class MoveAlgorithm {
      *
      * @return Instructions for player
      */
-    //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
         List<Card> cards, cards2;
             for (Tableau tableau : tableaus) {

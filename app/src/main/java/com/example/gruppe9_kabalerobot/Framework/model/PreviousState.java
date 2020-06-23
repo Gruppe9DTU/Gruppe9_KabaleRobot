@@ -19,11 +19,8 @@ public class PreviousState {
     }
 
     /**
-     * Getters and Setters for PreviousState class
+     * Getters for PreviousState class
      */
     public String getState() { return state; }
-    public void setState(String state) { this.state = state; }
-
     public int getMove() { return move; }
-    public void setMove(int move) { this.move = move; }
 }
