@@ -135,9 +135,15 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     }
 
     //Set wastepile
+
     //Add to waste
+
     //Add to foundation
+
     //Add to hiddencard List (could be done here)
+    private void insertIntoHiddenCards(EditText textField, List<Integer> hiddenCards, int index) {
+        hiddenCards.set(index, Integer.parseInt(textField.getText().toString()));
+    }
     //Add to start of tableau
     //Add to end of tableau
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
