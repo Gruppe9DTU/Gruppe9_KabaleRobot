@@ -7,8 +7,6 @@ public class PreviousState {
     private String state;   //Saved image of game state
     private int move;       //Move made on saved game state
 
-    //TODO New PreviousStates not created and saved?
-
     /**
      * Constructor for a saved state
      *

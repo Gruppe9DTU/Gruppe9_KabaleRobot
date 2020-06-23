@@ -98,8 +98,8 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         if (view == continueToMove){
 
-            //TODO: Maybe remove the prints later
-
+            //TODO: Uncomment when correct data is available
+/*
             constructCards();
 
             cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
@@ -120,6 +120,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             suggestedMove = solitaireController.takeMove(translator);
             System.out.println(suggestedMove);
 
+            */
         }
         else if (view == backButton){
             getActivity().getSupportFragmentManager().popBackStack();

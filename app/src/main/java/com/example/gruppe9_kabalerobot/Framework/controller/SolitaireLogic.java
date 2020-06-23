@@ -9,15 +9,18 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolitarieLogic {
+/**
+ * Class to illustrate a game of Solitaire
+ */
+public class SolitaireLogic {
     private Waste waste;
-    private Tableau[] tableau;
-    private Foundation[] foundation;
+    private Tableau[] tableau;          //TODO Make this a list?
+    private Foundation[] foundation;    //TODO Make this a list?
 
     /**
      * Constructor for the controller
      */
-    public SolitarieLogic() {
+    public SolitaireLogic() {
         waste = new Waste(false, null);
         tableau = new Tableau[7];
         for(int i = 0 ; i < 7 ; i++){
@@ -49,12 +52,15 @@ public class SolitarieLogic {
         String tableauValues = "";
         for(int i = 0 ; i < tableau.length ; i++) {
             tableauLengths += " " + tableau[i].countHiddenCards() + "  ";
-            tableauValues += tableau[i].isEmpty() ? "Emp " : tableau[i].getTopCard().shortString() + " " ;
+            tableauValues += tableau[i].getVisibleCards().size() == 0 ? "Emp " : tableau[i].getTopCard().shortString() + " " ;
         }
 
         return (tableauLengths + "\n" + tableauValues);
     }
 
+    /**
+     * Getters and setters for Tableau and Foundation Lists, and Waste class
+     */
     public Tableau[] getTableau() { return tableau; }
     public void setTableaus(List<Integer> hiddenCards, List<List<Card>> transTableaus) {
         for (int i = 0 ; i < 7 ; i++) {
@@ -83,7 +89,7 @@ public class SolitarieLogic {
      * Used for tests, to easily set the tableau
      * @param foundation
      */
-    public void setFoundation(Foundation[] foundation){
+    public void setFoundation(Foundation[] foundation){ //TODO Make this a list?
         this.foundation = foundation;
     }
 }
