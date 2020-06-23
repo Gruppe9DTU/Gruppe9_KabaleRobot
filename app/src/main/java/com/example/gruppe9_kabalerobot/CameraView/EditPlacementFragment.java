@@ -106,9 +106,32 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
         if (view == done){
 
-
-
-
+            cardEditTextDecoder(waste.getText().toString());
+            cardEditTextDecoder(foundation1.getText().toString());
+            cardEditTextDecoder(foundation2.getText().toString());
+            cardEditTextDecoder(foundation3.getText().toString());
+            cardEditTextDecoder(foundation4.getText().toString());
+            cardEditTextDecoder(tab1Bag.getText().toString());
+            cardEditTextDecoder(tab2Bag.getText().toString());
+            cardEditTextDecoder(tab3Bag.getText().toString());
+            cardEditTextDecoder(tab4Bag.getText().toString());
+            cardEditTextDecoder(tab5Bag.getText().toString());
+            cardEditTextDecoder(tab6Bag.getText().toString());
+            cardEditTextDecoder(tab7Bag.getText().toString());
+            cardEditTextDecoder(tab1For.getText().toString());
+            cardEditTextDecoder(tab2For.getText().toString());
+            cardEditTextDecoder(tab3For.getText().toString());
+            cardEditTextDecoder(tab4For.getText().toString());
+            cardEditTextDecoder(tab5For.getText().toString());
+            cardEditTextDecoder(tab6For.getText().toString());
+            cardEditTextDecoder(tab7For.getText().toString());
+            cardEditTextDecoder(hiddencardsTab1.getText().toString());
+            cardEditTextDecoder(hiddencardsTab2.getText().toString());
+            cardEditTextDecoder(hiddencardsTab3.getText().toString());
+            cardEditTextDecoder(hiddencardsTab4.getText().toString());
+            cardEditTextDecoder(hiddencardsTab5.getText().toString());
+            cardEditTextDecoder(hiddencardsTab6.getText().toString());
+            cardEditTextDecoder(hiddencardsTab7.getText().toString());
 
 
         }
