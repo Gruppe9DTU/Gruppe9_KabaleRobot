@@ -102,7 +102,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
         if (view == done){
 
-            if(waste.getText().length() > 0) editTextToCardDecoder(waste.getText().toString());
+            if(waste.getText().length() > 0) insertIntoWaste(waste,cardPlacement.getWaste());
             if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations(),0);
             if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations(),1);
             if(foundation3.getText().length() > 0) insertIntoFoundation(foundation3,cardPlacement.getFoundations(),2);
@@ -153,7 +153,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     //Add to end of tableau
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
         if(atEnd) tableau.add(editTextToCardDecoder(textField));
-        else tableau.add(0, editTextToCardDecoder(textField);
+        else tableau.add(0, editTextToCardDecoder(textField));
     }
 
     private CardObj editTextToCardDecoder(EditText textField) {
