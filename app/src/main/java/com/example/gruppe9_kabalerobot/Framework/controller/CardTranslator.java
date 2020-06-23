@@ -30,6 +30,7 @@ public class CardTranslator {
     public void insertCards(SolitaireLogic game) {
         //Waste
         game.getWaste().addListToKnown(translateCardList(placement.getWaste()));
+        game.getWaste().setWastePile(placement.isWastePile());
         //Foundation
         game.setFoundations(translateCardList(placement.getFoundations()));
         //Tableau
