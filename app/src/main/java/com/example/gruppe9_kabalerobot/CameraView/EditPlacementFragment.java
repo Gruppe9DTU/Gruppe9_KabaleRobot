@@ -1,7 +1,5 @@
 package com.example.gruppe9_kabalerobot.CameraView;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,18 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
 import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
 import com.example.gruppe9_kabalerobot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class EditPlacementFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
@@ -106,44 +102,78 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
         if (view == done){
 
-            cardEditTextDecoder(waste.getText().toString());
-            cardEditTextDecoder(foundation1.getText().toString());
-            cardEditTextDecoder(foundation2.getText().toString());
-            cardEditTextDecoder(foundation3.getText().toString());
-            cardEditTextDecoder(foundation4.getText().toString());
-            cardEditTextDecoder(tab1Bag.getText().toString());
-            cardEditTextDecoder(tab2Bag.getText().toString());
-            cardEditTextDecoder(tab3Bag.getText().toString());
-            cardEditTextDecoder(tab4Bag.getText().toString());
-            cardEditTextDecoder(tab5Bag.getText().toString());
-            cardEditTextDecoder(tab6Bag.getText().toString());
-            cardEditTextDecoder(tab7Bag.getText().toString());
-            cardEditTextDecoder(tab1For.getText().toString());
-            cardEditTextDecoder(tab2For.getText().toString());
-            cardEditTextDecoder(tab3For.getText().toString());
-            cardEditTextDecoder(tab4For.getText().toString());
-            cardEditTextDecoder(tab5For.getText().toString());
-            cardEditTextDecoder(tab6For.getText().toString());
-            cardEditTextDecoder(tab7For.getText().toString());
-            cardEditTextDecoder(hiddencardsTab1.getText().toString());
-            cardEditTextDecoder(hiddencardsTab2.getText().toString());
-            cardEditTextDecoder(hiddencardsTab3.getText().toString());
-            cardEditTextDecoder(hiddencardsTab4.getText().toString());
-            cardEditTextDecoder(hiddencardsTab5.getText().toString());
-            cardEditTextDecoder(hiddencardsTab6.getText().toString());
-            cardEditTextDecoder(hiddencardsTab7.getText().toString());
+            if(waste.getText().length() > 0) editTextToCardDecoder(waste.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(foundation1.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(foundation2.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(foundation3.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(foundation4.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab1Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab2Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab3Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab4Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab5Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab6Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab7Bag.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab1For.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab2For.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab3For.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab4For.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab5For.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(tab6For.getText().toString());
+            if(.getText().length() > 0) insertIntoTableau(tab7For, cardPlacement.getTableau7(), false);
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab1.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab2.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab3.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab4.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab5.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab6.getText().toString());
+            if(.getText().length() > 0) editTextToCardDecoder(hiddencardsTab7.getText().toString());
 
 
         }
 
     }
 
-    private CardObj cardEditTextDecoder(String text) {
-        int value = Integer.parseInt(text.substring(0, 2));
-        int suit = Integer.parseInt(text.substring(2, 3));
+    //Set wastepile
+    //Add to waste
+    //Add to foundation
+    //Add to hiddencard List (could be done here)
+    //Add to start of tableau
+    //Add to end of tableau
+    private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
+        if(atEnd) tableau.add(editTextToCardDecoder(textField));
+        else tableau.add(0, editTextToCardDecoder(textField);
+    }
 
+    private CardObj editTextToCardDecoder(EditText textField) {
+        String text = textField.getText().toString();
+        int value = Integer.parseInt(text.substring(0, 2));
+        int suit = 0;
+        switch(text.substring(2,3)) {
+            case "H":
+                suit = 1;
+                break;
+            case "S":
+                suit = 2;
+                break;
+            case "D":
+                suit = 3;
+                break;
+            case "C":
+                suit = 4;
+                break;
+        }
         return new CardObj(0, 0, value, suit);
     }
+
+//    private String cardToEditTextDecoder(CardObj obj) {
+//        String value, suit;
+//        if(obj.getValue() < 10) {
+//            value = "0" + obj.getValue();
+//        } else value = Integer.toString(obj.getValue());
+//        suit = Integer.toString(obj.getSuit());
+//        return value+suit;
+//    }
 
 
 
