@@ -39,6 +39,8 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         this.cardPlacement = cardPlacement;
     }
 
+    public EditPlacementFragment(){}
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
