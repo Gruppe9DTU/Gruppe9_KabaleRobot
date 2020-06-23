@@ -9,7 +9,7 @@ import java.util.List;
 public class CardPlacement  {
 
     private List<CardObj> coordinates = new ArrayList<>();
-    //TODO No control of wastepile?
+    private boolean wastePile = false;
     private List<CardObj> waste = new ArrayList<>();
     private List<CardObj> foundations = new ArrayList<>();
     private List<Integer> hiddenCards = new ArrayList<>(7);
@@ -44,8 +44,10 @@ public class CardPlacement  {
         for(CardObj obj: coordinates){
 
             if(obj.getY()<screenHeight*0.3){
-
-                if(obj.getX()<=screenWidth*(2.0/7.0)){
+                if(obj.getX()<=screenWidth*(1.0/7.0)){
+                    if(obj.getSuit() == 0) wastePile = true;
+                }
+                else if(obj.getX()<=screenWidth*(2.0/7.0)){
                     waste.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
@@ -361,6 +363,9 @@ public class CardPlacement  {
     public List<CardObj> getWaste() {
         return waste;
     }
-
     public void setWaste(List<CardObj> waste) { this.waste = waste; }
+
+    public boolean isWastePile() {
+        return wastePile;
+    }
 }
