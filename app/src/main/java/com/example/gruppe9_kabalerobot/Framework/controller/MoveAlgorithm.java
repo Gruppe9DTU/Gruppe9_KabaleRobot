@@ -434,9 +434,12 @@ public class MoveAlgorithm {
                 //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
                 if (cards != cards2 && cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
                     //Hvis der er mere end ét kort tilstæde i byggestablen og det nederste kort passer på det øverste kort i en anden byggestabel, ryk alle de synlige kort fra byggestablen over til den anden byggestabel
-                    if (cards.size() - 1 != 0 && cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                    if (cards.size() - 1 != 0 &&
+                            cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 &&
+                            cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
                         move = "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
-                        if (cards2.size() - 2 >= 0 && cards.get(0).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
+                        if (cards2.size() - 2 >= 0 &&
+                                cards.get(0).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
                             return move;
                         }
                     }
