@@ -114,6 +114,11 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
     }
 
+    private void insertRemainingCards(String text)
+    {
+
+    }
+
 
 
 
