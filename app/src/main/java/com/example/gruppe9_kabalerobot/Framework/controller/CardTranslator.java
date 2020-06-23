@@ -31,7 +31,7 @@ public class CardTranslator {
     private List<Card> translateCardList(List<CardObj> cardObjs) {
         List<Card> cards = new ArrayList<>();
         for(CardObj cardObj : cardObjs) {
-            Card card = new Card(cardObj.getSuit(), cardObj.getValue());
+            Card card = new Card(cardObj.getSuit()-1, cardObj.getValue());
             cards.add(card);
         }
         return cards;

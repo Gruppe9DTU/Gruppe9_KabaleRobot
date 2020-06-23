@@ -1,5 +1,7 @@
 package com.example.gruppe9_kabalerobot.CameraView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +16,8 @@ import android.widget.ToggleButton;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
 import com.example.gruppe9_kabalerobot.CardPlacement.CardPlacement;
+import com.example.gruppe9_kabalerobot.Framework.controller.CardTranslator;
+import com.example.gruppe9_kabalerobot.Framework.controller.SolitaireController;
 import com.example.gruppe9_kabalerobot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,13 +34,17 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private FloatingActionButton done;
     private boolean isWasteDeck = true;
     private CardPlacement cardPlacement;
+    private CardTranslator translator;
+    private SolitaireController solitaireController = new SolitaireController();
 
 
     public EditPlacementFragment(CardPlacement cardPlacement){
         this.cardPlacement = cardPlacement;
     }
 
-    public EditPlacementFragment(){}
+    public EditPlacementFragment(){
+        this.cardPlacement = new CardPlacement();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
@@ -129,6 +137,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(hiddencardsTab6.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab6,cardPlacement.getHiddenCards(),5);
             if(hiddencardsTab7.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab7,cardPlacement.getHiddenCards(),6);
 
+            translator = new CardTranslator(cardPlacement);
+
+            buildDialog(solitaireController.takeMove(translator));
+
 
         }
 
@@ -186,44 +198,21 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 //        return value+suit;
 //    }
 
+    private void buildDialog(String move) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Det fortrukkende træk")
+                .setMessage(move)
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        dialogInterface.dismiss();
 
-
-/*
-    private void buildDialog() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View mView = getLayoutInflater().inflate(R.layout.spinner_dialog,null);
-        builder.setTitle("Test");
-        typeSpinner = mView.findViewById(R.id.type);
-        valueSpinner = mView.findViewById(R.id.value);
-        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.test));
-        adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<String> adapterValue = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.test));
-        adapterValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(adapterType);
-        valueSpinner.setAdapter(adapterValue);
-
-        builder.setPositiveButton("OK", this);
-        builder.setNegativeButton("Annuller",this);
-
-        builder.setView(mView);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
+                    }
+                })
+                .show();
 
     }
 
-    @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-
-        dialogInterface.dismiss();
-    }
-
- */
 }
