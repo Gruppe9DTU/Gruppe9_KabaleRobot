@@ -141,7 +141,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
             buildDialog(solitaireController.takeMove(translator));
 
-
+            cardPlacement = new CardPlacement();
         }
 
     }
