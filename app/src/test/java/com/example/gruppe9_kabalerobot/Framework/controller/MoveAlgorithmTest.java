@@ -983,7 +983,6 @@ public class MoveAlgorithmTest {
 
         //Create a wastepile with 3 of Clubs on top
         List<Card> wasteCards = new ArrayList<>();
-        wasteCards.add(new Card(3, 7));
         Waste waste = new Waste(true, wasteCards);
         game.setWaste(waste);
 

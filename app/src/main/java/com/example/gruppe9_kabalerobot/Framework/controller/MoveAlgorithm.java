@@ -213,6 +213,7 @@ public class MoveAlgorithm {
                 }
             }
         }
+        if(wasteCard != null && wasteCard.getValue() == 13) kingsAvailable.add(wasteCard);
 
         if (kingsAvailable.size() > 1 && emptySpaces > 0) {
             boolean bestKingFound = false;
@@ -431,20 +432,19 @@ public class MoveAlgorithm {
                 cards2 = tableau2.getVisibleCards();
 
                 //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                if (cards != cards2 && cards.size() - 1 > 0 && cards2.size() - 1 > 0) {
+                if (cards != cards2 && cards.size() > 0 && cards2.size() > 0) {
                     //Hvis der er mere end ét kort tilstæde i byggestablen og det nederste kort passer på det øverste kort i en anden byggestabel, ryk alle de synlige kort fra byggestablen over til den anden byggestabel
-                    if (cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
-                        if (cards2.size() - 2 >= 0 && cards.get(0).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
-                            return "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
-                        }
+                    if (cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1
+                            && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                        return "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
                     }
                 }
             }
 
-//            //hvis waste passer så lig den på //TODO Control that this works, don't think algorithms are controlling waste to tableau at current state
-//            if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
-//                return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
-//            }
+            //hvis waste passer så lig den på
+            if (wasteCard != null && cards.size() > 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
+                return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
+            }
         }
         return "";
     }
