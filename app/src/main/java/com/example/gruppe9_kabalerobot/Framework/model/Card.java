@@ -18,15 +18,6 @@ public class Card {
         this.value = value;
     }
 
-    /**
-     * Getters and Setters for Card class
-     */
-    public int getSuit() { return this.suit; }
-    public void setSuit(int suit) { this.suit = suit; }
-
-    public int getValue() { return this.value; }
-    public void setValue(int value) { this.value = value; }
-
     /***
      * A method to get the suit in string form
      *
@@ -88,4 +79,13 @@ public class Card {
                 return "0" + value + readSuit().charAt(0);
         }
     }
+
+    /**
+     * Getters and Setters for Card class
+     */
+    public int getSuit() { return this.suit; }
+    public void setSuit(int suit) { this.suit = suit; }
+
+    public int getValue() { return this.value; }
+    public void setValue(int value) { this.value = value; }
 }
