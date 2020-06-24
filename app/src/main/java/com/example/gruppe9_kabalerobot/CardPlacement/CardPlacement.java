@@ -368,4 +368,8 @@ public class CardPlacement  {
     public boolean isWastePile() {
         return wastePile;
     }
+
+    public void setWastePile(boolean wastePile) {
+        this.wastePile = wastePile;
+    }
 }

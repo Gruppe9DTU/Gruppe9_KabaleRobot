@@ -109,7 +109,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     public void onClick(View view) {
 
         if (view == done){
-
+            cardPlacement.setWastePile(isWasteDeck);
             if(waste.getText().length() > 0) insertIntoWaste(waste,cardPlacement.getWaste());
             if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations());
             if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations());
@@ -141,7 +141,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
             buildDialog(solitaireController.takeMove(translator));
 
-
+            cardPlacement = new CardPlacement();
         }
 
     }
@@ -195,8 +195,8 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @param atEnd boolean value to determine if CardObj is at top or bottom of Tableau
      */
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
-        if(atEnd) tableau.add(editTextToCardDecoder(textField));
-        else tableau.add(0, editTextToCardDecoder(textField));
+        if(atEnd) tableau.add(0, editTextToCardDecoder(textField));
+        else tableau.add(editTextToCardDecoder(textField));
     }
 
     /**
@@ -205,7 +205,8 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @return the new CardObj recieved from textfield String
      */
     private CardObj editTextToCardDecoder(EditText textField) {
-        String text = textField.getText().toString();
+        String textTemp = textField.getText().toString();
+        String text = textTemp.length() == 2 ? "0" + textTemp : textTemp;
         int value = Integer.parseInt(text.substring(0, 2));
         int suit = 0;
         switch(text.substring(2,3).toUpperCase()) {

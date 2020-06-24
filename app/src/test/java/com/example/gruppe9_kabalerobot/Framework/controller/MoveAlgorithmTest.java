@@ -983,7 +983,6 @@ public class MoveAlgorithmTest {
 
         //Create a wastepile with 3 of Clubs on top
         List<Card> wasteCards = new ArrayList<>();
-        wasteCards.add(new Card(3, 7));
         Waste waste = new Waste(true, wasteCards);
         game.setWaste(waste);
 
@@ -1080,7 +1079,7 @@ public class MoveAlgorithmTest {
         tableaus[1].addCardToStack(new Card(1, 9));
         tableaus[2].addCardToStack(new Card(1, 4));
         tableaus[2].addCardToStack(new Card(2, 3));
-        tableaus[3].addCardToStack(new Card(1, 4));
+        tableaus[3].addCardToStack(new Card(3, 4));
         tableaus[3].addCardToStack(expected1);// 0       3    // Possible move for expected 1
 
         //Create a wastepile with 3 of Clubs on top
