@@ -137,7 +137,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
 
         }
-
         else if (view == backButton){
             getActivity().getSupportFragmentManager().popBackStack();
         }
@@ -167,7 +166,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @SuppressLint("StaticFieldLeak")
     private AsyncTask<Void, Void, Void> cascadeBackground = new AsyncTask<Void, Void, Void>() {
 
-
         @Override
         protected void onPreExecute() {
 
@@ -175,7 +173,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             loadingDialog = ProgressDialog.show(getActivity(), "",
                     "Indlæser. Vent venligst", true);
-
         }
 
         @Override
@@ -234,9 +231,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             CardObj cardObj = new CardObj(dataArray[i][0],dataArray[i][1],dataArray[i][4],dataArray[i][5]);
             cardObjList.add(cardObj);
-
         }
-
     }
 
     /**
