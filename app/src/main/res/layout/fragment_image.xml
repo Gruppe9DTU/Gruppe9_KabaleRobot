@@ -13,19 +13,26 @@
         android:layout_height="match_parent"
         android:src="@drawable/ic_launcher_foreground" />
 
-    <Button
-        android:id="@+id/continueToMove"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scontinue"
-        android:foreground="?attr/selectableItemBackground"
-        style="@style/textButtonStart"
-        android:background="@drawable/round_button"
+        android:id="@+id/continueToMove"
+        android:backgroundTint="@color/grey"
+        android:src="@drawable/ic_icon_awesome_check"
+        android:layout_gravity="end|bottom"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginEnd="320dp"
-        android:layout_gravity="bottom"
-        />
+        android:layout_marginEnd="20dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPlacement"
+        android:backgroundTint="@color/grey"
+        android:src="@android:drawable/ic_menu_edit"
+        android:layout_gravity="start|bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"/>
 
     <ImageButton
         android:id="@+id/back_button"
