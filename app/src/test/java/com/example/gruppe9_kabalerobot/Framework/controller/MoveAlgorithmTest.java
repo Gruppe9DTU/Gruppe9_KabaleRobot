@@ -76,7 +76,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals( "Tag alle de synlige kort fra byggestablen hvor det forreste kort er Hjerter 3, og placer dem på Spar 4",
+        assertEquals( "Tag Hjerter 3, og placer den på Spar 4",
                 algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
@@ -990,7 +990,7 @@ public class MoveAlgorithmTest {
         algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
-        assertEquals("Tag alle de synlige kort fra byggestablen hvor det forreste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
+        assertEquals("Tag alle de synlige kort fra byggestablen hvor det bagerste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
     }
 
     /**
@@ -1014,7 +1014,7 @@ public class MoveAlgorithmTest {
         algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
-        assertEquals("Tag alle de synlige kort fra byggestablen hvor det forreste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
+        assertEquals("Tag alle de synlige kort fra byggestablen hvor det bagerste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
     }
 
     /**
