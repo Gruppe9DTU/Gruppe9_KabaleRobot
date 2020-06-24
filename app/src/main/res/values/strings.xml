@@ -8,4 +8,36 @@
     <string name="begynd">Begynd</string>
     <string name="vend">Vend skærmen, således at du kan læse denne tekst</string>
     <string name="scontinue">Fortsæt</string>
+    <string name="bagerste_kort">Bagerste kort</string>
+    <string name="forreste_kort">Forreste kort</string>
+    <string name="skjulte_kort">Skjulte kort</string>
+    <string name="kort">Kort</string>
+    <string name="intro_edit">Du kan her tilføje kort til de forskellige rækker. Kortene skrives ved 02S for spar 2, 03H for hjerter 3 12C for klør dame og 01D for ruder es</string>
+
+    <string-array name="test">
+
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+
+    </string-array>
+
 </resources>

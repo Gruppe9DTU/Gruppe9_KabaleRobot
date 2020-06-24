@@ -30,7 +30,7 @@ public class SolitaireControllerTest {
         //Setup CardPlacement with a possible move
             //Tableau 1
         List<CardObj> tableau1 = new ArrayList<>();
-        CardObj card = new CardObj(0, 0, 1, 0);
+        CardObj card = new CardObj(0, 0, 1, 1);
         tableau1.add(card);
         place.setTableau1(tableau1);
         List<Integer> hiddenCards = new ArrayList<>();
@@ -51,9 +51,9 @@ public class SolitaireControllerTest {
 
         //Check that the response 2nd time isn't the same as the first time
         //First should ask for moving an Ace of Hearts
-        assertEquals("Ryk Ace of Hearts til Foundation", move1);
+        assertEquals("Ryk Hjerter Es til en tom grundbunke", move1);
         //There should be no more solutions possible
-        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
+        assertEquals("Vend et kort fra en mulig byggestabel", move2);
     }
 
     /**
@@ -65,7 +65,7 @@ public class SolitaireControllerTest {
         //Setup CardPlacement with a possible move
         //Tableau 1
         List<CardObj> tableau1 = new ArrayList<>();
-        CardObj card = new CardObj(0, 0, 1, 0);
+        CardObj card = new CardObj(0, 0, 1, 1);
         tableau1.add(card);
         place.setTableau1(tableau1);
         List<Integer> hiddenCards = new ArrayList<>();
@@ -87,9 +87,9 @@ public class SolitaireControllerTest {
 
         //Check that the response 2nd time isn't the same as the first time
         //First should ask for moving an Ace of Hearts
-        assertEquals("Ryk Ace of Hearts til Foundation", move1);
+        assertEquals("Ryk Hjerter Es til en tom grundbunke", move1);
         //There should be no more solutions possible
-        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
+        assertEquals("Vend et kort fra en mulig byggestabel", move2);
     }
 
     /**

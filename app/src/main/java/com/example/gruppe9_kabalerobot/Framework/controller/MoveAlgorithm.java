@@ -130,7 +130,7 @@ public class MoveAlgorithm {
                 }
 
             default:
-                if(latestMove == 1) bestMove = "Intet træk blev fundet for nuværende spil";
+                if(latestMove == 1) bestMove = "Der kunne ikke findes noget muligt træk for denne position";
                 else bestMove = "Der kunne ikke findes noget nyt træk for denne position af spillet";
         }
         return bestMove;
@@ -147,7 +147,7 @@ public class MoveAlgorithm {
                 return  "";
             }
         }
-        return "A king is present in each of the foundations thus the game should be done";
+        return "Alle grundbunker har en konge og spillet er slut";
     }
 
     /**
@@ -162,7 +162,7 @@ public class MoveAlgorithm {
                     return "";
                 }
             }
-            return "All cards should be present and game should be able to be completed";
+            return "Alle kort er frie og du kan afslutte spillet ved at lægge dem i grundbunkerne";
         }
         return "";
     }
@@ -183,10 +183,11 @@ public class MoveAlgorithm {
                 Card card = visibleCards.get(visibleCards.size() - 1);
 
                 if (card.getValue() == 1) {
-                    return "Ryk " + card.toString() + " til Foundation";
+                    return "Ryk " + card.toString() + " til en tom grundbunke";
                 }
             }
         }
+        if (wasteCard != null && wasteCard.getValue() == 1) return "Ryk " + wasteCard.toString() + " til en tom grundbunke";
         return "";
     }
 
@@ -197,7 +198,6 @@ public class MoveAlgorithm {
      */
     public String kingCheck() {
         //Copy Tableaus and sort
-        Collections.sort(tableaus, Tableau.HiddenCardsCompare); //Sort so first found has highest amount of hidden cards
         List<Card> kingsAvailable = new ArrayList<>();
         int emptySpaces = 0;
 
@@ -213,6 +213,7 @@ public class MoveAlgorithm {
                 }
             }
         }
+        if(wasteCard != null && wasteCard.getValue() == 13) kingsAvailable.add(wasteCard);
 
         if (kingsAvailable.size() > 1 && emptySpaces > 0) {
             boolean bestKingFound = false;
@@ -269,13 +270,13 @@ public class MoveAlgorithm {
                     bestKing = king.toString();
                     break;
                 } else if (redKingScore == blackKingScore) { //If it's either or
-                    bestKing = "any king";
+                    bestKing = "en valgfri konge";
                     break;
                 }
             }
-            return "Move " + bestKing + " to an empty space";
+            return "Flyt " + bestKing + " til et tomt felt";
         } else if (kingsAvailable.size() == 1 && emptySpaces > 0) { //Only one king found
-            return "Move " + kingsAvailable.get(0).toString() + " to an empty space";
+            return "Flyt " + kingsAvailable.get(0).toString() + " til et tomt felt";
         }
         return "";
     }
@@ -301,7 +302,7 @@ public class MoveAlgorithm {
         for (Tableau tableau : tableaus) {
             if (tableau.getVisibleCards() == null || tableau.getVisibleCards().size() == 0
                     && tableau.countHiddenCards() > 0) {
-                return "Turn over a card from the tableau with the highest amount of hidden cards";
+                return "Vend et kort fra en mulig byggestabel";
             }
         }
         return "";
@@ -367,7 +368,7 @@ public class MoveAlgorithm {
                         if (tableau.getVisibleCards().size() - 1 != 0 || tableau.countHiddenCards() != 0 || //Is card left behind
                                 checkForMoveableCardFromValue(13) || //Is there a king to take the space
                                 checkForMoveableCardFromSuitAndValue(card.getSuit(), card.getValue() + 1)) { //Is the card needed for another card
-                            return "Move " + card.toString() + " to it's respective foundation";
+                            return "Flyt " + card.toString() + " til grundbunken med dens kulør";
                         }
                     }
                 }
@@ -379,7 +380,7 @@ public class MoveAlgorithm {
                 if (foundation.countCards() > 0 &&
                         wasteCard.getValue() == foundation.peekCard().getValue() + 1 &&
                         wasteCard.getSuit() == foundation.peekCard().getSuit()) {
-                    return "Move " + wasteCard.toString() + " to it's respective foundation";
+                    return "Flyt " + wasteCard.toString() + " til grundbunken med dens kulør";
                 }
             }
         }
@@ -424,7 +425,6 @@ public class MoveAlgorithm {
      */
     public String moveTableau() {
         List<Card> cards, cards2;
-        String move = "";
 
         for (Tableau tableau : tableaus) {
             cards = tableau.getVisibleCards();
@@ -432,18 +432,22 @@ public class MoveAlgorithm {
                 cards2 = tableau2.getVisibleCards();
 
                 //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                if (cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
+                if (cards != cards2 && cards.size() > 0 && cards2.size() > 0) {
                     //Hvis der er mere end ét kort tilstæde i byggestablen og det nederste kort passer på det øverste kort i en anden byggestabel, ryk alle de synlige kort fra byggestablen over til den anden byggestabel
-                    if (cards.size() - 1 != 0 && cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
-                        move = "Tag alle de synlige kort fra byggestablen med det nederste kort " + cards.get(0) + " og placer dem på " + cards2.get(cards2.size() - 1).toString();
-                        if (cards2.size() - 2 >= 0 && cards.get(0).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
-                            return move;
-                        }
+                    if (cards.get(0).getValue() == cards2.get(cards2.size() - 1).getValue() - 1
+                            && cards.get(0).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                        if (cards.size() == 1) return "Tag " + cards.get(0) + ", og placer den på " + cards2.get(cards2.size() - 1).toString();
+                        else return "Tag alle de synlige kort fra byggestablen hvor det bagerste kort er " + cards.get(0) + ", og placer dem på " + cards2.get(cards2.size() - 1).toString();
                     }
                 }
             }
+
+            //hvis waste passer så lig den på
+            if (wasteCard != null && cards.size() > 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
+                return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
+            }
         }
-        return move;
+        return "";
     }
 
     /**
@@ -452,39 +456,35 @@ public class MoveAlgorithm {
      *
      * @return Instructions for player
      */
-    //Hvis muligt sørg for at “typerne” passer. F.eks. hvis du kan rykke en hjerter 4 til to forskellige 5’er så prioriter den som har en hjerter 6
     public String typeStreak() {
         List<Card> cards, cards2;
-            String move = "", prioMove = "";
             for (Tableau tableau : tableaus) {
                 cards = tableau.getVisibleCards();
 
-            for (Tableau tableau2 : tableaus) {
-                cards2 = tableau2.getVisibleCards();
+                for (Tableau tableau2 : tableaus) {
+                    cards2 = tableau2.getVisibleCards();
 
-                //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
-                if (cards.size() - 1 >= 0 && cards2.size() - 1 >= 0) {
+                    //Hvis en af bunkerne er tomme er der ingen grund til at sammenligne dem
+                    if (cards.size() - 1 >= 0 && cards2.size() - 2 >= 0) {
 
-                    //Hvis øverste kort i tableu passer med anden tableus øverste kort lig den på hvis "typerne" passer ellers vent
-                    if (cards.get(cards.size() - 1).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(cards.size() - 1).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
-                        move = "Tag " + cards.get(cards.size() - 1) + " og placer kortet på " + cards2.get(cards2.size() - 1).toString();
-                        if (cards2.size() - 2 >= 0 && cards.get(cards.size() - 1).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
-                            return move;
+                        //Hvis øverste kort i tableu passer med anden tableus øverste kort lig den på hvis "typerne" passer ellers vent
+                        if (cards.get(cards.size() - 1).getValue() == cards2.get(cards2.size() - 1).getValue() - 1 && cards.get(cards.size() - 1).getSuit() % 2 != cards2.get(cards2.size() - 1).getSuit() % 2) {
+                            if (cards2.size() - 2 >= 0 && cards.get(cards.size() - 1).getSuit() == cards2.get(cards2.size() - 2).getSuit()) {
+                                return "Tag " + cards.get(cards.size() - 1) + " og placer kortet på " + cards2.get(cards2.size() - 1).toString();
+                            }
                         }
+                    }
+                }
+
+                //hvis waste passer så lig den på
+                if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
+                    if (cards.size() - 2 >= 0 && wasteCard.getSuit() == cards.get(cards.size() - 2).getSuit()) {
+                        return "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
                     }
                 }
             }
 
-            //hvis waste passer så lig den på
-            if (wasteCard != null && cards.size() - 1 >= 0 && cards.get(cards.size() - 1).getValue() - 1 == wasteCard.getValue() && cards.get(cards.size() - 1).getSuit() % 2 != wasteCard.getSuit() % 2) {
-                move = "Tag " + wasteCard.toString() + " og placer kortet på " + cards.get(cards.size() - 1).toString();
-                if (cards.size() - 2 >= 0 && wasteCard.getSuit() == cards.get(cards.size() - 2).getSuit()) {
-                    prioMove = move;
-                }
-            }
-        }
-
-        return !prioMove.equals("") ? prioMove : move;
+        return "";
     }
 
     /**
@@ -492,7 +492,7 @@ public class MoveAlgorithm {
      *
      * @return Instructions to player
      */
-    public String revealCardFromWaste() { return wastePile ? "Vend et kort fra grundbunken" : ""; }
+    public String revealCardFromWaste() { return wastePile ? "Vend et kort fra bunken" : ""; }
 
     /**
      * Getter for move chosen

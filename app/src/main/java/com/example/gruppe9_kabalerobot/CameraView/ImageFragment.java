@@ -1,7 +1,9 @@
 package com.example.gruppe9_kabalerobot.CameraView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import com.example.gruppe9_kabalerobot.Client.Client;
 import com.example.gruppe9_kabalerobot.Framework.controller.CardTranslator;
 import com.example.gruppe9_kabalerobot.Framework.controller.SolitaireController;
 import com.example.gruppe9_kabalerobot.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +37,14 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     private ImageView imageView;
     private Bitmap bitmap, rectanglesDrawn, scaledImage;
-    private Button continueToMove;
+    private FloatingActionButton continueToMove, edit;
     private ImageButton backButton;
     private OpenCV openCV;
     private ProgressDialog loadingDialog;
     private Client c = Client.getInstance();
     private int[][] dataArray;
     private String suggestedMove;
+    private boolean enteredEdit = false;
 
 
     // Card and algorithm
@@ -69,9 +73,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         continueToMove = view.findViewById(R.id.continueToMove);
         backButton = view.findViewById(R.id.back_button);
+        edit = view.findViewById(R.id.editPlacement);
 
         continueToMove.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        edit.setOnClickListener(this);
 
         scaledImage = bitmap;
 
@@ -82,8 +88,10 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         imageView.setImageBitmap(scaledImage);
 
         // Run recognition
-
-        cascadeBackground.execute();
+        // Check status of AsyncTask before running it, if we are already wait for a message
+        if (cascadeBackground.getStatus() == AsyncTask.Status.PENDING) {
+            cascadeBackground.execute();
+        }
 
         // Inflate the layout for this fragment
         return view;
@@ -96,13 +104,13 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        constructCards();
+
+        cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
+
         if (view == continueToMove){
 
-            //TODO: Uncomment when correct data is available
-            constructCards();
-
-            cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
-            System.out.println("Width of bitmap: " + bitmap.getWidth() + " Height of bitmap: " + bitmap.getHeight());
+            System.out.println("Width of bitmap: "+bitmap.getWidth()+" Height of bitmap: " + bitmap.getHeight());
             if (cardPlacement.getTableau1().size()>0) System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size() + " suit: " + cardPlacement.getTableau1().get(0).getSuit() + " value: " + cardPlacement.getTableau1().get(0).getValue());
             if (cardPlacement.getTableau2().size()>0) System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size() + " suit: " + cardPlacement.getTableau2().get(0).getSuit() + " value: " + cardPlacement.getTableau2().get(0).getValue());
             if (cardPlacement.getTableau3().size()>0) System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size() + " suit: " + cardPlacement.getTableau3().get(0).getSuit() + " value: " + cardPlacement.getTableau3().get(0).getValue());
@@ -116,8 +124,18 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
             translator = new CardTranslator(cardPlacement);
 
-            suggestedMove = solitaireController.takeMove(translator);
-            System.out.println(suggestedMove);
+            buildDialog(solitaireController.takeMove(translator));
+
+        }
+        else if (view == edit){
+            enteredEdit = true;
+            getActivity().getSupportFragmentManager().popBackStack();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new EditPlacementFragment(cardPlacement))
+                    .addToBackStack(null)
+                    .commit();
+
+
         }
         else if (view == backButton){
             getActivity().getSupportFragmentManager().popBackStack();
@@ -134,7 +152,9 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().getSupportFragmentManager().popBackStack();
+        // We have to check if we have entered edit.
+        // When replacing fragments onPause is called before change.
+        if (!enteredEdit) getActivity().getSupportFragmentManager().popBackStack();
         loadingDialog.dismiss();
     }
 
@@ -190,11 +210,18 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             });
 
             loadingDialog.dismiss();
+
         }
     };
 
     //endregion
 
+    //region Support methods
+
+    /**
+     * This method constructs the CardObjList from the data recieved from the python server.
+     * This method also initialises classes regarding Solitaire Framework and Algorithm
+     */
     private void constructCards(){
         solitaireController = new SolitaireController();
         cardPlacement = new CardPlacement();
@@ -206,4 +233,21 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             cardObjList.add(cardObj);
         }
     }
+
+    /**
+     * This method builds a dialog with the message text of the suggested move
+     * This String is returned from the SolitaireController class
+     * @param suggestedMove
+     */
+    private void buildDialog(String suggestedMove) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Det foretrukkende træk")
+                .setMessage(suggestedMove)
+                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .show();
+    }
+
+    //endregion
+
+
 }

@@ -33,7 +33,7 @@ public class CardTranslatorTest {
 
         //Setup expected Lists
         List<CardObj> wasteList = new ArrayList<>();
-        wasteList.add(new CardObj(0,0,10,0)); //10 of hearts
+        wasteList.add(new CardObj(0,0,10,1)); //10 of hearts
 
         List<Card> wasteListExpected = new ArrayList<>();
         wasteListExpected.add(new Card(0,10)); //10 of hearts
@@ -57,10 +57,10 @@ public class CardTranslatorTest {
 
         //Setup expected Lists
         List<CardObj> foundationList = new ArrayList<>();
-        foundationList.add(new CardObj(0,0,10,0)); //10 of hearts
-        foundationList.add(new CardObj(0,0,9,1)); //9 of spades
-        foundationList.add(new CardObj(0,0,8,2)); //8 of diamonds
-        foundationList.add(new CardObj(0,0,7,3)); //7 of clubs
+        foundationList.add(new CardObj(0,0,10,1)); //10 of hearts
+        foundationList.add(new CardObj(0,0,9,2)); //9 of spades
+        foundationList.add(new CardObj(0,0,8,3)); //8 of diamonds
+        foundationList.add(new CardObj(0,0,7,4)); //7 of clubs
 
         List<Card> foundationListExpected = new ArrayList<>();
         foundationListExpected.add(new Card(0,10)); //10 of hearts
@@ -89,12 +89,12 @@ public class CardTranslatorTest {
     public void insertCards103() {
         //Insert cards into CardPlacement
         List<CardObj> tab1 = new ArrayList<>(); //List with one card
-        tab1.add(new CardObj(0, 0, 10, 0)); //10 of Hearts
+        tab1.add(new CardObj(0, 0, 10, 1)); //10 of Hearts
         placement.setTableau1(tab1);
 
         List<CardObj> tab2 = new ArrayList<>(); //List with more cards cards
-        tab2.add(new CardObj(0, 0, 11, 0)); //11 of Hearts
-        tab2.add(new CardObj(0, 0, 10, 1)); //10 of Spades
+        tab2.add(new CardObj(0, 0, 11, 1)); //11 of Hearts
+        tab2.add(new CardObj(0, 0, 10, 2)); //10 of Spades
         placement.setTableau2(tab2);
 
         List<CardObj> tab3 = new ArrayList<>(); //List with no cards
@@ -124,21 +124,21 @@ public class CardTranslatorTest {
     public void insertCards104() {
 
         List<CardObj> wasteList = new ArrayList<>();
-        wasteList.add(new CardObj(0,0,10,0)); //10 of hearts
+        wasteList.add(new CardObj(0,0,10,1)); //10 of hearts
 
         List<CardObj> foundationList = new ArrayList<>();
-        foundationList.add(new CardObj(0,0,10,0)); //10 of hearts
-        foundationList.add(new CardObj(0,0,9,1)); //9 of spades
-        foundationList.add(new CardObj(0,0,8,2)); //8 of diamonds
-        foundationList.add(new CardObj(0,0,7,3)); //7 of clubs
+        foundationList.add(new CardObj(0,0,10,1)); //10 of hearts
+        foundationList.add(new CardObj(0,0,9,2)); //9 of spades
+        foundationList.add(new CardObj(0,0,8,3)); //8 of diamonds
+        foundationList.add(new CardObj(0,0,7,4)); //7 of clubs
 
         //Insert cards into CardPlacement
         List<CardObj> tab1 = new ArrayList<>(); //List with one card
-        tab1.add(new CardObj(0, 0, 10, 0)); //10 of Hearts
+        tab1.add(new CardObj(0, 0, 10, 1)); //10 of Hearts
 
         List<CardObj> tab2 = new ArrayList<>(); //List with more cards cards
-        tab2.add(new CardObj(0, 0, 11, 0)); //11 of Hearts
-        tab2.add(new CardObj(0, 0, 10, 1)); //10 of Spades
+        tab2.add(new CardObj(0, 0, 11, 1)); //11 of Hearts
+        tab2.add(new CardObj(0, 0, 10, 2)); //10 of Spades
 
         List<CardObj> tab3 = new ArrayList<>(); //List with no cards
 
