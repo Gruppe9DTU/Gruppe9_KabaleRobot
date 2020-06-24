@@ -155,7 +155,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals( "Vend et kort fra grundbunken"
+        assertEquals( "Vend et kort fra bunken"
                 , algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
