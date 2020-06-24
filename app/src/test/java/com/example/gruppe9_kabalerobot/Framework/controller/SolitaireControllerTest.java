@@ -51,9 +51,9 @@ public class SolitaireControllerTest {
 
         //Check that the response 2nd time isn't the same as the first time
         //First should ask for moving an Ace of Hearts
-        assertEquals("Ryk Ace of Hearts til Foundation", move1);
+        assertEquals("Ryk Hjerter Es til en tom grundbunke", move1);
         //There should be no more solutions possible
-        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
+        assertEquals("Vend et kort fra en mulig byggestabel", move2);
     }
 
     /**
@@ -87,9 +87,9 @@ public class SolitaireControllerTest {
 
         //Check that the response 2nd time isn't the same as the first time
         //First should ask for moving an Ace of Hearts
-        assertEquals("Ryk Ace of Hearts til Foundation", move1);
+        assertEquals("Ryk Hjerter Es til en tom grundbunke", move1);
         //There should be no more solutions possible
-        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", move2);
+        assertEquals("Vend et kort fra en mulig byggestabel", move2);
     }
 
     /**

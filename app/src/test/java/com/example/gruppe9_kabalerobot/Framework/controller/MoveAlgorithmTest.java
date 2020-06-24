@@ -76,8 +76,8 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals( "Tag 2 of Hearts og placer kortet på 3 of Spades"
-                , algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
+        assertEquals( "Tag alle de synlige kort fra byggestablen hvor det forreste kort er Hjerter 3, og placer dem på Spar 4",
+                algoritmCtrl.getBestMove(previousStatesContainer.getLatestSolutionToState(game.getGameState())));
     }
 
     /**
@@ -179,7 +179,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("A king is present in each of the foundations thus the game should be done", algoritmCtrl.checkWin());
+        assertEquals("Alle grundbunker har en konge og spillet er slut", algoritmCtrl.checkWin());
 
     }
 
@@ -293,7 +293,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("All cards should be present and game should be able to be completed", algoritmCtrl.autoFinish());
+        assertEquals("Alle kort er frie og du kan afslutte spillet ved at lægge dem i grundbunkerne", algoritmCtrl.autoFinish());
     }
 
     /**
@@ -360,7 +360,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Ryk " + wantedCard.toString() + " til Foundation", algoritmCtrl.checkAce());
+        assertEquals("Ryk " + wantedCard.toString() + " til en tom grundbunke", algoritmCtrl.checkAce());
     }
 
     /**
@@ -395,7 +395,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Ryk " + tableauCard.toString() + " til Foundation", algoritmCtrl.checkAce());
+        assertEquals("Ryk " + tableauCard.toString() + " til en tom grundbunke", algoritmCtrl.checkAce());
     }
 
     /**
@@ -545,7 +545,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -567,7 +567,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move any king to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt en valgfri konge til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -589,7 +589,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move any king to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt en valgfri konge til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -636,7 +636,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -661,7 +661,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -686,7 +686,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -711,7 +711,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -736,7 +736,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -761,7 +761,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wantedCard[0].toString() + " to an empty space", algoritmCtrl.kingCheck());
+        assertEquals("Flyt " + wantedCard[0].toString() + " til et tomt felt", algoritmCtrl.kingCheck());
     }
 
     /**
@@ -853,7 +853,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
+        assertEquals("Flyt " + tableauCard.toString() + " til grundbunken med dens kulør", algoritmCtrl.moveToFoundation());
     }
 
     /**
@@ -899,7 +899,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
+        assertEquals("Flyt " + tableauCard.toString() + " til grundbunken med dens kulør", algoritmCtrl.moveToFoundation());
     }
 
     /**
@@ -945,7 +945,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + tableauCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
+        assertEquals("Flyt " + tableauCard.toString() + " til grundbunken med dens kulør", algoritmCtrl.moveToFoundation());
     }
 
     /**
@@ -966,7 +966,7 @@ public class MoveAlgorithmTest {
 
         algoritmCtrl = new MoveAlgorithm(game);
 
-        assertEquals("Move " + wasteCard.toString() + " to it's respective foundation", algoritmCtrl.moveToFoundation());
+        assertEquals("Flyt " + wasteCard.toString() + " til grundbunken med dens kulør", algoritmCtrl.moveToFoundation());
     }
 
     /**
@@ -990,7 +990,7 @@ public class MoveAlgorithmTest {
         algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
-        assertEquals("Tag alle de synlige kort fra byggestablen med det nederste kort " + expected2.toString() + " og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
+        assertEquals("Tag alle de synlige kort fra byggestablen hvor det forreste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
     }
 
     /**
@@ -1014,7 +1014,7 @@ public class MoveAlgorithmTest {
         algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
-        assertEquals("Tag alle de synlige kort fra byggestablen med det nederste kort " + expected2.toString() + " og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
+        assertEquals("Tag alle de synlige kort fra byggestablen hvor det forreste kort er " + expected2.toString() + ", og placer dem på " + expected1.toString(), algoritmCtrl.moveTableau());
     }
 
     /**
@@ -1134,7 +1134,7 @@ public class MoveAlgorithmTest {
         algoritmCtrl = new MoveAlgorithm(game);
 
         //Test
-        assertEquals("Turn over a card from the tableau with the highest amount of hidden cards", algoritmCtrl.revealHiddenCard());
+        assertEquals("Vend et kort fra en mulig byggestabel", algoritmCtrl.revealHiddenCard());
     }
 
 }

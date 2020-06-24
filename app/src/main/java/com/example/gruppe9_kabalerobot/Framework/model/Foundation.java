@@ -33,6 +33,11 @@ public class Foundation {
         }
     }
 
+    /**
+     * To set a forced card on Foundation, outside the rules of Solitaire
+     *
+     * @param card  Card to put on Foundation
+     */
     public  void setForcedCard(Card card){
         cards.add(card);
     }
@@ -64,12 +69,11 @@ public class Foundation {
      *
      * @return True if foundation is complete, else false
      */
-    public Boolean isComplete() {
+    public boolean isComplete() {
         if (peekCard() == null) {
             return false;
         } else {
             return peekCard().getValue() == 13;
         }
     }
-
 }

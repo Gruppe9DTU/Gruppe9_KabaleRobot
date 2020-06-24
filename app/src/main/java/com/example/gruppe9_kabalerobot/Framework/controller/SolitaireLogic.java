@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class SolitaireLogic {
     private Waste waste;
-    private Tableau[] tableau;          //TODO Make this a list?
-    private Foundation[] foundation;    //TODO Make this a list?
+    private Tableau[] tableau;
+    private Foundation[] foundation;
 
     /**
      * Constructor for the controller
@@ -86,7 +86,7 @@ public class SolitaireLogic {
 
     /**
      * Used for tests, to easily set the tableau
-     * @param foundation
+     * @param foundation    Foundation to overwrite this
      */
     public void setFoundation(Foundation[] foundation){ //TODO Make this a list?
         this.foundation = foundation;
