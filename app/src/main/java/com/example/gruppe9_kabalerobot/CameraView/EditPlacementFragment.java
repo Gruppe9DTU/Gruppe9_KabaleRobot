@@ -111,10 +111,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         if (view == done){
 
             if(waste.getText().length() > 0) insertIntoWaste(waste,cardPlacement.getWaste());
-            if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations(),0);
-            if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations(),1);
-            if(foundation3.getText().length() > 0) insertIntoFoundation(foundation3,cardPlacement.getFoundations(),2);
-            if(foundation4.getText().length() > 0) insertIntoFoundation(foundation4,cardPlacement.getFoundations(),3);
+            if(foundation1.getText().length() > 0) insertIntoFoundation(foundation1,cardPlacement.getFoundations());
+            if(foundation2.getText().length() > 0) insertIntoFoundation(foundation2,cardPlacement.getFoundations());
+            if(foundation3.getText().length() > 0) insertIntoFoundation(foundation3,cardPlacement.getFoundations());
+            if(foundation4.getText().length() > 0) insertIntoFoundation(foundation4,cardPlacement.getFoundations());
             if(tab1For.getText().length() > 0) insertIntoTableau(tab1For, cardPlacement.getTableau1(), false);
             if(tab2For.getText().length() > 0) insertIntoTableau(tab2For, cardPlacement.getTableau2(), false);
             if(tab3For.getText().length() > 0) insertIntoTableau(tab3For, cardPlacement.getTableau3(), false);
@@ -146,16 +146,24 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
     }
 
-    //Set wastepile
 
-    //Add to waste
+    /**
+     * This method adds the typed card to the provided list
+     * @param textField text input field from UI
+     * @param waste list of CardObj in waste
+     */
     private void insertIntoWaste(EditText textField, List<CardObj> waste) {
         //This is for a single card only, add index if we want more cards
         if(waste.size() > 0) waste.set(0, editTextToCardDecoder(textField));
         else waste.add(editTextToCardDecoder(textField));
     }
-    //Add to foundation
-    private void insertIntoFoundation(EditText textField, List<CardObj> foundation, int index) {
+
+    /**
+     * This method adds the typed card to the provided list
+     * @param textField text input field from UI
+     * @param foundation list of CardObj in foundation
+     */
+    private void insertIntoFoundation(EditText textField, List<CardObj> foundation) {
         //Look through list for matching suit, if so replace
         CardObj newCard = editTextToCardDecoder(textField);
         int i = 0;
@@ -169,17 +177,33 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         //else add
         foundation.add(newCard);
     }
-    //Add to hiddencard List (could be done here)
+
+    /**
+     * This method adds the typed card to the provided list at the specific index
+     * @param textField text input field from UI
+     * @param hiddenCards list of CardObj in hiddencards at index Tableau
+     * @param index the Tableau index
+     */
     private void insertIntoHiddenCards(EditText textField, List<Integer> hiddenCards, int index) {
         hiddenCards.set(index, Integer.parseInt(textField.getText().toString()));
     }
-    //Add to start of tableau
-    //Add to end of tableau
+
+    /**
+     * This method adds the typed card to the provided list either at top or bottom
+     * @param textField text input field from UI
+     * @param tableau list of CardObj in the Tableau
+     * @param atEnd boolean value to determine if CardObj is at top or bottom of Tableau
+     */
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
         if(atEnd) tableau.add(editTextToCardDecoder(textField));
         else tableau.add(0, editTextToCardDecoder(textField));
     }
 
+    /**
+     * This method decodes the provided text to a CardObj
+     * @param textField text input field from UI
+     * @return the new CardObj recieved from textfield String
+     */
     private CardObj editTextToCardDecoder(EditText textField) {
         String text = textField.getText().toString();
         int value = Integer.parseInt(text.substring(0, 2));
@@ -201,28 +225,29 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         return new CardObj(0, 0, value, suit);
     }
 
-//    private String cardToEditTextDecoder(CardObj obj) {
-//        String value, suit;
-//        if(obj.getValue() < 10) {
-//            value = "0" + obj.getValue();
-//        } else value = Integer.toString(obj.getValue());
-//        suit = Integer.toString(obj.getSuit());
-//        return value+suit;
-//    }
+    /**
+     * This method translates a specific CardObj into a string
+     * @param obj a card object
+     * @return Card String
+     */
+    private String cardToEditTextDecoder(CardObj obj) {
+        String value, suit;
+        if(obj.getValue() < 10) {
+            value = "0" + obj.getValue();
+        } else value = Integer.toString(obj.getValue());
+        suit = Integer.toString(obj.getSuit());
+        return value+suit;
+    }
 
+    /**
+     * This method build a dialog with a specific message
+     * @param move suggested move from algorithm
+     */
     private void buildDialog(String move) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Det fortrukkende træk")
+                .setTitle("Det foretrukkende træk")
                 .setMessage(move)
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        getActivity().getSupportFragmentManager().popBackStack();
-                        dialogInterface.dismiss();
-
-                    }
-                })
+                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
 
     }
