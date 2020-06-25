@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
@@ -36,6 +37,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private CardPlacement cardPlacement;
     private CardTranslator translator;
     private SolitaireController solitaireController = new SolitaireController();
+    private boolean error = false;
 
 
     public EditPlacementFragment(CardPlacement cardPlacement){
@@ -137,9 +139,15 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(hiddencardsTab6.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab6,cardPlacement.getHiddenCards(),5);
             if(hiddencardsTab7.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab7,cardPlacement.getHiddenCards(),6);
 
-            translator = new CardTranslator(cardPlacement);
+            if (!error) {
 
-            buildDialog(solitaireController.takeMove(translator));
+                translator = new CardTranslator(cardPlacement);
+
+                buildDialog(solitaireController.takeMove(translator));
+
+            }
+
+            error = false;
 
             cardPlacement = new CardPlacement();
         }
@@ -154,7 +162,14 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      */
     private void insertIntoWaste(EditText textField, List<CardObj> waste) {
         //This is for a single card only, add index if we want more cards
-        if(waste.size() > 0) waste.set(0, editTextToCardDecoder(textField));
+        CardObj cardObj = editTextToCardDecoder(textField);
+        if (cardObj== null){
+            error = true;
+            buildToast();
+            return;
+        }
+
+        if(waste.size() > 0) waste.set(0, cardObj);
         else waste.add(editTextToCardDecoder(textField));
     }
 
@@ -166,6 +181,12 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private void insertIntoFoundation(EditText textField, List<CardObj> foundation) {
         //Look through list for matching suit, if so replace
         CardObj newCard = editTextToCardDecoder(textField);
+        if (newCard==null){
+            error = true;
+            buildToast();
+            return;
+        }
+
         int i = 0;
         for(CardObj obj : foundation) {
             if(obj.getSuit() == newCard.getSuit()) {
@@ -195,7 +216,14 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @param atEnd boolean value to determine if CardObj is at top or bottom of Tableau
      */
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
-        if(atEnd) tableau.add(0, editTextToCardDecoder(textField));
+        CardObj cardObj = editTextToCardDecoder(textField);
+        if (cardObj== null){
+            error = true;
+            buildToast();
+            return;
+        }
+
+        if(atEnd) tableau.add(0, cardObj);
         else tableau.add(editTextToCardDecoder(textField));
     }
 
@@ -207,7 +235,20 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private CardObj editTextToCardDecoder(EditText textField) {
         String textTemp = textField.getText().toString();
         String text = textTemp.length() == 2 ? "0" + textTemp : textTemp;
-        int value = Integer.parseInt(text.substring(0, 2));
+        int value = -1;
+        try {
+
+            value = Integer.parseInt(text.substring(0, 2));
+
+        }catch (NumberFormatException e){
+            error = true;
+            buildToast();
+        }
+        if (value>13 || value<0){
+            error = true;
+            buildToast();
+            return null;
+        }
         int suit = 0;
         switch(text.substring(2,3).toUpperCase()) {
             case "H":
@@ -222,6 +263,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             case "C":
                 suit = 4;
                 break;
+            default:
+                error = true;
+                buildToast();
+                return null;
         }
         return new CardObj(0, 0, value, suit);
     }
@@ -251,6 +296,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
                 .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
                 .show();
 
+    }
+
+    private void buildToast() {
+        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Du har skrevet et ugyldigt kort. Prøv igen", Toast.LENGTH_SHORT).show());
     }
 
 }

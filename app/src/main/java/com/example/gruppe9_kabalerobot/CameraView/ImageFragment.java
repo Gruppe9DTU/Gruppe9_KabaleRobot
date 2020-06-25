@@ -107,7 +107,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         if (view == continueToMove) {
 
-            if (dataArray.length != 0 && dataArray != null){
+            if (dataArray != null && dataArray.length != 0){
                 constructCards();
 
             cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
@@ -140,7 +140,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         }
         else if (view == edit){
 
-            if (dataArray.length != 0 && dataArray != null) {
+            if (dataArray != null && dataArray.length != 0) {
                 constructCards();
                 cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
                 enteredEdit = true;
@@ -202,15 +202,15 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            c.sendImage(scaledImage);
+            //c.sendImage(scaledImage);
 
-            dataArray = c.recieveData();
+            //dataArray = c.recieveData();
 
             if (dataArray==null){
                 cancel(true);
             }
 
-            rectanglesDrawn = openCV.drawRectangles(scaledImage,dataArray);
+            //rectanglesDrawn = openCV.drawRectangles(scaledImage,dataArray);
 
             return null;
         }
@@ -272,7 +272,7 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     }
     
     private void buildToast(){
-        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Der blev ikke fundet nogle kort og derfor ikke fortsætte", Toast.LENGTH_SHORT).show());
+        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Der blev ikke fundet nogle kort og kan derfor ikke fortsætte", Toast.LENGTH_SHORT).show());
     }
 
     //endregion
