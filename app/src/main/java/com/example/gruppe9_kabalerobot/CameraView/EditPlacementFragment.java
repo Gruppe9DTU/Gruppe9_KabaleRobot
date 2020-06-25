@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +95,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         done.setOnClickListener(this);
 
         fillLoadedData();
+
         return view;
     }
 
@@ -304,7 +306,15 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         new AlertDialog.Builder(getContext())
                 .setTitle("Det foretrukkende træk")
                 .setMessage(move)
-                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("Tak", (dialogInterface, i) -> {
+
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    for(int k = 0; k < fm.getBackStackEntryCount(); ++k) {
+                        fm.popBackStack();
+                    }
+                    dialogInterface.dismiss();
+
+                })
                 .show();
 
     }

@@ -266,7 +266,11 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         new AlertDialog.Builder(getContext())
                 .setTitle("Det foretrukkende træk")
                 .setMessage(suggestedMove)
-                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("Tak", (dialogInterface, i) ->{
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    dialogInterface.dismiss();
+                })
+
                 .show();
     }
     
