@@ -85,7 +85,8 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         // Set imageview to the picture you have taken
 
-        imageView.setImageBitmap(scaledImage);
+        if (rectanglesDrawn!=null) imageView.setImageBitmap(rectanglesDrawn);
+        else imageView.setImageBitmap(scaledImage);
 
         // Run recognition
         // Check status of AsyncTask before running it, if we are already wait for a message
@@ -144,7 +145,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
                 constructCards();
                 cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
                 enteredEdit = true;
-                getActivity().getSupportFragmentManager().popBackStack();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new EditPlacementFragment(cardPlacement))
                         .addToBackStack(null)
@@ -152,7 +152,6 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             }
             else {
                 enteredEdit = true;
-                getActivity().getSupportFragmentManager().popBackStack();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new EditPlacementFragment())
                         .addToBackStack(null)
@@ -202,15 +201,15 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            //c.sendImage(scaledImage);
+            c.sendImage(scaledImage);
 
-            //dataArray = c.recieveData();
+            dataArray = c.recieveData();
 
             if (dataArray==null){
                 cancel(true);
             }
 
-            //rectanglesDrawn = openCV.drawRectangles(scaledImage,dataArray);
+            rectanglesDrawn = openCV.drawRectangles(scaledImage,dataArray);
 
             return null;
         }

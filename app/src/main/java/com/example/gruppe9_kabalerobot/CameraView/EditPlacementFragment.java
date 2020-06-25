@@ -45,11 +45,13 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     }
 
     public EditPlacementFragment(){
-        this.cardPlacement = new CardPlacement();
+        if (cardPlacement==null) {
+            this.cardPlacement = new CardPlacement();
+        }
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState);}
 
 
     @Override
@@ -91,11 +93,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         wasteToggle.setOnCheckedChangeListener(this);
         done.setOnClickListener(this);
 
-
-
-
-
-
+        fillLoadedData();
         return view;
     }
 
@@ -277,11 +275,24 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @return Card String
      */
     private String cardToEditTextDecoder(CardObj obj) {
-        String value, suit;
+        String value, suit="";
         if(obj.getValue() < 10) {
             value = "0" + obj.getValue();
         } else value = Integer.toString(obj.getValue());
-        suit = Integer.toString(obj.getSuit());
+        switch(obj.getSuit()) {
+            case 1:
+                suit = "H";
+                break;
+            case 2:
+                suit = "S";
+                break;
+            case 3:
+                suit = "D";
+                break;
+            case 4:
+                suit = "C";
+                break;
+        }
         return value+suit;
     }
 
@@ -300,6 +311,95 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
 
     private void buildToast() {
         getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Du har skrevet et ugyldigt kort. Prøv igen", Toast.LENGTH_SHORT).show());
+    }
+
+    private void fillLoadedData() {
+
+        if (cardPlacement!=null)
+        {
+            wasteToggle.setChecked(cardPlacement.isWastePile());
+            if (!cardPlacement.getWaste().isEmpty()) {
+                waste.setText(cardToEditTextDecoder(cardPlacement.getWaste().get(0)));
+            }
+
+            if (!cardPlacement.getFoundations().isEmpty()) {
+                foundation1.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(0)));
+            }
+            if (cardPlacement.getFoundations().size()>1) {
+                foundation2.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(1)));
+            }
+            if (cardPlacement.getFoundations().size()>2) {
+                foundation3.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(2)));
+            }
+            if (cardPlacement.getFoundations().size()>3) {
+                foundation4.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(3)));
+            }
+            if (!cardPlacement.getTableau1().isEmpty() && cardPlacement.getTableau1().size()>1) {
+                tab1For.setText(cardToEditTextDecoder(cardPlacement.getTableau1().get(cardPlacement.getTableau1().size() - 1)));
+            }
+            if (!cardPlacement.getTableau2().isEmpty() && cardPlacement.getTableau2().size()>1) {
+                tab2For.setText(cardToEditTextDecoder(cardPlacement.getTableau2().get(cardPlacement.getTableau2().size() - 1)));
+            }
+            if (!cardPlacement.getTableau3().isEmpty() && cardPlacement.getTableau3().size()>1) {
+                tab3For.setText(cardToEditTextDecoder(cardPlacement.getTableau3().get(cardPlacement.getTableau3().size() - 1)));
+            }
+            if (!cardPlacement.getTableau4().isEmpty() && cardPlacement.getTableau4().size()>1) {
+                tab4For.setText(cardToEditTextDecoder(cardPlacement.getTableau4().get(cardPlacement.getTableau4().size() - 1)));
+            }
+            if (!cardPlacement.getTableau5().isEmpty() && cardPlacement.getTableau5().size()>1) {
+                tab5For.setText(cardToEditTextDecoder(cardPlacement.getTableau5().get(cardPlacement.getTableau5().size() - 1)));
+            }
+            if (!cardPlacement.getTableau6().isEmpty() && cardPlacement.getTableau6().size()>1) {
+                tab6For.setText(cardToEditTextDecoder(cardPlacement.getTableau6().get(cardPlacement.getTableau6().size() - 1)));
+            }
+            if (!cardPlacement.getTableau7().isEmpty() && cardPlacement.getTableau7().size()>1) {
+                tab7For.setText(cardToEditTextDecoder(cardPlacement.getTableau7().get(cardPlacement.getTableau7().size() - 1)));
+            }
+
+            if (!cardPlacement.getTableau1().isEmpty()){
+                tab1Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau1().get(0)));
+            }
+            if (!cardPlacement.getTableau2().isEmpty()) {
+                tab2Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau2().get(0)));
+            }
+            if (!cardPlacement.getTableau3().isEmpty()) {
+                tab3Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau3().get(0)));
+            }
+            if (!cardPlacement.getTableau4().isEmpty()) {
+                tab4Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau4().get(0)));
+            }
+            if (!cardPlacement.getTableau5().isEmpty()) {
+                tab5Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau5().get(0)));
+            }
+            if (!cardPlacement.getTableau6().isEmpty()) {
+                tab6Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau6().get(0)));
+            }
+            if (!cardPlacement.getTableau7().isEmpty()) {
+                tab7Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau7().get(0)));
+            }
+
+            if (!cardPlacement.getHiddenCards().isEmpty()) {
+                hiddencardsTab1.setText(""+cardPlacement.getHiddenCards().get(0));
+            }
+            if (cardPlacement.getHiddenCards().size()>1) {
+                hiddencardsTab2.setText(""+cardPlacement.getHiddenCards().get(1));
+            }
+            if (cardPlacement.getHiddenCards().size()>2) {
+                hiddencardsTab3.setText(""+cardPlacement.getHiddenCards().get(2));
+            }
+            if (cardPlacement.getHiddenCards().size()>3) {
+                hiddencardsTab4.setText(""+cardPlacement.getHiddenCards().get(3));
+            }
+            if (cardPlacement.getHiddenCards().size()>4) {
+                hiddencardsTab5.setText(""+cardPlacement.getHiddenCards().get(4));
+            }
+            if (cardPlacement.getHiddenCards().size()>5) {
+                hiddencardsTab6.setText(""+cardPlacement.getHiddenCards().get(5));
+            }
+            if (cardPlacement.getHiddenCards().size()>6) {
+                hiddencardsTab7.setText(""+cardPlacement.getHiddenCards().get(6));
+            }
+        }
     }
 
 }
