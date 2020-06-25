@@ -47,7 +47,7 @@ public class CardPlacement  {
                 if(obj.getX()<=screenWidth*(1.0/7.0)){
                     if(obj.getSuit() == 0) wastePile = true;
                 }
-                else if(obj.getX()<=screenWidth*(2.0/7.0)){
+                else if(obj.getX()<=screenWidth*(2.0/7.0) && obj.getSuit()!=0){
                     waste.add(obj);
                 }
                 else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0) && obj.getSuit()!=0){
