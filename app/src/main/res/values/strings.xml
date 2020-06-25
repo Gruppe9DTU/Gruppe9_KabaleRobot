@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">Gruppe9_KabaleRobot</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="velkommen">Velkommen til 7-kabale hjælper</string>
+    <string name="maintext">Denne applikation kan hjælpe dig med at løse din 7-kabale hvis du sidder fast. Det eneste du skal gøre er at trykke på knappen nedenfor, og tage et billede af dit spil. Applikationen vil dernæst fortælle dig hvilke træk du kan foretage dig.\nHeld og lykke</string>
+    <string name="begynd">Begynd</string>
+    <string name="vend">Vend skærmen, således at du kan læse denne tekst</string>
+    <string name="scontinue">Fortsæt</string>
+    <string name="bagerste_kort">Bagerste kort</string>
+    <string name="forreste_kort">Forreste kort</string>
+    <string name="skjulte_kort">Skjulte kort</string>
+    <string name="kort">Kort</string>
+    <string name="intro_edit">Du kan her tilføje kort til de forskellige rækker. Kortene skrives ved 02S for spar 2, 03H for hjerter 3 12C for klør dame og 01D for ruder es</string>
+
+    <string-array name="test">
+
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test1</item>
+        <item>Test2</item>
+        <item>Test3</item>
+
+    </string-array>
+
 </resources>
