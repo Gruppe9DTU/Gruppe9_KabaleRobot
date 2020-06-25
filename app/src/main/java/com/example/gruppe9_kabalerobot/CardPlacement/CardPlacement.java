@@ -50,16 +50,16 @@ public class CardPlacement  {
                 else if(obj.getX()<=screenWidth*(2.0/7.0)){
                     waste.add(obj);
                 }
-                else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0)){
+                else if (obj.getX()<=screenWidth*(4.0/7.0) && obj.getX()>screenWidth*(2.0/7.0) && obj.getSuit()!=0){
                     foundations.add(obj);
                 }
-                else if (obj.getX()<=screenWidth*(5.0/7.0) && obj.getX()>screenWidth*(4.0/7.0)){
+                else if (obj.getX()<=screenWidth*(5.0/7.0) && obj.getX()>screenWidth*(4.0/7.0)&& obj.getSuit()!=0){
                     foundations.add(obj);
                 }
-                else if (obj.getX()<=screenWidth*(6.0/7.0) && obj.getX()>screenWidth*(5.0/7.0)){
+                else if (obj.getX()<=screenWidth*(6.0/7.0) && obj.getX()>screenWidth*(5.0/7.0)&& obj.getSuit()!=0){
                     foundations.add(obj);
                 }
-                else if (obj.getX()<=screenWidth && obj.getX()>screenWidth*6/7){
+                else if (obj.getX()<=screenWidth && obj.getX()>screenWidth*(6.0/7.0) && obj.getSuit()!=0){
                     foundations.add(obj);
                 }
 
