@@ -85,7 +85,8 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
         // Set imageview to the picture you have taken
 
-        imageView.setImageBitmap(scaledImage);
+        if (rectanglesDrawn!=null) imageView.setImageBitmap(rectanglesDrawn);
+        else imageView.setImageBitmap(scaledImage);
 
         // Run recognition
         // Check status of AsyncTask before running it, if we are already wait for a message
@@ -103,21 +104,30 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        
 
-        constructCards();
+        if (view == continueToMove) {
 
-        cardPlacement.sortCards(cardObjList,bitmap.getWidth(),bitmap.getHeight());
+            if (dataArray != null && dataArray.length != 0){
+                constructCards();
 
-        if (view == continueToMove){
+            cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
 
-            System.out.println("Width of bitmap: "+bitmap.getWidth()+" Height of bitmap: " + bitmap.getHeight());
-            if (cardPlacement.getTableau1().size()>0) System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size() + " suit: " + cardPlacement.getTableau1().get(0).getSuit() + " value: " + cardPlacement.getTableau1().get(0).getValue());
-            if (cardPlacement.getTableau2().size()>0) System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size() + " suit: " + cardPlacement.getTableau2().get(0).getSuit() + " value: " + cardPlacement.getTableau2().get(0).getValue());
-            if (cardPlacement.getTableau3().size()>0) System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size() + " suit: " + cardPlacement.getTableau3().get(0).getSuit() + " value: " + cardPlacement.getTableau3().get(0).getValue());
-            if (cardPlacement.getTableau4().size()>0) System.out.println("Tableau 4 size: " + cardPlacement.getTableau4().size() + " suit: " + cardPlacement.getTableau4().get(0).getSuit() + " value: " + cardPlacement.getTableau4().get(0).getValue());
-            if (cardPlacement.getTableau5().size()>0) System.out.println("Tableau 5 size: " + cardPlacement.getTableau5().size() + " suit: " + cardPlacement.getTableau5().get(0).getSuit() + " value: " + cardPlacement.getTableau5().get(0).getValue());
-            if (cardPlacement.getTableau6().size()>0) System.out.println("Tableau 6 size: " + cardPlacement.getTableau6().size() + " suit: " + cardPlacement.getTableau6().get(0).getSuit() + " value: " + cardPlacement.getTableau6().get(0).getValue());
-            if (cardPlacement.getTableau7().size()>0) System.out.println("Tableau 7 size: " + cardPlacement.getTableau7().size() + " suit: " + cardPlacement.getTableau7().get(0).getSuit() + " value: " + cardPlacement.getTableau7().get(0).getValue());
+            System.out.println("Width of bitmap: " + bitmap.getWidth() + " Height of bitmap: " + bitmap.getHeight());
+            if (cardPlacement.getTableau1().size() > 0)
+                System.out.println("Tableau 1 size: " + cardPlacement.getTableau1().size() + " suit: " + cardPlacement.getTableau1().get(0).getSuit() + " value: " + cardPlacement.getTableau1().get(0).getValue());
+            if (cardPlacement.getTableau2().size() > 0)
+                System.out.println("Tableau 2 size: " + cardPlacement.getTableau2().size() + " suit: " + cardPlacement.getTableau2().get(0).getSuit() + " value: " + cardPlacement.getTableau2().get(0).getValue());
+            if (cardPlacement.getTableau3().size() > 0)
+                System.out.println("Tableau 3 size: " + cardPlacement.getTableau3().size() + " suit: " + cardPlacement.getTableau3().get(0).getSuit() + " value: " + cardPlacement.getTableau3().get(0).getValue());
+            if (cardPlacement.getTableau4().size() > 0)
+                System.out.println("Tableau 4 size: " + cardPlacement.getTableau4().size() + " suit: " + cardPlacement.getTableau4().get(0).getSuit() + " value: " + cardPlacement.getTableau4().get(0).getValue());
+            if (cardPlacement.getTableau5().size() > 0)
+                System.out.println("Tableau 5 size: " + cardPlacement.getTableau5().size() + " suit: " + cardPlacement.getTableau5().get(0).getSuit() + " value: " + cardPlacement.getTableau5().get(0).getValue());
+            if (cardPlacement.getTableau6().size() > 0)
+                System.out.println("Tableau 6 size: " + cardPlacement.getTableau6().size() + " suit: " + cardPlacement.getTableau6().get(0).getSuit() + " value: " + cardPlacement.getTableau6().get(0).getValue());
+            if (cardPlacement.getTableau7().size() > 0)
+                System.out.println("Tableau 7 size: " + cardPlacement.getTableau7().size() + " suit: " + cardPlacement.getTableau7().get(0).getSuit() + " value: " + cardPlacement.getTableau7().get(0).getValue());
 
             System.out.println("Foundation size: " + cardPlacement.getFoundations().size());
             System.out.println("Waste size: " + cardPlacement.getWaste().size());
@@ -125,15 +135,28 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
             translator = new CardTranslator(cardPlacement);
 
             buildDialog(solitaireController.takeMove(translator));
+            }
+            else buildToast();
 
         }
         else if (view == edit){
-            enteredEdit = true;
-            getActivity().getSupportFragmentManager().popBackStack();
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new EditPlacementFragment(cardPlacement))
-                    .addToBackStack(null)
-                    .commit();
+
+            if (dataArray != null && dataArray.length != 0) {
+                constructCards();
+                cardPlacement.sortCards(cardObjList, bitmap.getWidth(), bitmap.getHeight());
+                enteredEdit = true;
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new EditPlacementFragment(cardPlacement))
+                        .addToBackStack(null)
+                        .commit();
+            }
+            else {
+                enteredEdit = true;
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new EditPlacementFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
 
 
         }
@@ -243,8 +266,16 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
         new AlertDialog.Builder(getContext())
                 .setTitle("Det foretrukkende træk")
                 .setMessage(suggestedMove)
-                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("Tak", (dialogInterface, i) ->{
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    dialogInterface.dismiss();
+                })
+
                 .show();
+    }
+    
+    private void buildToast(){
+        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Der blev ikke fundet nogle kort og kan derfor ikke fortsætte", Toast.LENGTH_SHORT).show());
     }
 
     //endregion

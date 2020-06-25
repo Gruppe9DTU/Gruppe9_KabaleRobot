@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.gruppe9_kabalerobot.CardPlacement.CardObj;
@@ -36,6 +38,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private CardPlacement cardPlacement;
     private CardTranslator translator;
     private SolitaireController solitaireController = new SolitaireController();
+    private boolean error = false;
 
 
     public EditPlacementFragment(CardPlacement cardPlacement){
@@ -43,11 +46,13 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     }
 
     public EditPlacementFragment(){
-        this.cardPlacement = new CardPlacement();
+        if (cardPlacement==null) {
+            this.cardPlacement = new CardPlacement();
+        }
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState);}
 
 
     @Override
@@ -89,10 +94,7 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         wasteToggle.setOnCheckedChangeListener(this);
         done.setOnClickListener(this);
 
-
-
-
-
+        fillLoadedData();
 
         return view;
     }
@@ -137,9 +139,15 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             if(hiddencardsTab6.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab6,cardPlacement.getHiddenCards(),5);
             if(hiddencardsTab7.getText().length() > 0) insertIntoHiddenCards(hiddencardsTab7,cardPlacement.getHiddenCards(),6);
 
-            translator = new CardTranslator(cardPlacement);
+            if (!error) {
 
-            buildDialog(solitaireController.takeMove(translator));
+                translator = new CardTranslator(cardPlacement);
+
+                buildDialog(solitaireController.takeMove(translator));
+
+            }
+
+            error = false;
 
             cardPlacement = new CardPlacement();
         }
@@ -154,7 +162,14 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      */
     private void insertIntoWaste(EditText textField, List<CardObj> waste) {
         //This is for a single card only, add index if we want more cards
-        if(waste.size() > 0) waste.set(0, editTextToCardDecoder(textField));
+        CardObj cardObj = editTextToCardDecoder(textField);
+        if (cardObj== null){
+            error = true;
+            buildToast();
+            return;
+        }
+
+        if(waste.size() > 0) waste.set(0, cardObj);
         else waste.add(editTextToCardDecoder(textField));
     }
 
@@ -166,6 +181,12 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private void insertIntoFoundation(EditText textField, List<CardObj> foundation) {
         //Look through list for matching suit, if so replace
         CardObj newCard = editTextToCardDecoder(textField);
+        if (newCard==null){
+            error = true;
+            buildToast();
+            return;
+        }
+
         int i = 0;
         for(CardObj obj : foundation) {
             if(obj.getSuit() == newCard.getSuit()) {
@@ -195,7 +216,14 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @param atEnd boolean value to determine if CardObj is at top or bottom of Tableau
      */
     private void insertIntoTableau(EditText textField, List<CardObj> tableau, boolean atEnd) {
-        if(atEnd) tableau.add(0, editTextToCardDecoder(textField));
+        CardObj cardObj = editTextToCardDecoder(textField);
+        if (cardObj== null){
+            error = true;
+            buildToast();
+            return;
+        }
+
+        if(atEnd) tableau.add(0, cardObj);
         else tableau.add(editTextToCardDecoder(textField));
     }
 
@@ -207,7 +235,20 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
     private CardObj editTextToCardDecoder(EditText textField) {
         String textTemp = textField.getText().toString();
         String text = textTemp.length() == 2 ? "0" + textTemp : textTemp;
-        int value = Integer.parseInt(text.substring(0, 2));
+        int value = -1;
+        try {
+
+            value = Integer.parseInt(text.substring(0, 2));
+
+        }catch (NumberFormatException e){
+            error = true;
+            buildToast();
+        }
+        if (value>13 || value<0){
+            error = true;
+            buildToast();
+            return null;
+        }
         int suit = 0;
         switch(text.substring(2,3).toUpperCase()) {
             case "H":
@@ -222,6 +263,10 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
             case "C":
                 suit = 4;
                 break;
+            default:
+                error = true;
+                buildToast();
+                return null;
         }
         return new CardObj(0, 0, value, suit);
     }
@@ -232,11 +277,24 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
      * @return Card String
      */
     private String cardToEditTextDecoder(CardObj obj) {
-        String value, suit;
+        String value, suit="";
         if(obj.getValue() < 10) {
             value = "0" + obj.getValue();
         } else value = Integer.toString(obj.getValue());
-        suit = Integer.toString(obj.getSuit());
+        switch(obj.getSuit()) {
+            case 1:
+                suit = "H";
+                break;
+            case 2:
+                suit = "S";
+                break;
+            case 3:
+                suit = "D";
+                break;
+            case 4:
+                suit = "C";
+                break;
+        }
         return value+suit;
     }
 
@@ -248,9 +306,110 @@ public class EditPlacementFragment extends Fragment implements CompoundButton.On
         new AlertDialog.Builder(getContext())
                 .setTitle("Det foretrukkende træk")
                 .setMessage(move)
-                .setPositiveButton("Tak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setPositiveButton("Tak", (dialogInterface, i) -> {
+
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    for(int k = 0; k < fm.getBackStackEntryCount(); ++k) {
+                        fm.popBackStack();
+                    }
+                    dialogInterface.dismiss();
+
+                })
                 .show();
 
+    }
+
+    private void buildToast() {
+        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), "Du har skrevet et ugyldigt kort. Prøv igen", Toast.LENGTH_SHORT).show());
+    }
+
+    private void fillLoadedData() {
+
+        if (cardPlacement!=null)
+        {
+            wasteToggle.setChecked(cardPlacement.isWastePile());
+            if (!cardPlacement.getWaste().isEmpty()) {
+                waste.setText(cardToEditTextDecoder(cardPlacement.getWaste().get(0)));
+            }
+
+            if (!cardPlacement.getFoundations().isEmpty()) {
+                foundation1.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(0)));
+            }
+            if (cardPlacement.getFoundations().size()>1) {
+                foundation2.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(1)));
+            }
+            if (cardPlacement.getFoundations().size()>2) {
+                foundation3.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(2)));
+            }
+            if (cardPlacement.getFoundations().size()>3) {
+                foundation4.setText(cardToEditTextDecoder(cardPlacement.getFoundations().get(3)));
+            }
+            if (!cardPlacement.getTableau1().isEmpty() && cardPlacement.getTableau1().size()>1) {
+                tab1For.setText(cardToEditTextDecoder(cardPlacement.getTableau1().get(cardPlacement.getTableau1().size() - 1)));
+            }
+            if (!cardPlacement.getTableau2().isEmpty() && cardPlacement.getTableau2().size()>1) {
+                tab2For.setText(cardToEditTextDecoder(cardPlacement.getTableau2().get(cardPlacement.getTableau2().size() - 1)));
+            }
+            if (!cardPlacement.getTableau3().isEmpty() && cardPlacement.getTableau3().size()>1) {
+                tab3For.setText(cardToEditTextDecoder(cardPlacement.getTableau3().get(cardPlacement.getTableau3().size() - 1)));
+            }
+            if (!cardPlacement.getTableau4().isEmpty() && cardPlacement.getTableau4().size()>1) {
+                tab4For.setText(cardToEditTextDecoder(cardPlacement.getTableau4().get(cardPlacement.getTableau4().size() - 1)));
+            }
+            if (!cardPlacement.getTableau5().isEmpty() && cardPlacement.getTableau5().size()>1) {
+                tab5For.setText(cardToEditTextDecoder(cardPlacement.getTableau5().get(cardPlacement.getTableau5().size() - 1)));
+            }
+            if (!cardPlacement.getTableau6().isEmpty() && cardPlacement.getTableau6().size()>1) {
+                tab6For.setText(cardToEditTextDecoder(cardPlacement.getTableau6().get(cardPlacement.getTableau6().size() - 1)));
+            }
+            if (!cardPlacement.getTableau7().isEmpty() && cardPlacement.getTableau7().size()>1) {
+                tab7For.setText(cardToEditTextDecoder(cardPlacement.getTableau7().get(cardPlacement.getTableau7().size() - 1)));
+            }
+
+            if (!cardPlacement.getTableau1().isEmpty()){
+                tab1Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau1().get(0)));
+            }
+            if (!cardPlacement.getTableau2().isEmpty()) {
+                tab2Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau2().get(0)));
+            }
+            if (!cardPlacement.getTableau3().isEmpty()) {
+                tab3Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau3().get(0)));
+            }
+            if (!cardPlacement.getTableau4().isEmpty()) {
+                tab4Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau4().get(0)));
+            }
+            if (!cardPlacement.getTableau5().isEmpty()) {
+                tab5Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau5().get(0)));
+            }
+            if (!cardPlacement.getTableau6().isEmpty()) {
+                tab6Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau6().get(0)));
+            }
+            if (!cardPlacement.getTableau7().isEmpty()) {
+                tab7Bag.setText(cardToEditTextDecoder(cardPlacement.getTableau7().get(0)));
+            }
+
+            if (!cardPlacement.getHiddenCards().isEmpty()) {
+                hiddencardsTab1.setText(""+cardPlacement.getHiddenCards().get(0));
+            }
+            if (cardPlacement.getHiddenCards().size()>1) {
+                hiddencardsTab2.setText(""+cardPlacement.getHiddenCards().get(1));
+            }
+            if (cardPlacement.getHiddenCards().size()>2) {
+                hiddencardsTab3.setText(""+cardPlacement.getHiddenCards().get(2));
+            }
+            if (cardPlacement.getHiddenCards().size()>3) {
+                hiddencardsTab4.setText(""+cardPlacement.getHiddenCards().get(3));
+            }
+            if (cardPlacement.getHiddenCards().size()>4) {
+                hiddencardsTab5.setText(""+cardPlacement.getHiddenCards().get(4));
+            }
+            if (cardPlacement.getHiddenCards().size()>5) {
+                hiddencardsTab6.setText(""+cardPlacement.getHiddenCards().get(5));
+            }
+            if (cardPlacement.getHiddenCards().size()>6) {
+                hiddencardsTab7.setText(""+cardPlacement.getHiddenCards().get(6));
+            }
+        }
     }
 
 }
