@@ -33,7 +33,7 @@ public class MoveAlgorithmTest {
         for(int i = 0 ; i < 4 ; i++){
             foundations[i] = new Foundation();
         }
-        game.setFoundation(foundations); //TODO move to GameLogic constructor?
+        game.setFoundation(foundations);
     }
 
     /**

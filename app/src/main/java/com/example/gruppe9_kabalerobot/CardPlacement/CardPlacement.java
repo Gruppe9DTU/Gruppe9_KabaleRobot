@@ -34,9 +34,6 @@ public class CardPlacement  {
 
         this.coordinates = coordinates;
         sort(screenWidth,screenHeight);
-       // upperRow(screenWidth,screenHeight);
-        //stacks();
-        //sortStacks();
     }
 
     private void sort(double screenWidth, double screenHeight) {
@@ -255,12 +252,7 @@ public class CardPlacement  {
      * @param list the given list that i want to sort
      */
     private void  compareX(List<CardObj> list){
-        Collections.sort(list, new Comparator<CardObj>() {
-            @Override
-            public int compare(CardObj a, CardObj o2) {
-                return Integer.compare(a.getX(), o2.getX());
-            }
-        });
+        Collections.sort(list, (a, o2) -> Integer.compare(a.getX(), o2.getX()));
     }
 
     /**
@@ -268,12 +260,7 @@ public class CardPlacement  {
      * @param list the given list that i want to sort
      */
     private void compareY(List<CardObj> list, int hiddenCardIndex ) {
-        Collections.sort(list, new Comparator<CardObj>() {
-            @Override
-            public int compare(CardObj o1, CardObj o2) {
-                return Integer.compare(o1.getY(), o2.getY());
-            }
-        });
+        Collections.sort(list, (o1, o2) -> Integer.compare(o1.getY(), o2.getY()));
 
         int hiddenCount = 0;
         if (hiddenCardIndex != -1) {

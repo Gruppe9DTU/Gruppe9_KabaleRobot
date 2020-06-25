@@ -88,7 +88,7 @@ public class SolitaireLogic {
      * Used for tests, to easily set the tableau
      * @param foundation    Foundation to overwrite this
      */
-    public void setFoundation(Foundation[] foundation){ //TODO Make this a list?
+    public void setFoundation(Foundation[] foundation){
         this.foundation = foundation;
     }
 }
